@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 
 
-export default function AddTourGuides() {
+export default function AddTourGuide() {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [experience, setExperience] = useState('');
@@ -68,7 +68,7 @@ export default function AddTourGuides() {
 >>>>>>> d9acc4ca370b59ca9ea2c815f0a8dc93f1e79f0d
 
   const createTourGuide= () => {
-    var tourGuideRef = db.database().ref('TourGuides');
+    var tourGuideRef = db.database().ref('tourGuide');
     var tourGuide= {
       name,
       age,
