@@ -5,11 +5,11 @@ import firebase from "../../firebase";
 
 export default function tourGuideList({ tourGuide }) {
   const deletetourGuide = () => {
-    const tourGuideRef = firebase.database().ref("tourGuides").child(tourGuide.id);
+    const tourGuideRef = firebase.database().ref("tourGuide").child(tourGuide.id);
     tourGuideRef.remove();
   };
   const completetourGuide = () => {
-    const tourGuideRef = firebase.database().ref("tourGuides").child(tourGuide.id);
+    const tourGuideRef = firebase.database().ref("tourGuide").child(tourGuide.id);
     tourGuideRef.update({
       availableForHire: !tourGuide.availableForHire,
     });
