@@ -1,9 +1,15 @@
-import React from "react";
+import React from 'react'
+import NavigationBar from "./NavigationBar";
 
 export default function PointOfInterestForm() {
-  return (
-    <>
-      Point of Interest Form
-    </>
-  );
+    return (
+        <>
+          <NavigationBar />
+          Point of Interest Form
+        </>
+    )
 }
+
+
+
+
