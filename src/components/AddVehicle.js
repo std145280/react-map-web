@@ -7,7 +7,7 @@ export default function AddVehicle() {
   const [type, setType] = useState('');
   const [passengers, setPassengers] = useState('');
   const [fuel, setFuel] = useState('');
-  const [year, setYear] = useState('');
+  const [year, setYear] = useState(''); 
   const [cph, setCPH] = useState('');
   const [place, setPlace] = useState('');
 
