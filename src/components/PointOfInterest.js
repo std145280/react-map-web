@@ -1,9 +1,11 @@
-import React from "react";
+import React from 'react'
+import NavigationBar from "./NavigationBar";
 
-export default function AddPointOfInterest() {
-  return (
-    <>
-      Add Point Of Interest
-    </>
-  );
+export default function PointOfInterest() {
+    return (
+        <>
+          <NavigationBar />
+          Point of Interest
+        </>
+    )
 }

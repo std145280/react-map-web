@@ -1,9 +1,11 @@
 import React from "react";
+import NavigationBar from "./NavigationBar";
 
-export default function AddTour() {
+export default function Vehicles() {
   return (
     <>
-      Add Tour
+      <NavigationBar />
+      All Vehicles
     </>
   );
 }
