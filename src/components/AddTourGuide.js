@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 
 import NavigationBar from "./NavigationBar";
 import db from '../firebase';
+import Popup from './control/Popup';
+import { Link } from "react-router-dom";
+
 
 export default function TourGuides() {
   const [name, setName] = useState('');
@@ -11,7 +14,8 @@ export default function TourGuides() {
   const [address, setAddress] = useState('');
   const [telephone, setTelephone] = useState('');
   const [email, setEmail] = useState('');
-  
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleOnChangeNAME = (e) => {
     setName(e.target.value);
   };
@@ -34,6 +38,13 @@ export default function TourGuides() {
     setEmail(e.target.value);
   };
 
+    
+  const togglePopup = (e) => {
+    e.preventDefault();
+    
+    setIsOpen(!isOpen);
+  }
+  
 
   const createTourGuide = () => {
     var tourGuideRef = db.database().ref('tourGuide');
@@ -72,9 +83,21 @@ export default function TourGuides() {
 
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeEMAIL} value={email} placeholder="email" /></div>
 
-            <div className="form-group"><button className="btn btn-primary" type="submit" onClick={createTourGuide}> Submit </button></div>
+            <div className="form-group"><button className="btn btn-primary" type="submit" onClick={togglePopup}> Submit </button>
+        
+          {isOpen && <Popup
+            content={<>
+              <b>Question</b>
+              <p>Are you sure you want to import the tour guide?</p>
+              <center><Link  to="/TourGuides" className="btn btn-success btn-lg" onClick={createTourGuide}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+            </>}
+            handleClose={togglePopup}
+          />}
+        </div>
+
         </form>
-    </div> 
+    </div>
+
 
 </>
   );

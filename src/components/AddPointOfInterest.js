@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import NavigationBar from "./NavigationBar";
 import db from '../firebase';
+import Popup from './control/Popup';
+import { Link } from "react-router-dom";
+
 
 export default function AddPOI() {
   const [name, setName] = useState('');
@@ -9,6 +12,7 @@ export default function AddPOI() {
   const [longitude, setLongitude] = useState('');
   const [type, setType] = useState(''); 
   const [city, setCity] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOnChangeNAME = (e) => {
     setName(e.target.value);
@@ -29,6 +33,11 @@ export default function AddPOI() {
     setCity(e.target.value);
   };
 
+  const togglePopup = (e) => {
+    e.preventDefault();
+    
+    setIsOpen(!isOpen);
+  }
 
 
   const createPOI = () => {
@@ -63,8 +72,18 @@ export default function AddPOI() {
                 <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeTYPE} value={type} placeholder="Type" /></div>
 
                 <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeCITY} value={city} placeholder="City" /></div>
-
-                <div className="form-group"><button className="btn btn-primary" type="submit" onClick={createPOI}> Submit </button></div>
+            
+                <div className="form-group"><button className="btn btn-primary" type="submit" onClick={togglePopup}> Submit </button>
+        
+          {isOpen && <Popup
+            content={<>
+              <b>Question</b>
+              <p>Are you sure you want to import the Point Of Interest?</p>
+              <center><Link  to="/PointOfInterests" className="btn btn-success btn-lg" onClick={createPOI}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+            </>}
+            handleClose={togglePopup}
+          />}
+          </div>
             </form>
         </div> 
     </>

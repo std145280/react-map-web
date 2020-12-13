@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import Popup from './Popup';
 import {
   Card,
   Table,
@@ -6,6 +7,14 @@ import {
 import firebase from "../../firebase";
 
 export default function VehicleList({ vehicle }) {
+
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const togglePopup = (e) => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  }
+
   const deleteVehicle = () => {
     const vehicleRef = firebase.database().ref("vehicles").child(vehicle.id);
     vehicleRef.remove();
@@ -92,7 +101,7 @@ export default function VehicleList({ vehicle }) {
         </Card.Body>
         <Card.Footer>
           <center>
-            <button onClick={deleteVehicle}>
+            <button onClick={togglePopup}>
               <b>Delete</b>
             </button>
             <button onClick={completeVehicle}>
@@ -101,6 +110,15 @@ export default function VehicleList({ vehicle }) {
           </center>
         </Card.Footer>
       </Card>
+      {isOpen && <Popup
+            content={<>
+              <b>Question</b>
+              <p>Are you sure you want to delete this vehicle?</p>
+              <center><button className="btn btn-danger btn-lg" type="submit" onClick={deleteVehicle}> Yes </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+
+            </>}
+            handleClose={togglePopup}
+          />}
     </div>
   );
 }

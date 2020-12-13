@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import NavigationBar from "./NavigationBar";
 import db from '../firebase';
+import Popup from './control/Popup';
+import { Link } from "react-router-dom";
+
 
 
 export default function AddVehicles() {
@@ -12,8 +15,8 @@ export default function AddVehicles() {
   const [year, setYear] = useState(''); 
   const [cph, setCPH] = useState('');
   const [place, setPlace] = useState('');
-
   const [imageUrl, setImageUrl] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   
   const handleOnChangeTITLE = (e) => {
@@ -37,6 +40,12 @@ export default function AddVehicles() {
   const handleOnChangePLACE = (e) => {
     setPlace(e.target.value);
   };
+
+  const togglePopup = (e) => {
+    e.preventDefault();
+    
+    setIsOpen(!isOpen);
+  }
 
   const readImages = async (e) => {
     const file = e.target.files[0];
@@ -97,10 +106,20 @@ export default function AddVehicles() {
                         );
                       })
                     : ''}
-                </div>
-              </center>
-            <div className="form-group"><button className="btn btn-primary" type="submit" onClick={createVehicle}> Submit </button>
-          </div>
+              </div>
+            </center>
+
+          <div className="form-group"><button className="btn btn-primary" type="submit" onClick={togglePopup}> Submit </button>
+        {isOpen && <Popup
+            content={<>
+              <b>Question</b>
+              <p>Are you sure you want to import the vehicle?</p>
+              <center><Link  to="/Vehicles" className="btn btn-success btn-lg" onClick={createVehicle}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+            </>}
+            handleClose={togglePopup}
+          />}
+        </div>
+
         </form>
       </div> 
     </>
