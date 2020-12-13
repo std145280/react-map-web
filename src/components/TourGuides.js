@@ -8,12 +8,12 @@ export default function TourGuides() {
   const [tourGuideList, setTourGuideList] = useState();
 
   useEffect(() => {
-    const tourGuideRef = firebase.database().ref("tourGuides");
+    const tourGuideRef = firebase.database().ref("tourGuide");
     tourGuideRef.on("value", (snapshot) => {
-      const tourGuides = snapshot.val();
+      const tourGuide = snapshot.val();
       const tourGuideList = [];
-      for (let id in tourGuides) {
-        tourGuideList.push({ id, ...tourGuides[id] });
+      for (let id in tourGuide) {
+        tourGuideList.push({ id, ...tourGuide[id] });
       }
       setTourGuideList(tourGuideList);
     });
