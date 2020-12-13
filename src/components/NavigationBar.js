@@ -3,6 +3,7 @@ import { Card, Button, Alert, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import Profile from "./Profile";
+import logo from "../images/logo-64x128.png";
 
 export default function NavigationBar() {
   const [error, setError] = useState("");
@@ -20,65 +21,101 @@ export default function NavigationBar() {
     }
   }
 
-
   return (
+
     <div className="admin-panel-container">
       <Navbar fixed="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Travel Now</Navbar.Brand>
+        <Navbar.Brand href="#home"  onClick={() => history.push("/")}> <img src={logo} alt="Logo" width={96} height={48}/> </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home"  onClick={() => history.push('/') } >Home</Nav.Link>
+
             <NavDropdown title="Vehicles" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1"  onClick={() => history.push('/update-profile') }>
+              <NavDropdown.Item
+                href="#all_vehicles"
+                onClick={() => history.push("/Vehicles")}
+              >
                 All Vehicles
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Available Vehicles
-              </NavDropdown.Item>
+            
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.3">
+              <NavDropdown.Item
+                href="#add_vehicle"
+                onClick={() => history.push("/AddVehicle")}
+              >
                 Add Vehicle
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Tour Guides" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">
+              <NavDropdown.Item
+                href="#all_tour_guides"
+                onClick={() => history.push("/TourGuides")}
+              >
                 All Tour Guides
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Available Tour Guides
-              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.3">
+              <NavDropdown.Item
+                href="#add_tour_guide"
+                onClick={() => history.push("/AddTourGuide")}
+              >
                 Add Tour Guide
               </NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="Tours" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">All Tours</NavDropdown.Item>
+              <NavDropdown.Item
+                href="#all_tours"
+                onClick={() => history.push("/Tours")}
+              >
+                All Tours
+              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.2">New Tour</NavDropdown.Item>
+              <NavDropdown.Item
+                href="#add_tour"
+                onClick={() => history.push("/AddTour")}
+              >
+                Add Tour
+              </NavDropdown.Item>
 
-              <NavDropdown.Item href="#action/3.3">
+              <NavDropdown.Item
+                href="#add_point_of_interest"
+                onClick={() => history.push("/AddPointOfInterest")}
+              >
                 New Point of Interest
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="#home">Rent Requests</Nav.Link>
+            <Nav.Link
+              href="#rent_requests"
+              onClick={() => history.push("/RentRequests")}
+            >
+              Rent Requests
+            </Nav.Link>
             <NavDropdown title="Settings" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Settings</NavDropdown.Item>
+              <NavDropdown.Item
+                href="#settings"
+                onClick={() => history.push("/Settings")}
+              >
+                System Settings
+              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.2" href="/UpdateProfile">
+              <NavDropdown.Item
+                href="#profile"
+                onClick={() => history.push("/Profile")}
+              >
                 Profile
               </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                href="#about"
+                onClick={() => history.push("/About")}
+              >
+                About
+              </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#deets" onClick={handleLogout}>
+            <Nav.Link href="#log_out" onClick={handleLogout}>
               Log Out{" "}
-            </Nav.Link>
-
-            <Nav.Link eventKey={2} href="#memes">
-              |
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
