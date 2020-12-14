@@ -15,12 +15,8 @@ export default function AddTourGuide() {
   const [address, setAddress] = useState(''); 
   const [telephone, setTelephone] = useState('');
   const [email, setEmail] = useState('');
-<<<<<<< HEAD
-  const [isOpen, setIsOpen] = useState(false);
-=======
-
   const [imageUrl, setImageUrl] = useState([]);
->>>>>>> d9acc4ca370b59ca9ea2c815f0a8dc93f1e79f0d
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleOnChangeNAME = (e) => {
     setName(e.target.value);
@@ -44,15 +40,7 @@ export default function AddTourGuide() {
     setEmail(e.target.value);
   };
 
-<<<<<<< HEAD
-    
-  const togglePopup = (e) => {
-    e.preventDefault();
-    
-    setIsOpen(!isOpen);
-  }
   
-=======
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
@@ -65,7 +53,13 @@ export default function AddTourGuide() {
       setImageUrl(newState);
     });
   };
->>>>>>> d9acc4ca370b59ca9ea2c815f0a8dc93f1e79f0d
+
+  const togglePopup = (e) => {
+    e.preventDefault();
+    
+    setIsOpen(!isOpen);
+  }
+  
 
   const createTourGuide= () => {
     var tourGuideRef = db.database().ref('tourGuide');
@@ -96,12 +90,25 @@ export default function AddTourGuide() {
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeEXPERIENCE} value={experience} placeholder="Experience" /></div>
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeDRIVINGLICENCE} value={carDrivingLicences} placeholder="Driving Licences" /></div>
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeADDRESS} value={address} placeholder="Address" /></div>
-<<<<<<< HEAD
 
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeTELEPHONE} value={telephone} placeholder="Tel:" /></div>
 
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeEMAIL} value={email} placeholder="email" /></div>
-
+            <center>
+          <div>
+            <h3>Upload Image</h3>
+              <input type="file" accept="image/*" onChange={readImages} />
+              {imageUrl
+                ? imageUrl.map(({ id, url }) => {
+                    return (
+                      <div key={id}>
+                        <img src={url} alt="" />
+                      </div>
+                    );
+                  })
+                : ''}
+          </div>
+        </center>
             <div className="form-group"><button className="btn btn-primary" type="submit" onClick={togglePopup}> Submit </button>
         
           {isOpen && <Popup
@@ -119,29 +126,5 @@ export default function AddTourGuide() {
 
 
 </>
-=======
-            <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeTELEPHONE} value={telephone} placeholder="Telephone" /></div>
-            <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeEMAIL} value={email} placeholder="Email" /></div>
-            <center>
-              <div>
-                <h3>Upload Image</h3>
-                  <input type="file" accept="image/*" onChange={readImages} />
-                  {imageUrl
-                    ? imageUrl.map(({ id, url }) => {
-                        return (
-                          <div key={id}>
-                            <img src={url} alt="" />
-                          </div>
-                        );
-                      })
-                    : ''}
-                </div>
-              </center>
-            <div className="form-group"><button className="btn btn-primary" type="submit" onClick={createTourGuide}> Submit </button>
-          </div>
-        </form>
-      </div> 
-    </>
->>>>>>> d9acc4ca370b59ca9ea2c815f0a8dc93f1e79f0d
   );
 }
