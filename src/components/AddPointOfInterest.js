@@ -64,6 +64,7 @@ export default function AddPOI() {
       longitude,
       type,
       city,
+      imageUrl
     };
 
     poiRef.push(poi);
