@@ -7,7 +7,7 @@ import PopupMap from "./control/PopupMap";
 import { Link } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
-import {  markerIcon  } from './control/Icons';
+import {  carMarkerIcon  } from './control/Icons';
 
 export default function AddVehicles() {
   const [title, setTitle] = useState("");
@@ -247,7 +247,7 @@ export default function AddVehicles() {
                                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 />
-                                <Marker position={[37.9838, 23.7275]} icon={markerIcon}>
+                                <Marker position={[37.9838, 23.7275]} icon={carMarkerIcon}>
                                 <Popup>
                                     My Marker
                                 </Popup>
