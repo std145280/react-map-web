@@ -23,7 +23,7 @@ export default function TourGuides() {
     <>
       <NavigationBar />
       <div>
-        <h2> Available Tour Guides </h2>
+        <h2> All Tour Guides </h2>
 
         <CardDeck>
           <center>

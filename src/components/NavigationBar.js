@@ -31,7 +31,7 @@ export default function NavigationBar() {
           <Nav className="mr-auto">
 
             <NavDropdown title="Vehicles" id="collasible-nav-dropdown">
-              <NavDropdown.Item
+              <NavDropdown.Item 
                 href="#all_vehicles"
                 onClick={() => history.push("/Vehicles")}
               >
@@ -46,6 +46,7 @@ export default function NavigationBar() {
                 Add Vehicle
               </NavDropdown.Item>
             </NavDropdown>
+
             <NavDropdown title="Tour Guides" id="collasible-nav-dropdown">
               <NavDropdown.Item
                 href="#all_tour_guides"
@@ -62,6 +63,22 @@ export default function NavigationBar() {
               </NavDropdown.Item>
             </NavDropdown>
 
+            <NavDropdown title="Points Of Interest" id="collasible-nav-dropdown">
+              <NavDropdown.Item
+                href="#all_points_of_interest"
+                onClick={() => history.push("/PointOfInterest")}
+              >
+                All Points Of Interest
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                href="#add_point_of_interest"
+                onClick={() => history.push("/AddPointOfInterest")}
+              >
+                Add Point of Interest
+              </NavDropdown.Item>
+
+            </NavDropdown>
             <NavDropdown title="Tours" id="collasible-nav-dropdown">
               <NavDropdown.Item
                 href="#all_tours"
@@ -76,14 +93,8 @@ export default function NavigationBar() {
               >
                 Add Tour
               </NavDropdown.Item>
-
-              <NavDropdown.Item
-                href="#add_point_of_interest"
-                onClick={() => history.push("/AddPointOfInterest")}
-              >
-                New Point of Interest
-              </NavDropdown.Item>
             </NavDropdown>
+            
           </Nav>
           <Nav>
             <Nav.Link
