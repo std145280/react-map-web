@@ -25,5 +25,16 @@
     overflow: auto;
   }
    
-
-
+  .mapBox {
+    position: relative;
+    width: 400px;
+    margin: 0 auto;
+    height: auto;
+    max-height: 100vh;
+    margin-top: calc(100vh - 90vh - 20px);
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    border: 1px solid #999;
+    overflow: auto;
+  }
