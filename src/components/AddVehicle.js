@@ -5,9 +5,11 @@ import db from "../firebase";
 import PopupMsg from "./control/PopupMsg";
 import PopupMap from "./control/PopupMap";
 import { Link } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css';
-import {  carMarkerIcon  } from './control/Icons';
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { carMarkerIcon } from "./control/Icons";
+import Popup from "react-leaflet-editable-popup";
+import Map from "./control/Map";
 
 export default function AddVehicles() {
   const [title, setTitle] = useState("");
@@ -23,9 +25,6 @@ export default function AddVehicles() {
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [geoLong, setGeoLong] = useState("");
   const [geoLat, setGeoLat] = useState("");
-
-
-
 
   const handleOnChangeTITLE = (e) => {
     setTitle(e.target.value);
@@ -72,6 +71,27 @@ export default function AddVehicles() {
     });
   };
 
+  function AddMarkerToClick() {
+    const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+
+    const map = useMapEvents({
+      click(event) {
+        const { lat, lng } = event.latlng;
+        setPosition({
+          latitude: lat,
+          longitude: lng,
+        });
+      },
+    });
+
+    return position.latitude !== 0 ? (
+      <Marker
+        position={[position.latitude, position.longitude]}
+        interactive={false}
+        icon={carMarkerIcon}
+      />
+    ) : null;
+  }
   const createVehicle = () => {
     var vehicleRef = db.database().ref("vehicles");
     var vehicle = {
@@ -239,21 +259,17 @@ export default function AddVehicles() {
                         <>
                           <h3> Insert Place </h3>
                           <div>
-
-
-
-                        <MapContainer center={[37.9838, 23.7275]} zoom={13} style={{height : '400px'}}>
-                                <TileLayer
+                            <MapContainer
+                              center={[37.9838, 23.7275]}
+                              zoom={13}
+                              style={{ height: "400px" }}
+                            >
+                              <TileLayer
                                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                />
-                                <Marker position={[37.9838, 23.7275]} icon={carMarkerIcon}>
-                                <Popup>
-                                    My Marker
-                                </Popup>
-                                </Marker>
+                              />
+                              <AddMarkerToClick />
                             </MapContainer>
-
                           </div>
                           <center>
                             {" "}
