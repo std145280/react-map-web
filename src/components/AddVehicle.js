@@ -23,8 +23,12 @@ export default function AddVehicles() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [isMapOpen, setIsMapOpen] = useState(false);
+
   const [geoLong, setGeoLong] = useState("");
   const [geoLat, setGeoLat] = useState("");
+
+  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+
 
   const handleOnChangeTITLE = (e) => {
     setTitle(e.target.value);
@@ -71,27 +75,33 @@ export default function AddVehicles() {
     });
   };
 
+
+
   function AddMarkerToClick() {
-    const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
+    
 
     const map = useMapEvents({
       click(event) {
         const { lat, lng } = event.latlng;
+
         setPosition({
           latitude: lat,
           longitude: lng,
         });
+
       },
     });
 
     return position.latitude !== 0 ? (
+
       <Marker
         position={[position.latitude, position.longitude]}
         interactive={false}
         icon={carMarkerIcon}
-      />
-    ) : null;
+      />    ) : null;
+    
   }
+
   const createVehicle = () => {
     var vehicleRef = db.database().ref("vehicles");
     var vehicle = {
@@ -104,8 +114,9 @@ export default function AddVehicles() {
       place,
       availableForRent: true,
       imageUrl,
+      geoLat: position.latitude,
+      geoLong: position.longitude
     };
-
     vehicleRef.push(vehicle);
   };
 
@@ -280,6 +291,14 @@ export default function AddVehicles() {
                             >
                               {" "}
                               Cancel{" "}
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button
+                              className="btn btn-success btn-lg"
+                              type="submit"
+                              onClick={toggleMapPopup}
+                            >
+                              {" "}
+                              Accept{" "}
                             </button>
                           </center>
                         </>
