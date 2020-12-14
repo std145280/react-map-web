@@ -56,7 +56,7 @@ export default function AddPOI() {
   }
 
   const createPOI = () => {
-    var poiRef = db.database().ref('POIs');
+    var poiRef = db.database().ref('pois');
     var poi = {
       name,
       description,
@@ -113,7 +113,7 @@ export default function AddPOI() {
                     content={<>
                       <b>Question</b>
                       <p>Are you sure you want to import the Point Of Interest?</p>
-                      <center><Link  to="/PointOfInterests" className="btn btn-success btn-lg" onClick={createPOI}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopupMsg}> No </button></center>
+                      <center><Link  to="/PointOfInterest" className="btn btn-success btn-lg" onClick={createPOI}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopupMsg}> No </button></center>
                       </>}
                     handleClose={togglePopupMsg}
                     />}

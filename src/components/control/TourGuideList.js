@@ -36,7 +36,20 @@ export default function TourGuideList({ tourGuide }) {
                 <td colSpan="2">
                   <b>
                     <center>
-                      <Card.Img variant="top" src='imageTourGuide' />
+                    {tourGuide.imageUrl
+                        ? tourGuide.imageUrl.map(({ id, url }) => {
+                            return (
+                              <div key={id}>
+                                <img
+                                  src={url}
+                                  alt=""
+                                  width={320}
+                                  height={240}
+                                />
+                              </div>
+                            );
+                          })
+                        : ""}                    
                     </center>
                   </b>
                 </td>
