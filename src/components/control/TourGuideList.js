@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import Popup from './Popup';
 import { Card, Table } from "react-bootstrap";
 import firebase from "../../firebase";
 
+export default function TourGuideList({ tourGuide }) {
 
-export default function tourGuideList({ tourGuide }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const togglePopup = (e) => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  }
+
   const deletetourGuide = () => {
     const tourGuideRef = firebase.database().ref("tourGuide").child(tourGuide.id);
     tourGuideRef.remove();
+    setIsOpen(!isOpen);
   };
   const completetourGuide = () => {
     const tourGuideRef = firebase.database().ref("tourGuide").child(tourGuide.id);
@@ -76,7 +85,7 @@ export default function tourGuideList({ tourGuide }) {
         </Card.Body>
         <Card.Footer>
           <center>
-            <button onClick={deletetourGuide}>
+            <button onClick={togglePopup}>
               <b>Delete</b>
             </button>
             <button onClick={completetourGuide}>
@@ -85,6 +94,15 @@ export default function tourGuideList({ tourGuide }) {
           </center>
         </Card.Footer>
       </Card>
+      {isOpen && <Popup
+            content={<>
+              <b>Question</b>
+              <p>Are you sure you want to delete this tour guide?</p>
+              <center><button className="btn btn-danger btn-lg" type="submit" onClick={deletetourGuide}> Yes </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+
+            </>}
+            handleClose={togglePopup}
+          />}
     </div>
   );
 }

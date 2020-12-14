@@ -1,9 +1,6 @@
 import React, {useState} from "react";
 import Popup from './Popup';
-import {
-  Card,
-  Table,
-} from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 import firebase from "../../firebase";
 
 export default function VehicleList({ vehicle }) {
@@ -18,6 +15,7 @@ export default function VehicleList({ vehicle }) {
   const deleteVehicle = () => {
     const vehicleRef = firebase.database().ref("vehicles").child(vehicle.id);
     vehicleRef.remove();
+    setIsOpen(!isOpen);
   };
   const completeVehicle = () => {
     const vehicleRef = firebase.database().ref("vehicles").child(vehicle.id);
