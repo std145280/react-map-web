@@ -94,35 +94,40 @@ export default function AddTourGuide() {
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeTELEPHONE} value={telephone} placeholder="Tel:" /></div>
 
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeEMAIL} value={email} placeholder="email" /></div>
-            <center>
-          <div>
-            <h3>Upload Image</h3>
-              <input type="file" accept="image/*" onChange={readImages} />
-              {imageUrl
-                ? imageUrl.map(({ id, url }) => {
-                    return (
-                      <div key={id}>
-                        <img src={url} alt="" />
-                      </div>
-                    );
-                  })
-                : ''}
-          </div>
-        </center>
-            <div className="form-group"><button className="btn btn-primary" type="submit" onClick={togglePopup}> Submit </button>
+            <div>
+                  <table>
+                  <tr>
+                  <td> <h6>Upload Image</h6> </td>
+                  <td> 
+                    <input type="file" accept="image/*" onChange={readImages} />
+                      {imageUrl
+                        ? imageUrl.map(({ id, url }) => {
+                          return (
+                          <div key={id}>
+                            <img src={url} alt="" />
+                          </div>
+                          );
+                          })
+                      : ''}
+                    </td>
+                    </tr>  
+                    <tr></tr>
+                    <tr> <div className="form-group"><button className="btn btn-success btn-lg" type="submit" onClick={togglePopup}> Submit </button>
         
-          {isOpen && <Popup
-            content={<>
-              <b>Question</b>
-              <p>Are you sure you want to import the tour guide?</p>
-              <center><Link  to="/TourGuides" className="btn btn-success btn-lg" onClick={createTourGuide}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
-            </>}
-            handleClose={togglePopup}
-          />}
+                    {isOpen && <Popup
+                      content={<>
+                        <b>Question</b>
+                        <p>Are you sure you want to import the tour guide?</p>
+                        <center><Link  to="/TourGuides" className="btn btn-success btn-lg" onClick={createTourGuide}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+                      </>}
+                      handleClose={togglePopup}
+                    />}
+                  </div>
+                    </tr>
+                    </table>
+              </div>                                
+          </form>
         </div>
-
-        </form>
-    </div>
 
 
 </>

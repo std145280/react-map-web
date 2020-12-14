@@ -93,35 +93,40 @@ export default function AddVehicles() {
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeYEAR} value={year} placeholder="Year" /></div>
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeCPH} value={cph} placeholder="Cost per hour" /></div>
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangePLACE} value={place} placeholder="Place" /></div>
-            <center>
-              <div>
-                <h3>Upload Image</h3>
-                  <input type="file" accept="image/*" onChange={readImages} />
-                  {imageUrl
-                    ? imageUrl.map(({ id, url }) => {
-                        return (
+            <div>
+                  <table>
+                  <tr>
+                  <td> <h6>Upload Image</h6> </td>
+                  <td> 
+                    <input type="file" accept="image/*" onChange={readImages} />
+                      {imageUrl
+                        ? imageUrl.map(({ id, url }) => {
+                          return (
                           <div key={id}>
                             <img src={url} alt="" />
                           </div>
-                        );
-                      })
-                    : ''}
-              </div>
-            </center>
+                          );
+                          })
+                      : ''}
+                    </td>
+                    </tr>  
+                    <tr></tr>
 
-          <div className="form-group"><button className="btn btn-primary" type="submit" onClick={togglePopup}> Submit </button>
-        {isOpen && <Popup
+         <tr> <div className="form-group"><button className="btn btn-success btn-lg" type="submit" onClick={togglePopup}> Submit </button>
+        {isOpen && <Popup 
             content={<>
               <b>Question</b>
               <p>Are you sure you want to import the vehicle?</p>
               <center><Link  to="/Vehicles" className="btn btn-success btn-lg" onClick={createVehicle}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
             </>}
             handleClose={togglePopup}
-          />}
-        </div>
-
-        </form>
-      </div> 
-    </>
-  );
+            />}
+            </div>
+              </tr>
+              </table>
+        </div>                                
+    </form>
+  </div>
+</>
+);
 }
