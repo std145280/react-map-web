@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Popup from './Popup';
+import PopupMsg from './PopupMsg';
 import { Card, Table } from "react-bootstrap";
 import firebase from "../../firebase";
 
@@ -7,7 +7,7 @@ export default function TourGuideList({ tourGuide }) {
 
   const [isOpen, setIsOpen] = useState(false);
   
-  const togglePopup = (e) => {
+  const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
   }
@@ -85,7 +85,7 @@ export default function TourGuideList({ tourGuide }) {
         </Card.Body>
         <Card.Footer>
           <center>
-            <button onClick={togglePopup}>
+            <button onClick={togglePopupMsg}>
               <b>Delete</b>
             </button>
             <button onClick={completetourGuide}>
@@ -94,14 +94,14 @@ export default function TourGuideList({ tourGuide }) {
           </center>
         </Card.Footer>
       </Card>
-      {isOpen && <Popup
+      {isOpen && <PopupMsg
             content={<>
               <b>Question</b>
               <p>Are you sure you want to delete this tour guide?</p>
-              <center><button className="btn btn-danger btn-lg" type="submit" onClick={deletetourGuide}> Yes </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+              <center><button className="btn btn-danger btn-lg" type="submit" onClick={deletetourGuide}> Yes </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopupMsg}> No </button></center>
 
             </>}
-            handleClose={togglePopup}
+            handleClose={togglePopupMsg}
           />}
     </div>
   );

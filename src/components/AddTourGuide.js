@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import NavigationBar from "./NavigationBar";
 import db from '../firebase';
-import Popup from './control/Popup';
+import PopupMsg from './control/PopupMsg';
 import { Link } from "react-router-dom";
 
 
@@ -54,7 +54,7 @@ export default function AddTourGuide() {
     });
   };
 
-  const togglePopup = (e) => {
+  const togglePopupMsg = (e) => {
     e.preventDefault();
     
     setIsOpen(!isOpen);
@@ -112,15 +112,15 @@ export default function AddTourGuide() {
                     </td>
                     </tr>  
                     <tr></tr>
-                    <tr> <div className="form-group"><button className="btn btn-success btn-lg" type="submit" onClick={togglePopup}> Submit </button>
+                    <tr> <div className="form-group"><button className="btn btn-success btn-lg" type="submit" onClick={togglePopupMsg}> Submit </button>
         
-                    {isOpen && <Popup
+                    {isOpen && <PopupMsg
                       content={<>
                         <b>Question</b>
                         <p>Are you sure you want to import the tour guide?</p>
-                        <center><Link  to="/TourGuides" className="btn btn-success btn-lg" onClick={createTourGuide}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+                        <center><Link  to="/TourGuides" className="btn btn-success btn-lg" onClick={createTourGuide}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopupMsg}> No </button></center>
                       </>}
-                      handleClose={togglePopup}
+                      handleClose={togglePopupMsg}
                     />}
                   </div>
                     </tr>

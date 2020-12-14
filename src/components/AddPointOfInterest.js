@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import NavigationBar from "./NavigationBar";
 import db from '../firebase';
-import Popup from './control/Popup';
+import PopupMsg from './control/PopupMsg';
 import { Link } from "react-router-dom";
 
 
@@ -49,7 +49,7 @@ export default function AddPOI() {
     });
   };
 
-  const togglePopup = (e) => {
+  const togglePopupMsg = (e) => {
     e.preventDefault();
     
     setIsOpen(!isOpen);
@@ -108,14 +108,14 @@ export default function AddPOI() {
                     </tr>  
                     <tr></tr>
 
-                <tr><div className="form-group"><button className="btn btn-success btn-lg" type="submit" onClick={togglePopup}> Submit </button>          
-                    {isOpen && <Popup
+                <tr><div className="form-group"><button className="btn btn-success btn-lg" type="submit" onClick={togglePopupMsg}> Submit </button>          
+                    {isOpen && <PopupMsg
                     content={<>
                       <b>Question</b>
                       <p>Are you sure you want to import the Point Of Interest?</p>
-                      <center><Link  to="/PointOfInterests" className="btn btn-success btn-lg" onClick={createPOI}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopup}> No </button></center>
+                      <center><Link  to="/PointOfInterests" className="btn btn-success btn-lg" onClick={createPOI}>Yes </Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopupMsg}> No </button></center>
                       </>}
-                    handleClose={togglePopup}
+                    handleClose={togglePopupMsg}
                     />}
                     </div>
                 </tr>

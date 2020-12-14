@@ -1,8 +1,8 @@
 import React from "react";
  
-const Popup = props => {
+const PopupMsg = props => {
   return (
-    <div className="popup-box">
+    <div className="PopupMsg-box">
       <div className="box">
         {props.content}
       </div>
@@ -10,4 +10,4 @@ const Popup = props => {
   );
 };
  
-export default Popup;
+export default PopupMsg;
