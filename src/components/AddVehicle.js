@@ -7,6 +7,7 @@ import PopupMap from "./control/PopupMap";
 import { Link } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
+import {  markerIcon  } from './control/Icons';
 
 export default function AddVehicles() {
   const [title, setTitle] = useState("");
@@ -22,6 +23,9 @@ export default function AddVehicles() {
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [geoLong, setGeoLong] = useState("");
   const [geoLat, setGeoLat] = useState("");
+
+
+
 
   const handleOnChangeTITLE = (e) => {
     setTitle(e.target.value);
@@ -238,17 +242,17 @@ export default function AddVehicles() {
 
 
 
-<MapContainer center={[51.505, -0.09]} zoom={13} style={{height : '400px'}}>
-        <TileLayer
-        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[51.505, -0.09]}>
-        <Popup>
-            Son Konum
-        </Popup>
-        </Marker>
-    </MapContainer>
+                        <MapContainer center={[37.9838, 23.7275]} zoom={13} style={{height : '400px'}}>
+                                <TileLayer
+                                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                <Marker position={[37.9838, 23.7275]} icon={markerIcon}>
+                                <Popup>
+                                    My Marker
+                                </Popup>
+                                </Marker>
+                            </MapContainer>
 
                           </div>
                           <center>
