@@ -5,11 +5,8 @@ import db from "../firebase";
 import PopupMsg from "./control/PopupMsg";
 import PopupMap from "./control/PopupMap";
 import { Link } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
-import { carMarkerIcon } from "./control/Icons";
-import Popup from "react-leaflet-editable-popup";
-import Map from "./control/Map";
 
 export default function AddVehicles() {
   const [title, setTitle] = useState("");
@@ -24,11 +21,19 @@ export default function AddVehicles() {
 
   const [isMapOpen, setIsMapOpen] = useState(false);
 
+  /*
   const [geoLong, setGeoLong] = useState("");
   const [geoLat, setGeoLat] = useState("");
+*/
+  const [position, setPosition] = useState({
+    latitude: 37.9838,
+    longitude: 23.7275,
+  });
 
-  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
-
+  const [name, setName] = useState("Click 'Map' to set vehicles place.");
+  const setPlaceName = (newName) => {
+    setName(newName);
+  };
 
   const handleOnChangeTITLE = (e) => {
     setTitle(e.target.value);
@@ -48,15 +53,21 @@ export default function AddVehicles() {
   const handleOnChangeCPH = (e) => {
     setCPH(e.target.value);
   };
+  /*
   const handleOnChangePLACE = (e) => {
     setPlace(e.target.value);
-  };
+  };*/
 
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
   };
-
+  /*
+  const toggleMapPopupWithSave = (e) => {
+    e.preventDefault();
+    setIsMapOpen(!isMapOpen);
+  };
+*/
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
@@ -75,33 +86,6 @@ export default function AddVehicles() {
     });
   };
 
-
-
-  function AddMarkerToClick() {
-    
-
-    const map = useMapEvents({
-      click(event) {
-        const { lat, lng } = event.latlng;
-
-        setPosition({
-          latitude: lat,
-          longitude: lng,
-        });
-
-      },
-    });
-
-    return position.latitude !== 0 ? (
-
-      <Marker
-        position={[position.latitude, position.longitude]}
-        interactive={false}
-        icon={carMarkerIcon}
-      />    ) : null;
-    
-  }
-
   const createVehicle = () => {
     var vehicleRef = db.database().ref("vehicles");
     var vehicle = {
@@ -115,7 +99,7 @@ export default function AddVehicles() {
       availableForRent: true,
       imageUrl,
       geoLat: position.latitude,
-      geoLong: position.longitude
+      geoLong: position.longitude,
     };
     vehicleRef.push(vehicle);
   };
@@ -185,9 +169,9 @@ export default function AddVehicles() {
             <input
               type="text"
               className="form-control"
-              onChange={handleOnChangePLACE}
-              value={place}
-              placeholder="Place"
+              //onChange={handleOnChangePLACE}
+              value={name}
+              placeholder="Click the 'Map' button to add vehicle's place."
             />
           </div>
 
@@ -198,7 +182,7 @@ export default function AddVehicles() {
               onClick={toggleMapPopup}
             >
               {" "}
-              Point Vehicle on Map{" "}
+              Map{" "}
             </button>
           </center>
           <div>
@@ -270,18 +254,9 @@ export default function AddVehicles() {
                         <>
                           <h3> Insert Place </h3>
                           <div>
-                            <MapContainer
-                              center={[37.9838, 23.7275]}
-                              zoom={13}
-                              style={{ height: "400px" }}
-                            >
-                              <TileLayer
-                                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                              />
-                              <AddMarkerToClick />
-                            </MapContainer>
+                            <Map.LeafletMap setPlaceName={setPlaceName} />
                           </div>
+
                           <center>
                             {" "}
                             <button
@@ -291,7 +266,8 @@ export default function AddVehicles() {
                             >
                               {" "}
                               Cancel{" "}
-                            </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button
                               className="btn btn-success btn-lg"
                               type="submit"
