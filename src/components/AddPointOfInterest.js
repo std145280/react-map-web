@@ -4,18 +4,35 @@ import { v4 as uuid } from 'uuid';
 import NavigationBar from "./NavigationBar";
 import db from '../firebase';
 import PopupMsg from './control/PopupMsg';
+import PopupMap from "./control/PopupMap";
 import { Link } from "react-router-dom";
+import Map from "./control/LeafletMap";
+import "leaflet/dist/leaflet.css";
 
 
 export default function AddPOI() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
   const [type, setType] = useState(''); 
   const [city, setCity] = useState('');
   const [imageUrl, setImageUrl] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isMapOpen, setIsMapOpen] = useState(false);
+  const [latitude, setLatitude] = useState(37.9838);
+  const [longitude, setLongitude] = useState(23.7275);
+  const [location, setLocation] = useState("Click 'Map' to set Point of Interest location.");
+
+  
+  const setLocationLatitude = (newLatitude) => {
+    setLatitude(newLatitude);
+  };
+  const setLocationLongitude = (newLongitude) => {
+    setLongitude(newLongitude);
+  };
+
+  const setLocationName = (newName) => {
+    setLocation(newName);
+  };
 
   const handleOnChangeNAME = (e) => {
     setName(e.target.value);
@@ -34,6 +51,10 @@ export default function AddPOI() {
   };
   const handleOnChangeCITY = (e) => {
     setCity(e.target.value);
+  };
+  const toggleMapPopup = (e) => {
+    e.preventDefault();
+    setIsMapOpen(!isMapOpen);
   };
 
   const readImages = async (e) => {
@@ -60,11 +81,12 @@ export default function AddPOI() {
     var poi = {
       name,
       description,
-      latitude,
-      longitude,
+      geoLat: latitude,
+      geoLong: longitude,
       type,
       city,
-      imageUrl
+      imageUrl,
+      place: location
     };
 
     poiRef.push(poi);
@@ -89,7 +111,27 @@ export default function AddPOI() {
 
                 <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeCITY} value={city} placeholder="City" /></div>
             
-                
+                <div className="form-group">
+            <textarea
+              type="text"
+              className="form-control"
+              //onChange={handleOnChangePLACE}
+              value={location}
+              placeholder="Click the 'Map' button to add vehicle's place."
+              rows="3"
+            />
+          </div>
+          <center>
+            <button
+              className="btn btn-primary btn-lg"
+              type="submit"
+              onClick={toggleMapPopup}
+            >
+              {" "}
+              Map{" "}
+            </button>
+          </center>
+
                 <div>
                   <table>
                   <tr>
@@ -118,6 +160,35 @@ export default function AddPOI() {
                       </>}
                     handleClose={togglePopupMsg}
                     />}
+                     {isMapOpen && (
+                    <PopupMap
+                      content={
+                        <>
+                          <h3> Insert Place </h3>
+                          <div>
+                            <Map.LeafletMap
+                              setLocationLongitude={setLocationLongitude}
+                              setLocationLatitude={setLocationLatitude}
+                              setLocationName={setLocationName}
+                            />
+                          </div>
+                          <br />
+                          <center>
+                            {" "}
+                            <button
+                              className="btn btn-success btn-lg"
+                              type="submit"
+                              onClick={toggleMapPopup}
+                            >
+                              {" "}
+                              Done{" "}
+                            </button>
+                          </center>
+                        </>
+                      }
+                      handleClose={toggleMapPopup}
+                    />
+                  )}
                     </div>
                 </tr>
                   </table>

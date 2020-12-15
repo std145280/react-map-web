@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import L from "leaflet";
-import { carMarkerIcon } from "./Icons";
+import { markerIcon } from "./Icons";
 
 const height = { height: "100vh" };
 const center = { lat: 37.9838, lng: 23.7275 };
@@ -31,16 +31,16 @@ class LeafletMap extends React.Component {
           if (r) {
             if (marker) {
               marker
-                .setLatLng(r.center, { icon: carMarkerIcon })
+                .setLatLng(r.center, { icon: markerIcon })
                 .setPopupContent(r.html || r.name)
                 .openPopup();
-              this.props.setPlaceName(r.name);
+              this.props.setLocationName(r.name);
             } else {
-              marker = L.marker(r.center, { icon: carMarkerIcon })
+              marker = L.marker(r.center, { icon: markerIcon })
                 .bindPopup(r.name)
                 .addTo(map)
                 .openPopup();
-              this.props.setPlaceName(r.name);
+              this.props.setLocationName(r.name);
             }
           }
         }

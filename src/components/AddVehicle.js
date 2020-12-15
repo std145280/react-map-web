@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 
+import { carMarkerIcon } from "./control/Icons";
+
 export default function AddVehicles() {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -28,16 +30,16 @@ export default function AddVehicles() {
 
   const [latitude, setLatitude] = useState(37.9838);
   const [longitude, setLongitude] = useState(23.7275);
-  const setPlaceLatitude = (newLatitude) => {
+  const setLocationLatitude = (newLatitude) => {
     setLatitude(newLatitude);
   };
-  const setPlaceLongitude = (newLongitude) => {
+  const setLocationongitude = (newLongitude) => {
     setLongitude(newLongitude);
   };
 
-  const [address, setAddress] = useState("Click 'Map' to set vehicles place.");
-  const setPlaceName = (newName) => {
-    setAddress(newName);
+  const [location, setLocation] = useState("Click 'Map' to set vehicles place.");
+  const setLocationName = (newName) => {
+    setLocation(newName);
   };
 
   const handleOnChangeTITLE = (e) => {
@@ -67,12 +69,7 @@ export default function AddVehicles() {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
   };
-  /*
-  const toggleMapPopupWithSave = (e) => {
-    e.preventDefault();
-    setIsMapOpen(!isMapOpen);
-  };
-*/
+
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
@@ -100,7 +97,7 @@ export default function AddVehicles() {
       fuel,
       year,
       cph,
-      place: address,
+      place: location,
       availableForRent: true,
       imageUrl,
       geoLat: latitude,
@@ -175,7 +172,7 @@ export default function AddVehicles() {
               type="text"
               className="form-control"
               //onChange={handleOnChangePLACE}
-              value={address}
+              value={location}
               placeholder="Click the 'Map' button to add vehicle's place."
               rows="3"
             />
@@ -212,7 +209,6 @@ export default function AddVehicles() {
                 </td>
               </tr>
               <tr></tr>
-
               <tr>
                 {" "}
                 <div className="form-group">
@@ -261,30 +257,22 @@ export default function AddVehicles() {
                           <h3> Insert Place </h3>
                           <div>
                             <Map.LeafletMap
-                              setPlaceLongitude={setPlaceLongitude}
-                              setPlaceLatitude={setPlaceLatitude}
-                              setPlaceName={setPlaceName}
+                            markerIcon={carMarkerIcon}
+                              setLocationongitude={setLocationongitude}
+                              setLocationLatitude={setLocationLatitude}
+                              setLocationName={setLocationName}
                             />
                           </div>
-
+                          <br />
                           <center>
                             {" "}
-                            <button
-                              className="btn btn-danger btn-lg"
-                              type="submit"
-                              onClick={toggleMapPopup}
-                            >
-                              {" "}
-                              Cancel{" "}
-                            </button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button
                               className="btn btn-success btn-lg"
                               type="submit"
                               onClick={toggleMapPopup}
                             >
                               {" "}
-                              Accept{" "}
+                              Done{" "}
                             </button>
                           </center>
                         </>
