@@ -14,6 +14,8 @@ class LeafletMap extends React.Component {
     super(props);
   }
 
+  center = { lat: this.props.lonitude, lng: this.props.langitude };
+
   componentDidMount() {
     const map = this.leafletMap.leafletElement;
     const geocoder = L.Control.Geocoder.nominatim();
@@ -52,7 +54,6 @@ class LeafletMap extends React.Component {
         style={height}
         center={center}
         zoom={12}
-        maxZoom={17}
         ref={(m) => {
           this.leafletMap = m;
         }}

@@ -25,14 +25,19 @@ export default function AddVehicles() {
   const [geoLong, setGeoLong] = useState("");
   const [geoLat, setGeoLat] = useState("");
 */
-  const [position, setPosition] = useState({
-    latitude: 37.9838,
-    longitude: 23.7275,
-  });
 
-  const [name, setName] = useState("Click 'Map' to set vehicles place.");
+  const [latitude, setLatitude] = useState(37.9838);
+  const [longitude, setLongitude] = useState(23.7275);
+  const setPlaceLatitude = (newLatitude) => {
+    setLatitude(newLatitude);
+  };
+  const setPlaceLongitude = (newLongitude) => {
+    setLongitude(newLongitude);
+  };
+
+  const [address, setAddress] = useState("Click 'Map' to set vehicles place.");
   const setPlaceName = (newName) => {
-    setName(newName);
+    setAddress(newName);
   };
 
   const handleOnChangeTITLE = (e) => {
@@ -95,11 +100,11 @@ export default function AddVehicles() {
       fuel,
       year,
       cph,
-      place,
+      place: address,
       availableForRent: true,
       imageUrl,
-      geoLat: position.latitude,
-      geoLong: position.longitude,
+      geoLat: latitude,
+      geoLong: longitude,
     };
     vehicleRef.push(vehicle);
   };
@@ -166,12 +171,13 @@ export default function AddVehicles() {
             />
           </div>
           <div className="form-group">
-            <input
+            <textarea
               type="text"
               className="form-control"
               //onChange={handleOnChangePLACE}
-              value={name}
+              value={address}
               placeholder="Click the 'Map' button to add vehicle's place."
+              rows="3"
             />
           </div>
 
@@ -254,7 +260,11 @@ export default function AddVehicles() {
                         <>
                           <h3> Insert Place </h3>
                           <div>
-                            <Map.LeafletMap setPlaceName={setPlaceName} />
+                            <Map.LeafletMap
+                              setPlaceLongitude={setPlaceLongitude}
+                              setPlaceLatitude={setPlaceLatitude}
+                              setPlaceName={setPlaceName}
+                            />
                           </div>
 
                           <center>
