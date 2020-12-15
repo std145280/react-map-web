@@ -1,16 +1,15 @@
-import React, {useState} from "react";
-import PopupMsg from './PopupMsg';
-import { Card, Table } from "react-bootstrap";
+import React, { useState } from "react";
+import PopupMsg from "./PopupMsg";
+import { Carousel, Card, Table } from "react-bootstrap";
 import firebase from "../../firebase";
 
 export default function VehicleList({ vehicle }) {
-
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
-  }
+  };
 
   const deleteVehicle = () => {
     const vehicleRef = firebase.database().ref("vehicles").child(vehicle.id);
@@ -37,20 +36,25 @@ export default function VehicleList({ vehicle }) {
                 <td colSpan="2">
                   <b>
                     <center>
-                      {vehicle.imageUrl
-                        ? vehicle.imageUrl.map(({ id, url }) => {
-                            return (
-                              <div key={id}>
-                                <img
-                                  src={url}
-                                  alt=""
-                                  width={320}
-                                  height={240}
-                                />
-                              </div>
-                            );
-                          })
-                        : ""}
+                      <Carousel>
+                        {vehicle.imageUrl
+                          ? vehicle.imageUrl.map(({ id, url }) => {
+                              return (
+                                <Carousel.Item interval={500}>
+                                  <div key={id}>
+                                    <img
+                                      className="d-block w-100"
+                                      src={url}
+                                      alt=""
+                                      width={320}
+                                      height={240}
+                                    />
+                                  </div>
+                                </Carousel.Item>
+                              );
+                            })
+                          : ""}
+                      </Carousel>
                     </center>
                   </b>
                 </td>
@@ -108,15 +112,36 @@ export default function VehicleList({ vehicle }) {
           </center>
         </Card.Footer>
       </Card>
-      {isOpen && <PopupMsg
-            content={<>
+      {isOpen && (
+        <PopupMsg
+          content={
+            <>
               <b>Question</b>
               <p>Are you sure you want to delete this vehicle?</p>
-              <center><button className="btn btn-danger btn-lg" type="submit" onClick={deleteVehicle}> Yes </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopupMsg}> No </button></center>
-
-            </>}
-            handleClose={togglePopupMsg}
-          />}
+              <center>
+                <button
+                  className="btn btn-danger btn-lg"
+                  type="submit"
+                  onClick={deleteVehicle}
+                >
+                  {" "}
+                  Yes{" "}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                  className="btn btn-warning btn-lg"
+                  type="submit"
+                  onClick={togglePopupMsg}
+                >
+                  {" "}
+                  No{" "}
+                </button>
+              </center>
+            </>
+          }
+          handleClose={togglePopupMsg}
+        />
+      )}
     </div>
   );
 }
