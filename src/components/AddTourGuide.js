@@ -3,8 +3,10 @@ import { v4 as uuid } from 'uuid';
 import NavigationBar from "./NavigationBar";
 import db from '../firebase';
 import PopupMsg from './control/PopupMsg';
+import PopupMap from "./control/PopupMap";
 import { Link } from "react-router-dom";
-
+import Map from "./control/LeafletMap";
+import "leaflet/dist/leaflet.css";
 
 
 export default function AddTourGuide() {
@@ -17,6 +19,23 @@ export default function AddTourGuide() {
   const [email, setEmail] = useState('');
   const [imageUrl, setImageUrl] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isMapOpen, setIsMapOpen] = useState(false);
+  const [latitude, setLatitude] = useState(37.9838);
+  const [longitude, setLongitude] = useState(23.7275);
+  const [location, setLocation] = useState("Click 'Map' to set Point of Interest location.");
+
+  
+  const setLocationLatitude = (newLatitude) => {
+    setLatitude(newLatitude);
+  };
+  const setLocationLongitude = (newLongitude) => {
+    setLongitude(newLongitude);
+  };
+
+  const setLocationName = (newName) => {
+    setLocation(newName);
+  };
+
 
   const handleOnChangeNAME = (e) => {
     setName(e.target.value);
@@ -40,7 +59,11 @@ export default function AddTourGuide() {
     setEmail(e.target.value);
   };
 
-  
+  const toggleMapPopup = (e) => {
+    e.preventDefault();
+    setIsMapOpen(!isMapOpen);
+  };
+
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
@@ -72,7 +95,10 @@ export default function AddTourGuide() {
       telephone,
       email,
       availableForHire: true,
-      imageUrl
+      imageUrl,
+      geoLat: latitude,
+      geoLong: longitude,
+      location: location
     };
     
     tourGuideRef.push(tourGuide);
@@ -90,10 +116,19 @@ export default function AddTourGuide() {
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeEXPERIENCE} value={experience} placeholder="Experience" /></div>
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeDRIVINGLICENCE} value={carDrivingLicences} placeholder="Driving Licences" /></div>
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeADDRESS} value={address} placeholder="Address" /></div>
-
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeTELEPHONE} value={telephone} placeholder="Tel:" /></div>
-
             <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeEMAIL} value={email} placeholder="email" /></div>
+            <div className="form-group"><textarea type="text" className="form-control" value={location} placeholder="Click the 'Map' button to add tour guide's location." rows="3" /></div>
+            <center>
+            <button
+              className="btn btn-primary btn-lg"
+              type="submit"
+              onClick={toggleMapPopup}
+            >
+              {" "}
+              Map{" "}
+            </button>
+          </center>
             <div>
                   <table>
                   <tr>
@@ -122,6 +157,45 @@ export default function AddTourGuide() {
                       </>}
                       handleClose={togglePopupMsg}
                     />}
+                    
+                    {isMapOpen && (
+                    <PopupMap
+                      content={
+                        <>
+                          <h3> Insert Place </h3>
+                          <div>
+                          <Map.LeafletMap
+                              setLocationLongitude={setLocationLongitude}
+                              setLocationLatitude={setLocationLatitude}
+                              setLocationName={setLocationName}
+                            />
+                          </div>
+
+                          <center>
+                            {" "}
+                            <button
+                              className="btn btn-danger btn-lg"
+                              type="submit"
+                              onClick={toggleMapPopup}
+                            >
+                              {" "}
+                              Cancel{" "}
+                            </button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button
+                              className="btn btn-success btn-lg"
+                              type="submit"
+                              onClick={toggleMapPopup}
+                            >
+                              {" "}
+                              Accept{" "}
+                            </button>
+                          </center>
+                        </>
+                      }
+                      handleClose={toggleMapPopup}
+                    />
+                  )}
                   </div>
                     </tr>
                     </table>
