@@ -81,7 +81,12 @@ export default function VehicleList({ vehicle }) {
               </tr>
               <tr>
                 <td>Cost/h: {vehicle.cph}</td>
-                <td>Place: {vehicle.place}</td>
+                <td>WiFi: {vehicle.wiFi}</td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                Location: {vehicle.location}
+                </td>
               </tr>
               <tr>
                 <td colSpan="2">
