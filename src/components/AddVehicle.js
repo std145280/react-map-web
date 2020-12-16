@@ -15,6 +15,7 @@ export default function AddVehicles() {
   const [fuel, setFuel] = useState("");
   const [year, setYear] = useState("");
   const [cph, setCPH] = useState("");
+  const [wiFi, setWiFi] = useState("");
   const [imageUrl, setImageUrl] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
@@ -50,6 +51,11 @@ export default function AddVehicles() {
     setCPH(e.target.value);
   };
 
+  const handleOnChangeWIFI = (e) => {
+    setWiFi(e.target.value);
+  };
+
+
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
@@ -82,7 +88,8 @@ export default function AddVehicles() {
       fuel,
       year,
       cph,
-      place: location,
+      wiFi,
+      location: location,
       availableForRent: true,
       imageUrl,
       geoLat: latlng.lat,
@@ -153,11 +160,20 @@ export default function AddVehicles() {
             />
           </div>
           <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              onChange={handleOnChangeWIFI}
+              value={wiFi}
+              placeholder="WiFi"
+            />
+          </div>
+          <div className="form-group">
             <textarea
               type="text"
               className="form-control"
               value={location}
-              placeholder="Click the 'Map' button to add vehicle's place."
+              placeholder="Click the 'Map' button to add vehicle's location."
               rows="3"
             />
           </div>
@@ -238,7 +254,7 @@ export default function AddVehicles() {
                     <PopupMap
                       content={
                         <>
-                          <h3> Insert Place </h3>
+                          <h3> Insert vehicle's location </h3>
                           <div>
                             <Map.LeafletMap
                               setLocationLatlng={setLocationLatlng}
