@@ -72,20 +72,20 @@ export default function VehicleList({ vehicle }) {
                 </td>
               </tr>
               <tr>
-                <td>Type: {vehicle.type}</td>
-                <td>Passengers #: {vehicle.passengers}</td>
+                <td><b>Type:</b> {vehicle.type}</td>
+                <td><b>Passengers #:</b> {vehicle.passengers}</td>
               </tr>
               <tr>
-                <td>Fuel: {vehicle.fuel}</td>
-                <td>Year: {vehicle.year}</td>
+                <td><b>Fuel:</b> {vehicle.fuel}</td>
+                <td><b>Year:</b> {vehicle.year}</td>
               </tr>
               <tr>
-                <td>Cost/h: {vehicle.cph}</td>
-                <td>WiFi: {vehicle.wiFi}</td>
+                <td><b>Cost/h:</b> {vehicle.cph}</td>
+                <td><b>WiFi:</b> {vehicle.wiFi}</td>
               </tr>
               <tr>
                 <td colSpan="2">
-                Location: {vehicle.location}
+                <b>Location:</b> {vehicle.location}
                 </td>
               </tr>
               <tr>
