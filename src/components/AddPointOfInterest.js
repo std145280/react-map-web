@@ -74,7 +74,7 @@ export default function AddPOI() {
       type,
       city,
       imageUrl,
-      place: location
+      location: location
     };
 
     poiRef.push(poi);

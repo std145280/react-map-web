@@ -1,16 +1,15 @@
-import React, {useState} from "react";
-import PopupMsg from './PopupMsg';
+import React, { useState } from "react";
+import PopupMsg from "./PopupMsg";
 import { Carousel, Card, Table } from "react-bootstrap";
 import firebase from "../../firebase";
 
 export default function PointOfInterestList({ poi }) {
-
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
-  }
+  };
 
   const deletePOI = () => {
     const poiRef = firebase.database().ref("pois").child(poi.id);
@@ -20,7 +19,6 @@ export default function PointOfInterestList({ poi }) {
 
   return (
     <div>
-
       <Card style={{ flex: 1 }}>
         <Card.Body>
           <Table striped bordered hover>
@@ -30,7 +28,7 @@ export default function PointOfInterestList({ poi }) {
                 <td colSpan="2">
                   <b>
                     <center>
-                    <Carousel>
+                      <Carousel>
                         {poi.imageUrl
                           ? poi.imageUrl.map(({ id, url }) => {
                               return (
@@ -79,11 +77,7 @@ export default function PointOfInterestList({ poi }) {
               </tr>
               <tr>
                 <td colSpan="2">
-                  <h3>
-                    <center>
-
-                    </center>
-                  </h3>
+                  <b>Location:</b> {poi.location}
                 </td>
               </tr>
             </tbody>
@@ -97,15 +91,36 @@ export default function PointOfInterestList({ poi }) {
           </center>
         </Card.Footer>
       </Card>
-      {isOpen && <PopupMsg
-            content={<>
+      {isOpen && (
+        <PopupMsg
+          content={
+            <>
               <b>Question</b>
               <p>Are you sure you want to delete this POI?</p>
-              <center><button className="btn btn-danger btn-lg" type="submit" onClick={deletePOI}> Yes </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopupMsg}> No </button></center>
-
-            </>}
-            handleClose={togglePopupMsg}
-          />}
+              <center>
+                <button
+                  className="btn btn-danger btn-lg"
+                  type="submit"
+                  onClick={deletePOI}
+                >
+                  {" "}
+                  Yes{" "}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                  className="btn btn-warning btn-lg"
+                  type="submit"
+                  onClick={togglePopupMsg}
+                >
+                  {" "}
+                  No{" "}
+                </button>
+              </center>
+            </>
+          }
+          handleClose={togglePopupMsg}
+        />
+      )}
     </div>
   );
 }
