@@ -1,24 +1,29 @@
 import React, { useState } from "react";
-import PopupMsg from './PopupMsg';
+import PopupMsg from "./PopupMsg";
 import { Carousel, Card, Table } from "react-bootstrap";
 import firebase from "../../firebase";
 
 export default function TourGuideList({ tourGuide }) {
-
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
-  }
+  };
 
   const deletetourGuide = () => {
-    const tourGuideRef = firebase.database().ref("tourGuide").child(tourGuide.id);
+    const tourGuideRef = firebase
+      .database()
+      .ref("tourGuide")
+      .child(tourGuide.id);
     tourGuideRef.remove();
     setIsOpen(!isOpen);
   };
   const completetourGuide = () => {
-    const tourGuideRef = firebase.database().ref("tourGuide").child(tourGuide.id);
+    const tourGuideRef = firebase
+      .database()
+      .ref("tourGuide")
+      .child(tourGuide.id);
     tourGuideRef.update({
       availableForHire: !tourGuide.availableForHire,
     });
@@ -36,8 +41,7 @@ export default function TourGuideList({ tourGuide }) {
                 <td colSpan="2">
                   <b>
                     <center>
-
-                    <Carousel>
+                      <Carousel>
                         {tourGuide.imageUrl
                           ? tourGuide.imageUrl.map(({ id, url }) => {
                               return (
@@ -56,7 +60,6 @@ export default function TourGuideList({ tourGuide }) {
                             })
                           : ""}
                       </Carousel>
-              
                     </center>
                   </b>
                 </td>
@@ -74,16 +77,33 @@ export default function TourGuideList({ tourGuide }) {
                 </td>
               </tr>
               <tr>
-                <td>age: {tourGuide.age}</td>
-                <td>experience: {tourGuide.experience}</td>
+                <td>
+                  <b>Age:</b> {tourGuide.age}
+                </td>
+                <td>
+                  <b>Experience:</b> {tourGuide.experience}
+                </td>
               </tr>
               <tr>
-                <td>carDrivingLicences: {tourGuide.carDrivingLicences}</td>
-                <td>address: {tourGuide.address}</td>
+                <td>
+                  <b>License:</b> {tourGuide.carDrivingLicences}
+                </td>
+                <td>
+                  <b>Address:</b> {tourGuide.address}
+                </td>
               </tr>
               <tr>
-                <td>telephone: {tourGuide.telephone}</td>
-                <td>email: {tourGuide.email}</td>
+                <td>
+                  <b>Tel.:</b> {tourGuide.telephone}
+                </td>
+                <td>
+                  <b>Email:</b> {tourGuide.email}
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                <b>Address:</b> {tourGuide.address}
+                </td>
               </tr>
               <tr>
                 <td colSpan="2">
@@ -100,6 +120,7 @@ export default function TourGuideList({ tourGuide }) {
                   </h3>
                 </td>
               </tr>
+
             </tbody>
           </Table>
         </Card.Body>
@@ -114,15 +135,36 @@ export default function TourGuideList({ tourGuide }) {
           </center>
         </Card.Footer>
       </Card>
-      {isOpen && <PopupMsg
-            content={<>
+      {isOpen && (
+        <PopupMsg
+          content={
+            <>
               <b>Question</b>
               <p>Are you sure you want to delete this tour guide?</p>
-              <center><button className="btn btn-danger btn-lg" type="submit" onClick={deletetourGuide}> Yes </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button className="btn btn-warning btn-lg" type="submit" onClick={togglePopupMsg}> No </button></center>
-
-            </>}
-            handleClose={togglePopupMsg}
-          />}
+              <center>
+                <button
+                  className="btn btn-danger btn-lg"
+                  type="submit"
+                  onClick={deletetourGuide}
+                >
+                  {" "}
+                  Yes{" "}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                  className="btn btn-warning btn-lg"
+                  type="submit"
+                  onClick={togglePopupMsg}
+                >
+                  {" "}
+                  No{" "}
+                </button>
+              </center>
+            </>
+          }
+          handleClose={togglePopupMsg}
+        />
+      )}
     </div>
   );
 }
