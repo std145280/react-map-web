@@ -22,7 +22,7 @@ export default function AddTourGuide() {
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [latitude, setLatitude] = useState(37.9838);
   const [longitude, setLongitude] = useState(23.7275);
-  const [location, setLocation] = useState("Click 'Map' to set Point of Interest location.");
+  const [location, setLocation] = useState("Click 'Map' to set tour guide's location.");
 
   
   const setLocationLatitude = (newLatitude) => {

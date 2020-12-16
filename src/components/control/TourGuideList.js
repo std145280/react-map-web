@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PopupMsg from './PopupMsg';
-import { Card, Table } from "react-bootstrap";
+import { Carousel, Card, Table } from "react-bootstrap";
 import firebase from "../../firebase";
 
 export default function TourGuideList({ tourGuide }) {
@@ -36,20 +36,27 @@ export default function TourGuideList({ tourGuide }) {
                 <td colSpan="2">
                   <b>
                     <center>
-                    {tourGuide.imageUrl
-                        ? tourGuide.imageUrl.map(({ id, url }) => {
-                            return (
-                              <div key={id}>
-                                <img
-                                  src={url}
-                                  alt=""
-                                  width={320}
-                                  height={240}
-                                />
-                              </div>
-                            );
-                          })
-                        : ""}                    
+
+                    <Carousel>
+                        {tourGuide.imageUrl
+                          ? tourGuide.imageUrl.map(({ id, url }) => {
+                              return (
+                                <Carousel.Item interval={500}>
+                                  <div key={id}>
+                                    <img
+                                      className="d-block w-100"
+                                      src={url}
+                                      alt=""
+                                      width={320}
+                                      height={240}
+                                    />
+                                  </div>
+                                </Carousel.Item>
+                              );
+                            })
+                          : ""}
+                      </Carousel>
+              
                     </center>
                   </b>
                 </td>
