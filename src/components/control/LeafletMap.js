@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Map, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import { markerIcon } from "./Icons";
@@ -20,9 +20,8 @@ class LeafletMap extends React.Component {
     const map = this.leafletMap.leafletElement;
     const geocoder = L.Control.Geocoder.nominatim();
     let marker;
-
     map.on("click", (e) => {
-      geoLatlng = e.latlng;
+      this.props.setLocationLatlng(e.latlng);
       geocoder.reverse(
         e.latlng,
         map.options.crs.scale(map.getZoom()),
