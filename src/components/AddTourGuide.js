@@ -20,22 +20,19 @@ export default function AddTourGuide() {
   const [imageUrl, setImageUrl] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
-  const [latitude, setLatitude] = useState(37.9838);
-  const [longitude, setLongitude] = useState(23.7275);
+
+  const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
+  
   const [location, setLocation] = useState("Click 'Map' to set tour guide's location.");
 
-  
-  const setLocationLatitude = (newLatitude) => {
-    setLatitude(newLatitude);
+  const setLocationLatlng = (newLatlng) => {
+    setLatlng(newLatlng);
   };
-  const setLocationLongitude = (newLongitude) => {
-    setLongitude(newLongitude);
-  };
+
 
   const setLocationName = (newName) => {
     setLocation(newName);
   };
-
 
   const handleOnChangeNAME = (e) => {
     setName(e.target.value);
@@ -96,8 +93,8 @@ export default function AddTourGuide() {
       email,
       availableForHire: true,
       imageUrl,
-      geoLat: latitude,
-      geoLong: longitude,
+      geoLat: latlng.lat,
+      geoLong: latlng.lng,
       location: location
     };
     
@@ -165,8 +162,7 @@ export default function AddTourGuide() {
                           <h3> Insert Place </h3>
                           <div>
                           <Map.LeafletMap
-                              setLocationLongitude={setLocationLongitude}
-                              setLocationLatitude={setLocationLatitude}
+                              setLocationLatlng={setLocationLatlng}
                               setLocationName={setLocationName}
                             />
                           </div>

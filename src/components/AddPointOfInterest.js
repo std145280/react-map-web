@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
-
 import NavigationBar from "./NavigationBar";
 import db from '../firebase';
 import PopupMsg from './control/PopupMsg';
@@ -18,16 +17,11 @@ export default function AddPOI() {
   const [imageUrl, setImageUrl] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
-  const [latitude, setLatitude] = useState(37.9838);
-  const [longitude, setLongitude] = useState(23.7275);
   const [location, setLocation] = useState("Click 'Map' to set Point of Interest location.");
+  const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
 
-  
-  const setLocationLatitude = (newLatitude) => {
-    setLatitude(newLatitude);
-  };
-  const setLocationLongitude = (newLongitude) => {
-    setLongitude(newLongitude);
+  const setLocationLatlng = (newLatlng) => {
+    setLatlng(newLatlng);
   };
 
   const setLocationName = (newName) => {
@@ -39,12 +33,6 @@ export default function AddPOI() {
   };
   const handleOnChangeDESCRIPTION = (e) => {
     setDescription(e.target.value);
-  };
-  const handleOnChangeLATITUDE = (e) => {
-    setLatitude(e.target.value);
-  };
-  const handleOnChangeLONGITUDE = (e) => {
-    setLongitude(e.target.value);
   };
   const handleOnChangeTYPE = (e) => {
     setType(e.target.value);
@@ -81,8 +69,8 @@ export default function AddPOI() {
     var poi = {
       name,
       description,
-      geoLat: latitude,
-      geoLong: longitude,
+      geoLat: latlng.lat,
+      geoLong: latlng.lng,
       type,
       city,
       imageUrl,
@@ -103,9 +91,9 @@ export default function AddPOI() {
 
                 <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeDESCRIPTION} value={description} placeholder="Description" /></div>
 
-                <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeLATITUDE} value={latitude} placeholder="Latitude" /></div>
+                <div className="form-group"><input type="text" className="form-control" value={latlng.lat} placeholder="Latitude" /></div>
 
-                <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeLONGITUDE} value={longitude} placeholder="Longitude" /></div>
+                <div className="form-group"><input type="text" className="form-control" value={latlng.lng} placeholder="Longitude" /></div>
 
                 <div className="form-group"><input type="text" className="form-control" onChange={handleOnChangeTYPE} value={type} placeholder="Type" /></div>
 
@@ -167,8 +155,7 @@ export default function AddPOI() {
                           <h3> Insert Place </h3>
                           <div>
                             <Map.LeafletMap
-                              setLocationLongitude={setLocationLongitude}
-                              setLocationLatitude={setLocationLatitude}
+                              setLocationLatlng={setLocationLatlng}
                               setLocationName={setLocationName}
                             />
                           </div>

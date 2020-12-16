@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 
-import { carMarkerIcon } from "./control/Icons";
-
 export default function AddVehicles() {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -17,27 +15,18 @@ export default function AddVehicles() {
   const [fuel, setFuel] = useState("");
   const [year, setYear] = useState("");
   const [cph, setCPH] = useState("");
-  const [place, setPlace] = useState("");
   const [imageUrl, setImageUrl] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-
   const [isMapOpen, setIsMapOpen] = useState(false);
 
-  /*
-  const [geoLong, setGeoLong] = useState("");
-  const [geoLat, setGeoLat] = useState("");
-*/
-
-  const [latitude, setLatitude] = useState(37.9838);
-  const [longitude, setLongitude] = useState(23.7275);
-  const setLocationLatitude = (newLatitude) => {
-    setLatitude(newLatitude);
-  };
-  const setLocationongitude = (newLongitude) => {
-    setLongitude(newLongitude);
+  const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
+  const setLocationLatlng = (newLatlng) => {
+    setLatlng(newLatlng);
   };
 
-  const [location, setLocation] = useState("Click 'Map' to set vehicles place.");
+  const [location, setLocation] = useState(
+    "Click 'Map' to set vehicles location."
+  );
   const setLocationName = (newName) => {
     setLocation(newName);
   };
@@ -60,10 +49,6 @@ export default function AddVehicles() {
   const handleOnChangeCPH = (e) => {
     setCPH(e.target.value);
   };
-  /*
-  const handleOnChangePLACE = (e) => {
-    setPlace(e.target.value);
-  };*/
 
   const toggleMapPopup = (e) => {
     e.preventDefault();
@@ -100,8 +85,8 @@ export default function AddVehicles() {
       place: location,
       availableForRent: true,
       imageUrl,
-      geoLat: latitude,
-      geoLong: longitude,
+      geoLat: latlng.lat,
+      geoLong: latlng.lng,
     };
     vehicleRef.push(vehicle);
   };
@@ -171,7 +156,6 @@ export default function AddVehicles() {
             <textarea
               type="text"
               className="form-control"
-              //onChange={handleOnChangePLACE}
               value={location}
               placeholder="Click the 'Map' button to add vehicle's place."
               rows="3"
@@ -257,9 +241,7 @@ export default function AddVehicles() {
                           <h3> Insert Place </h3>
                           <div>
                             <Map.LeafletMap
-                            markerIcon={carMarkerIcon}
-                              setLocationongitude={setLocationongitude}
-                              setLocationLatitude={setLocationLatitude}
+                              setLocationLatlng={setLocationLatlng}
                               setLocationName={setLocationName}
                             />
                           </div>
