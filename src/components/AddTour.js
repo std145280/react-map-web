@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 
+import PointsMap from "./control/LeafletPointSelector";
 
 export default function AddTour() {
   const [title, setTitle] = useState("");
@@ -30,7 +31,7 @@ export default function AddTour() {
     setTourCost(e.target.value);
   };
 
-  const [additionalTime, setAdditionalTime]  = useState("");
+  const [additionalTime, setAdditionalTime] = useState("");
   const handleOnChangeAdditionalTime = (e) => {
     setAdditionalTime(e.target.value);
   };
@@ -40,7 +41,9 @@ export default function AddTour() {
     setLatlng(newLatlng);
   };
 
-  const [location, setLocation] = useState("Click 'Map' to set vehicles location.");
+  const [location, setLocation] = useState(
+    "Click 'Map' to set vehicles location."
+  );
   const setLocationName = (newName) => {
     setLocation(newName);
   };
@@ -49,6 +52,12 @@ export default function AddTour() {
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
+  };
+
+  const [isPointSelectorOpen, setIsPointSelectorOpen] = useState(false);
+  const togglePointSelectorPopup = (e) => {
+    e.preventDefault();
+    setIsPointSelectorOpen(!isPointSelectorOpen);
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -131,7 +140,9 @@ export default function AddTour() {
               value={tourCost}
               placeholder="Tour Cost*"
             />
-            <small class="form-text text-primary">*do not include cost of car, tour guide or tickets.</small>
+            <small class="form-text text-primary">
+              *do not include cost of car, tour guide or tickets.
+            </small>
           </div>
           <div className="form-group">
             <input
@@ -141,7 +152,9 @@ export default function AddTour() {
               value={additionalTime}
               placeholder="Additional time*"
             />
-            <small class="form-text text-primary">*do not include time that will be spend for points of interests.</small>
+            <small class="form-text text-primary">
+              *do not include time that will be spend for points of interests.
+            </small>
           </div>
           <div className="form-group">
             <textarea
@@ -151,7 +164,10 @@ export default function AddTour() {
               placeholder="Click the 'Map' button to add the general area of the tour."
               rows="3"
             />
-            <small class="form-text text-info">Tip: Zooming out helps for selecting a general location name of your tour.</small>
+            <small class="form-text text-info">
+              Tip: Zooming out helps for selecting a general location name of
+              your tour.
+            </small>
           </div>
 
           <center>
@@ -162,6 +178,20 @@ export default function AddTour() {
             >
               {" "}
               Map{" "}
+            </button>
+          </center>
+          <div>
+            <br />
+          </div>
+
+          <center>
+            <button
+              className="btn btn-primary btn-lg"
+              type="submit"
+              onClick={togglePointSelectorPopup}
+            >
+              {" "}
+              Add PoIs{" "}
             </button>
           </center>
           <div>
@@ -253,6 +283,34 @@ export default function AddTour() {
                         </>
                       }
                       handleClose={toggleMapPopup}
+                    />
+                  )}
+
+                  {isPointSelectorOpen && (
+                    <PopupMap
+                      content={
+                        <>
+                          <h3> Insert Place </h3>
+                          <div>
+                            <PointsMap.LeafletMap
+//methods
+                            />
+                          </div>
+                          <br />
+                          <center>
+                            {" "}
+                            <button
+                              className="btn btn-success btn-lg"
+                              type="submit"
+                              onClick={togglePointSelectorPopup}
+                            >
+                              {" "}
+                              Done{" "}
+                            </button>
+                          </center>
+                        </>
+                      }
+                      handleClose={togglePointSelectorPopup}
                     />
                   )}
                 </div>

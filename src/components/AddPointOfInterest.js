@@ -70,7 +70,7 @@ export default function AddPOI() {
       name,
       description,
       geoLat: latlng.lat,
-      geoLong: latlng.lng,
+      geoLng: latlng.lng,
       type,
       city,
       imageUrl,
