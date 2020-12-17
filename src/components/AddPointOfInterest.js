@@ -115,24 +115,6 @@ export default function AddPOI() {
             <input
               type="text"
               className="form-control"
-              value={latlng.lat}
-              placeholder="Latitude"
-            />
-          </div>
-
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              value={latlng.lng}
-              placeholder="Longitude"
-            />
-          </div>
-
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
               onChange={handleOnChangeTYPE}
               value={type}
               placeholder="Type"
@@ -146,6 +128,23 @@ export default function AddPOI() {
               onChange={handleOnChangeCITY}
               value={city}
               placeholder="City"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              value={latlng.lat}
+              placeholder="Latitude*"
+            />
+          </div>
+
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              value={latlng.lng}
+              placeholder="Longitude*"
             />
           </div>
 
@@ -170,6 +169,11 @@ export default function AddPOI() {
             </button>
           </center>
 
+          <small class="form-text text-primary">
+            *Langitude and longitude will be inserted automaticaly when you
+            choose the location from the map.
+          </small>
+          <br />
           <div>
             <table>
               <tr>
