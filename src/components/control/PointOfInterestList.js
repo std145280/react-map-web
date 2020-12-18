@@ -19,7 +19,7 @@ export default function PointOfInterestList({ poi }) {
 
   return (
     <div>
-      <Card style={{ flex: 1 }}>
+      <Card class="card" style={{ flex: 1 }}>
         <Card.Body>
           <Table striped bordered hover>
             <thead></thead>
@@ -39,7 +39,7 @@ export default function PointOfInterestList({ poi }) {
                                       src={url}
                                       alt=""
                                       width={320}
-                                      height={240}
+                                      height={225}
                                     />
                                   </div>
                                 </Carousel.Item>
@@ -64,15 +64,25 @@ export default function PointOfInterestList({ poi }) {
                 </td>
               </tr>
               <tr>
-                <td><b>Description:</b> {poi.description}</td>
-                <td><b>Latitude:</b> {poi.latitude}</td>
+                <td>
+                  <b>Description:</b> {poi.description}
+                </td>
+                <td>
+                  <b>Latitude:</b> {poi.latitude}
+                </td>
               </tr>
               <tr>
-                <td><b>Longitude:</b> {poi.longitude}</td>
-                <td><b>Type:</b> {poi.type}</td>
+                <td>
+                  <b>Longitude:</b> {poi.longitude}
+                </td>
+                <td>
+                  <b>Type:</b> {poi.type}
+                </td>
               </tr>
               <tr>
-                <td><b>City:</b> {poi.city}</td>
+                <td>
+                  <b>City:</b> {poi.city}
+                </td>
                 <td></td>
               </tr>
               <tr>
@@ -85,7 +95,7 @@ export default function PointOfInterestList({ poi }) {
         </Card.Body>
         <Card.Footer>
           <center>
-            <button onClick={togglePopupMsg}>
+            <button className="btn btn-danger" onClick={togglePopupMsg}>
               <b>Delete</b>
             </button>
           </center>
