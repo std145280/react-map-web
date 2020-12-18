@@ -32,7 +32,7 @@ export default function TourGuideList({ tourGuide }) {
     <div>
       <h4 className={tourGuide.complete ? "availableForHire" : ""}></h4>
 
-      <Card className="card" style={{ flex: 1 }}>
+      <Card className="cardItem" style={{ flex: 1 }}>
         <Card.Body>
           <Table striped bordered hover>
             <thead></thead>

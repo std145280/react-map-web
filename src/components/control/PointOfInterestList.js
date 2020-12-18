@@ -19,7 +19,7 @@ export default function PointOfInterestList({ poi }) {
 
   return (
     <div>
-      <Card class="card" style={{ flex: 1 }}>
+      <Card className="cardItem" style={{ flex: 1 }}>
         <Card.Body>
           <Table striped bordered hover>
             <thead></thead>

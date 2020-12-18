@@ -53,12 +53,17 @@
   max-width: 100%;
 }
 
-.card {
+.cardItem {
   background-color: rgb(238, 238, 238);
   position: relative;
   width: 350px;
   min-height: 750px;
- 
+}
+
+.cardLogSign {
+  background-color: rgb(238, 238, 238);
+  position: relative;
+  width: 400px; 
 }
 
 .formStyle {
