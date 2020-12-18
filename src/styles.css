@@ -43,6 +43,33 @@
   max-height: 400px;
 }
 
+.appStyles {
+  position: relative;
+}
+
+.cardLists {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+.card {
+  background-color: rgb(238, 238, 238);
+  position: relative;
+  width: 350px;
+  min-height: 750px;
+ 
+}
+
+.formStyle {
+  position: relative;
+  max-width: 400px;
+ 
+}
+
 body {
   padding-top: 80px;
+  background: rgba(179, 179, 179, 0.582);
 }
+
+
