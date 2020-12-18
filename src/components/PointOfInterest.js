@@ -17,28 +17,22 @@ export default function PointOfInterest() {
       }
       setPointOfInterestList(pointOfInterestList);
     });
-  }, []); 
+  }, []);
 
-    return (
-        <>
-          <NavigationBar />
-          <div>
-        <h2> All Points of Interest</h2>
-
+  return (
+    <>
+      <NavigationBar />
+      <div>
+        <br />
+        <b>Points Of Interest {`>`} All Points Of Interest </b>
         <CardDeck>
-          <center>
-            {pointOfInterestList
-              ? pointOfInterestList.map((poi, index) => (
-                  <PointOfInterestList poi={poi} key={index} />
-                ))
-              : ""}
-          </center>
+          {pointOfInterestList
+            ? pointOfInterestList.map((poi, index) => (
+                <PointOfInterestList poi={poi} key={index} />
+              ))
+            : ""}
         </CardDeck>
       </div>
     </>
   );
 }
-
-
-
-
