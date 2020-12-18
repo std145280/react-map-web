@@ -60,6 +60,14 @@
   min-height: 750px;
 }
 
+.card-PoIforTour {
+  background-color: rgb(238, 238, 238);
+  position: relative;
+  max-width: 350px;
+  min-width: 350px;
+  min-height: 200px;
+}
+
 .cardLogSign {
   background-color: rgb(238, 238, 238);
   position: relative;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../../firebase";
-import { CardDeck, Card } from "react-bootstrap";
+import { CardDeck, Card, Carousel } from "react-bootstrap";
 
 export default function Lista() {
   const [pointOfInterestList, setPointOfInterestList] = useState();
@@ -49,12 +49,20 @@ export default function Lista() {
       if (cart[i].id === el.id) showAddButton = false;
     }
     if (showAddButton) {
-      return <input type="submit" value="add" onClick={() => addToCart(el)} />;
+      return (
+        <input
+          className="btn btn-success"
+          type="submit"
+          value="Add to tour"
+          onClick={() => addToCart(el)}
+        />
+      );
     } else {
       return (
         <input
+          className="btn btn-danger"
           type="submit"
-          value="remove"
+          value="remove from tour"
           onClick={() => removeFromCart(el)}
         />
       );
@@ -65,32 +73,50 @@ export default function Lista() {
     <div>
       STORE
       <CardDeck>
-        <center>
-          {pointOfInterestList
-            ? pointOfInterestList.map((el) => (
-                <Card style={{ flex: 1 }}>
-                  <Card.Body>
-                    <div key={el.id}>
-                      {`Name: ${el.name}`}
-                      <br />
-                      {`City: ${el.city}`} <br />
-                      {` type: ${el.type}`} <br />
-                      {`  decription: ${el.decription}`} <br />
-                      {`  location: ${el.location}`} <br />
-                      <br />
-                      {diplayAddOrDeleteButton(el)}
-                    </div>
-                  </Card.Body>
-                </Card>
-              ))
-            : ""}
-        </center>
+        {pointOfInterestList
+          ? pointOfInterestList.map((el) => (
+              <Card className="card-PoIforTour" style={{ flex: 1 }}>
+                <Card.Body>
+                  <div key={el.id}>
+                    <Card.Title>
+                      <center><h4>{`${el.name}`}</h4></center>
+                    </Card.Title>
+                    <Carousel>
+                      {el.imageUrl
+                        ? el.imageUrl.map(({ id, url }) => {
+                            return (
+                              <Carousel.Item interval={500}>
+                                <div key={id}>
+                                  <img
+                                    className="d-block w-100"
+                                    src={url}
+                                    alt=""
+                                    width={320}
+                                    height={225}
+                                  />
+                                </div>
+                              </Carousel.Item>
+                            );
+                          })
+                        : ""}
+                    </Carousel>
+                    <br />
+                    {`City: ${el.city}`} <br />
+                    {` type: ${el.type}`} <br />
+                    {`  decription: ${el.decription}`} <br />
+                    {`  location: ${el.location}`} <br />
+                  </div>
+                </Card.Body>
+                <Card.Footer>
+                  <center>{diplayAddOrDeleteButton(el)}</center>
+                </Card.Footer>
+              </Card>
+            ))
+          : ""}
       </CardDeck>
       <div>CART</div>
       <div>{cartItems}</div>
       <div>Total: ${cartTotal}</div>
-      <br />
-      <div>{alert}</div>
     </div>
   );
 }
