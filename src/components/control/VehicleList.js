@@ -27,7 +27,7 @@ export default function VehicleList({ vehicle }) {
     <div>
       <h4 className={vehicle.complete ? "availableForRent" : ""}></h4>
 
-      <Card style={{ flex: 1 }}>
+      <Card className="card" style={{ flex: 1 }}>
         <Card.Body>
           <Table striped bordered hover>
             <thead></thead>
@@ -47,7 +47,7 @@ export default function VehicleList({ vehicle }) {
                                       src={url}
                                       alt=""
                                       width={320}
-                                      height={240}
+                                      height={225}
                                     />
                                   </div>
                                 </Carousel.Item>
@@ -61,46 +61,51 @@ export default function VehicleList({ vehicle }) {
               </tr>
               <tr>
                 <td colSpan="2">
-                  <b>
-                    <Card.Title>
-                      <center>
-                        {" "}
-                        <h2>{vehicle.title}</h2>
-                      </center>
-                    </Card.Title>
-                  </b>
-                </td>
-              </tr>
-              <tr>
-                <td><b>Type:</b> {vehicle.type}</td>
-                <td><b>Passengers #:</b> {vehicle.passengers}</td>
-              </tr>
-              <tr>
-                <td><b>Fuel:</b> {vehicle.fuel}</td>
-                <td><b>Year:</b> {vehicle.year}</td>
-              </tr>
-              <tr>
-                <td><b>Cost/h:</b> {vehicle.cph}</td>
-                <td><b>WiFi:</b> {vehicle.wiFi}</td>
-              </tr>
-              <tr>
-                <td colSpan="2">
-                <b>Location:</b> {vehicle.location}
-                </td>
-              </tr>
-              <tr>
-                <td colSpan="2">
-                  <h3>
+                  <Card.Title>
                     <center>
-                      The vehicle is{" "}
-                      <b>
-                        {vehicle.availableForRent
-                          ? "Available"
-                          : "Not Available"}
-                      </b>{" "}
-                      for rent.
+                      <h4>{vehicle.title}</h4>
                     </center>
-                  </h3>
+                  </Card.Title>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Type:</b> {vehicle.type}
+                </td>
+                <td>
+                  <b>Passengers #:</b> {vehicle.passengers}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Fuel:</b> {vehicle.fuel}
+                </td>
+                <td>
+                  <b>Year:</b> {vehicle.year}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Cost/h:</b> {vehicle.cph}
+                </td>
+                <td>
+                  <b>WiFi:</b> {vehicle.wiFi}
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <b>Location:</b> {vehicle.location}
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <center>
+                    {vehicle.availableForRent ? (
+                      <b style={{ color: "green" }}>Available</b>
+                    ) : (
+                      <b style={{ color: "red" }}>Not available</b>
+                    )}{" "}
+                  </center>
                 </td>
               </tr>
             </tbody>
@@ -108,10 +113,10 @@ export default function VehicleList({ vehicle }) {
         </Card.Body>
         <Card.Footer>
           <center>
-            <button onClick={togglePopupMsg}>
+            <button className="btn btn-danger" onClick={togglePopupMsg}>
               <b>Delete</b>
             </button>
-            <button onClick={completeVehicle}>
+            <button className="btn btn-dark" onClick={completeVehicle}>
               <b>toggle availability</b>
             </button>
           </center>

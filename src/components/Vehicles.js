@@ -23,16 +23,15 @@ export default function Vehicles() {
     <>
       <NavigationBar />
       <div>
-        <h2> Available Vehicles </h2>
+        <br />
+        <b>Vehicles {`>`} All Vehicles </b>
 
         <CardDeck>
-          <center>
-            {vehicleList
-              ? vehicleList.map((vehicle, index) => (
-                  <VehicleList vehicle={vehicle} key={index} />
-                ))
-              : ""}
-          </center>
+          {vehicleList
+            ? vehicleList.map((vehicle, index) => (
+                <VehicleList vehicle={vehicle} key={index} />
+              ))
+            : ""}
         </CardDeck>
       </div>
     </>
