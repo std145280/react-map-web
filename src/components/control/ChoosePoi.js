@@ -43,6 +43,24 @@ export default function Lista() {
     </div>
   ));
 
+  const diplayAddOrDeleteButton = (el) => {
+    let showAddButton = true;
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === el.id) showAddButton = false;
+    }
+    if (showAddButton) {
+      return <input type="submit" value="add" onClick={() => addToCart(el)} />;
+    } else {
+      return (
+        <input
+          type="submit"
+          value="remove"
+          onClick={() => removeFromCart(el)}
+        />
+      );
+    }
+  };
+
   return (
     <div>
       STORE
@@ -60,11 +78,7 @@ export default function Lista() {
                       {`  decription: ${el.decription}`} <br />
                       {`  location: ${el.location}`} <br />
                       <br />
-                      <input
-                        type="submit"
-                        value="add"
-                        onClick={() => addToCart(el)}
-                      />
+                      {diplayAddOrDeleteButton(el)}
                     </div>
                   </Card.Body>
                 </Card>
