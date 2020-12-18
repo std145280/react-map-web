@@ -32,7 +32,7 @@ export default function TourGuideList({ tourGuide }) {
     <div>
       <h4 className={tourGuide.complete ? "availableForHire" : ""}></h4>
 
-      <Card style={{ flex: 1 }}>
+      <Card className="card" style={{ flex: 1 }}>
         <Card.Body>
           <Table striped bordered hover>
             <thead></thead>
@@ -52,7 +52,7 @@ export default function TourGuideList({ tourGuide }) {
                                       src={url}
                                       alt=""
                                       width={320}
-                                      height={240}
+                                      height={225}
                                     />
                                   </div>
                                 </Carousel.Item>
@@ -69,8 +69,7 @@ export default function TourGuideList({ tourGuide }) {
                   <b>
                     <Card.Title>
                       <center>
-                        {" "}
-                        <h2>{tourGuide.name}</h2>
+                        <h4>{tourGuide.name}</h4>
                       </center>
                     </Card.Title>
                   </b>
@@ -85,12 +84,10 @@ export default function TourGuideList({ tourGuide }) {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td colSpan="2">
                   <b>License:</b> {tourGuide.carDrivingLicences}
                 </td>
-                <td>
-                  <b>Address:</b> {tourGuide.address}
-                </td>
+
               </tr>
               <tr>
                 <td>
@@ -107,17 +104,15 @@ export default function TourGuideList({ tourGuide }) {
               </tr>
               <tr>
                 <td colSpan="2">
-                  <h3>
-                    <center>
-                      The tourGuide is{" "}
-                      <b>
-                        {tourGuide.availableForHire
-                          ? "Available"
-                          : "Not Available"}
-                      </b>{" "}
-                      for Hire.
-                    </center>
-                  </h3>
+              
+                  <center>
+                    {tourGuide.availableForHire ? (
+                      <b style={{ color: "green" }}>Available</b>
+                    ) : (
+                      <b style={{ color: "red" }}>Not available</b>
+                    )}{" "}
+                  </center>
+              
                 </td>
               </tr>
 
@@ -126,10 +121,10 @@ export default function TourGuideList({ tourGuide }) {
         </Card.Body>
         <Card.Footer>
           <center>
-            <button onClick={togglePopupMsg}>
+            <button className="btn btn-danger" onClick={togglePopupMsg}>
               <b>Delete</b>
             </button>
-            <button onClick={completetourGuide}>
+            <button className="btn btn-dark" onClick={completetourGuide}>
               <b>toggle availability</b>
             </button>
           </center>

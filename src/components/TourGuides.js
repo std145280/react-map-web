@@ -23,16 +23,15 @@ export default function TourGuides() {
     <>
       <NavigationBar />
       <div>
-        <h2> All Tour Guides </h2>
+        <br />
+        <b>Tour Guides {`>`} All Tour Guides </b>
 
         <CardDeck>
-          <center>
-            {tourGuideList
-              ? tourGuideList.map((tourGuide, index) => (
-                  <TourGuideList tourGuide={tourGuide} key={index} />
-                ))
-              : ""}
-          </center>
+          {tourGuideList
+            ? tourGuideList.map((tourGuide, index) => (
+                <TourGuideList tourGuide={tourGuide} key={index} />
+              ))
+            : ""}
         </CardDeck>
       </div>
     </>
