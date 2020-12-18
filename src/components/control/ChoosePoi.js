@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../../firebase";
+import { CardDeck, Card } from "react-bootstrap";
 
 export default function Lista() {
   const [pointOfInterestList, setPointOfInterestList] = useState();
@@ -21,12 +22,12 @@ export default function Lista() {
   }, []);
 
   const addToCart = (el) => {
-      let addIt = true
-      for (let i=0; i<cart.length; i++){
-          if(cart[i].id === el.id) addIt = false
-      }
-      if (addIt) setCart([...cart, el]);
-      else setAlert(`${el.name} is already in cart`); //TODO Popup
+    let addIt = true;
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === el.id) addIt = false;
+    }
+    if (addIt) setCart([...cart, el]);
+    else setAlert(`${el.name} is already in cart`); //TODO Popup
   };
 
   const removeFromCart = (el) => {
@@ -34,7 +35,6 @@ export default function Lista() {
     hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
     setCart(hardCopy);
   };
-
 
   const cartItems = cart.map((poi) => (
     <div key={poi.id}>
@@ -46,24 +46,36 @@ export default function Lista() {
   return (
     <div>
       STORE
-      <center>
-        {pointOfInterestList
-          ? pointOfInterestList.map((el) => (
-              <div key={el.id}>
-                {`${el.name}: $${el.geoLat}`}
-                <input
-                  type="submit"
-                  value="add"
-                  onClick={() => addToCart(el)}
-                />
-              </div>
-            ))
-          : ""}
-      </center>
+      <CardDeck>
+        <center>
+          {pointOfInterestList
+            ? pointOfInterestList.map((el) => (
+                <Card style={{ flex: 1 }}>
+                  <Card.Body>
+                    <div key={el.id}>
+                      {`Name: ${el.name}`}
+                      <br />
+                      {`City: ${el.city}`} <br />
+                      {` type: ${el.type}`} <br />
+                      {`  decription: ${el.decription}`} <br />
+                      {`  location: ${el.location}`} <br />
+                      <br />
+                      <input
+                        type="submit"
+                        value="add"
+                        onClick={() => addToCart(el)}
+                      />
+                    </div>
+                  </Card.Body>
+                </Card>
+              ))
+            : ""}
+        </center>
+      </CardDeck>
       <div>CART</div>
       <div>{cartItems}</div>
       <div>Total: ${cartTotal}</div>
-      <br/>
+      <br />
       <div>{alert}</div>
     </div>
   );
