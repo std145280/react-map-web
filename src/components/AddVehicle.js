@@ -101,7 +101,7 @@ export default function AddVehicles() {
   return (
     <>
       <NavigationBar />
-      <div>
+      <div className="formStyle">
         <form>
           <h2 className="text-center">Import New Vehicle</h2>
 
