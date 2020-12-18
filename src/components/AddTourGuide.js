@@ -44,12 +44,6 @@ export default function AddTourGuide() {
     setCarDrivingLicences(e.target.value);
   };
 
-  /*
-  const [address, setAddress] = useState('');
-  const handleOnChangeADDRESS = (e) => {
-    setAddress(e.target.value);
-  };*/
-
   const [telephone, setTelephone] = useState("");
   const handleOnChangeTELEPHONE = (e) => {
     setTelephone(e.target.value);
@@ -110,7 +104,7 @@ export default function AddTourGuide() {
   return (
     <>
       <NavigationBar />
-      <div>
+      <div className="formStyle">
         <link
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           rel="stylesheet"
@@ -161,7 +155,7 @@ export default function AddTourGuide() {
               className="form-control"
               onChange={handleOnChangeTELEPHONE}
               value={telephone}
-              placeholder="Tel:"
+              placeholder="Phone"
             />
           </div>
           <div className="form-group">
