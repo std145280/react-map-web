@@ -34,14 +34,9 @@ export default function AddTourGuide() {
     setAge(e.target.value);
   };
 
-  const [experience, setExperience] = useState("");
-  const handleOnChangeEXPERIENCE = (e) => {
-    setExperience(e.target.value);
-  };
-
-  const [carDrivingLicences, setCarDrivingLicences] = useState("");
-  const handleOnChangeDRIVINGLICENCE = (e) => {
-    setCarDrivingLicences(e.target.value);
+  const [languages, setLanguages] = useState("");
+  const handleOnChangeLANGUAGES = (e) => {
+    setLanguages(e.target.value);
   };
 
   const [telephone, setTelephone] = useState("");
@@ -86,8 +81,7 @@ export default function AddTourGuide() {
     var tourGuide = {
       name,
       age,
-      experience,
-      carDrivingLicences,
+      languages,
       address: location,
       telephone,
       email,
@@ -135,19 +129,13 @@ export default function AddTourGuide() {
             <input
               type="text"
               className="form-control"
-              onChange={handleOnChangeEXPERIENCE}
-              value={experience}
-              placeholder="Experience"
+              onChange={handleOnChangeLANGUAGES}
+              value={languages}
+              placeholder="Languages"
             />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              onChange={handleOnChangeDRIVINGLICENCE}
-              value={carDrivingLicences}
-              placeholder="Driving Licences"
-            />
+                      <small class="form-text text-info">
+              *Tip: You can type short versions for countries eg GR, EN, FR
+          </small>
           </div>
           <div className="form-group">
             <input
