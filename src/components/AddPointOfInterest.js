@@ -41,6 +41,16 @@ export default function AddPOI() {
     setCity(e.target.value);
   };
 
+  const [additionalTime, setAdditionalTime] = useState("");
+  const handleOnChangeAdditionalTime = (e) => {
+    setAdditionalTime(e.target.value);
+  };
+
+  const [ticketCost, setTicketCost] = useState("");
+  const handleOnChangeTicketCost = (e) => {
+    setTicketCost(e.target.value);
+  };
+
   const [isMapOpen, setIsMapOpen] = useState(false);
   const toggleMapPopup = (e) => {
     e.preventDefault();
@@ -77,6 +87,8 @@ export default function AddPOI() {
       geoLng: latlng.lng,
       type,
       city,
+      additionalTime,
+      ticketCost,
       imageUrl,
       location: location,
     };
@@ -87,7 +99,7 @@ export default function AddPOI() {
   return (
     <>
       <NavigationBar />
-      <div>
+      <div className="formStyle">
         <form>
           <h2 className="text-center">Import New POI</h2>
 
@@ -130,12 +142,39 @@ export default function AddPOI() {
               placeholder="City"
             />
           </div>
+
+          <div className="form-group">
+            <input
+              type="number"
+              className="form-control"
+              onChange={handleOnChangeTicketCost}
+              value={ticketCost}
+              placeholder="Ticket Cost, write 0 if there is no cost."
+            />
+          </div>
+
+          <div className="form-group">
+            <input
+              type="number"
+              className="form-control"
+              onChange={handleOnChangeAdditionalTime}
+              value={additionalTime}
+              placeholder="Additional time needed*"
+            />{" "}
+            <small class="form-text text-primary">
+              *insert time in minutes e.x. write 20 for 20 minutes additional
+              time.
+            </small>
+          </div>
+
+          <br />
+
           <div className="form-group">
             <input
               type="text"
               className="form-control"
               value={latlng.lat}
-              placeholder="Latitude*"
+              placeholder="Latitude**"
             />
           </div>
 
@@ -144,7 +183,7 @@ export default function AddPOI() {
               type="text"
               className="form-control"
               value={latlng.lng}
-              placeholder="Longitude*"
+              placeholder="Longitude**"
             />
           </div>
 
@@ -170,7 +209,7 @@ export default function AddPOI() {
           </center>
 
           <small class="form-text text-primary">
-            *Langitude and longitude will be inserted automaticaly when you
+            **Langitude and longitude will be inserted automaticaly when you
             choose the location from the map.
           </small>
           <br />
