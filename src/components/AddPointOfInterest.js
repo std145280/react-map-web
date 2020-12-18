@@ -41,9 +41,9 @@ export default function AddPOI() {
     setCity(e.target.value);
   };
 
-  const [additionalTime, setAdditionalTime] = useState("");
-  const handleOnChangeAdditionalTime = (e) => {
-    setAdditionalTime(e.target.value);
+  const [time, setTime] = useState("");
+  const handleOnChangeTime = (e) => {
+    setTime(e.target.value);
   };
 
   const [ticketCost, setTicketCost] = useState("");
@@ -87,7 +87,7 @@ export default function AddPOI() {
       geoLng: latlng.lng,
       type,
       city,
-      additionalTime,
+      time,
       ticketCost,
       imageUrl,
       location: location,
@@ -157,12 +157,12 @@ export default function AddPOI() {
             <input
               type="number"
               className="form-control"
-              onChange={handleOnChangeAdditionalTime}
-              value={additionalTime}
-              placeholder="Additional time needed*"
+              onChange={handleOnChangeTime}
+              value={time}
+              placeholder="Time needed*"
             />{" "}
             <small class="form-text text-primary">
-              *insert time in minutes e.x. write 20 for 20 minutes additional
+              *insert time in minutes e.x. write 20 for 20 minutes
               time.
             </small>
           </div>
