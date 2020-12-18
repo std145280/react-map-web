@@ -1,74 +1,70 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import firebase from "../../firebase";
 
-const items = [
-  {
-    id: 1,
-    name: "Akropolis",
-    price: 20,
-  },
-  {
-    id: 2,
-    name: "Thisio",
-    price: 15,
-  },
-  {
-    id: 3,
-    name: "Sounio",
-    price: 10,
-  },
-];
+export default function Lista() {
+  const [pointOfInterestList, setPointOfInterestList] = useState();
+  const [cart, setCart] = useState([]);
+  const [alert, setAlert] = useState("");
+  const [cartTotal, setCartTotal] = useState(0);
 
-const ChoosePois = () => {
-  const [cart, setCart] = React.useState([]);
-  const cartTotal = cart.reduce((total, { price = 0 }) => total + price, 0);
-
-  const addToCart = (item) => setCart((currentCart) => [...currentCart, item]);
-
-  const removeFromCart = (item) => {
-    setCart((currentCart) => {
-      const indexOfItemToRemove = currentCart.findIndex((cartItem) => cartItem.id === item.id);
-
-      if (indexOfItemToRemove === -1) {
-        return currentCart;
+  useEffect(() => {
+    const pointOfInterestRef = firebase.database().ref("pois");
+    pointOfInterestRef.on("value", (snapshot) => {
+      const pointOfInterest = snapshot.val();
+      const pointOfInterestList = [];
+      for (let id in pointOfInterest) {
+        pointOfInterestList.push({ id, ...pointOfInterest[id] });
       }
-
-      return [
-        ...currentCart.slice(0, indexOfItemToRemove),
-        ...currentCart.slice(indexOfItemToRemove + 1),
-      ];
+      setPointOfInterestList(pointOfInterestList);
+      console.log(pointOfInterestList);
     });
+  }, []);
+
+  const addToCart = (el) => {
+      let addIt = true
+      for (let i=0; i<cart.length; i++){
+          if(cart[i].id === el.id) addIt = false
+      }
+      if (addIt) setCart([...cart, el]);
+      else setAlert(`${el.name} is already in cart`); //TODO Popup
   };
 
-  const amountOfItems = (id) => cart.filter((item) => item.id === id).length;
+  const removeFromCart = (el) => {
+    let hardCopy = [...cart];
+    hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
+    setCart(hardCopy);
+  };
 
-  const listItemsToBuy = () => items.map((item) => (
-    <div key={item.id}>
-      {`${item.name}: $${item.price}`}
-      <button type="submit" onClick={() => addToCart(item)}>Add</button>
-    </div>
-  ));
 
-  const listItemsInCart = () => items.map((item) => (
-    <div key={item.id}>
-      ({amountOfItems(item.id)} x ${item.price}) {`${item.name}`}
-      <button type="submit" onClick={() => removeFromCart(item)}>Remove</button>
+  const cartItems = cart.map((poi) => (
+    <div key={poi.id}>
+      {`${poi.name}: $${poi.geoLat}`}
+      <input type="submit" value="remove" onClick={() => removeFromCart(poi)} />
     </div>
   ));
 
   return (
     <div>
       STORE
-      <div>{listItemsToBuy()}</div>
+      <center>
+        {pointOfInterestList
+          ? pointOfInterestList.map((el) => (
+              <div key={el.id}>
+                {`${el.name}: $${el.geoLat}`}
+                <input
+                  type="submit"
+                  value="add"
+                  onClick={() => addToCart(el)}
+                />
+              </div>
+            ))
+          : ""}
+      </center>
       <div>CART</div>
-      <div>{listItemsInCart()}</div>
+      <div>{cartItems}</div>
       <div>Total: ${cartTotal}</div>
-      <div>
-        <button onClick={() => setCart([])}>Clear</button>
-      </div>
+      <br/>
+      <div>{alert}</div>
     </div>
   );
-};
-
-export default ChoosePois;
-
-
+}
