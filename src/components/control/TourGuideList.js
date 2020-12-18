@@ -80,12 +80,12 @@ export default function TourGuideList({ tourGuide }) {
                   <b>Age:</b> {tourGuide.age}
                 </td>
                 <td>
-                  <b>Experience:</b> {tourGuide.experience}
+                  <b></b>
                 </td>
               </tr>
               <tr>
                 <td colSpan="2">
-                  <b>License:</b> {tourGuide.carDrivingLicences}
+                  <b>Languages:</b> {tourGuide.languages}
                 </td>
 
               </tr>
