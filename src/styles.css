@@ -23,6 +23,20 @@
   overflow: auto;
 }
 
+.popupForCards-box{
+  position: relative;
+  min-width: 400px;
+  margin: 0 auto;
+  height: auto;
+  max-height: 90vh;
+  margin-top: calc(100vh - 95vh - 5px);
+  background: rgb(231, 231, 231);
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #999;
+  overflow: auto;
+}
+
 .mapBox {
   position: relative;
   width: 400px;
