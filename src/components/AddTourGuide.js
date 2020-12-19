@@ -133,9 +133,9 @@ export default function AddTourGuide() {
               value={languages}
               placeholder="Languages"
             />
-                      <small class="form-text text-info">
+            <small class="form-text text-info">
               *Tip: You can type short versions for countries eg GR, EN, FR
-          </small>
+            </small>
           </div>
           <div className="form-group">
             <input
@@ -171,8 +171,7 @@ export default function AddTourGuide() {
               type="submit"
               onClick={toggleMapPopup}
             >
-              {" "}
-              Map{" "}
+              <i className="fas fa-map-marked-alt">{`  Map`}</i>
             </button>
             <small class="form-text text-primary">
               *Click the 'Map' button to find and add tour guide's address.

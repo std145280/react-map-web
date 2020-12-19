@@ -114,7 +114,7 @@ export default function VehicleList({ vehicle }) {
         <Card.Footer>
           <center>
             <button className="btn btn-danger" onClick={togglePopupMsg}>
-              <b>Delete</b>
+              <i className="fa fa-trash-alt"></i>
             </button>
             <button className="btn btn-dark" onClick={completeVehicle}>
               <b>toggle availability</b>
