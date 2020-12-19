@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 import PopupCards from "./control/PopupForCards";
-import PointsMap from "./control/LeafletPointSelector";
 
 export default function AddTour() {
   useEffect(() => {
@@ -91,37 +90,31 @@ export default function AddTour() {
     setIsPoiPopupOpen(!isPoiPopupOpen);
   };
 
-  const addToCart = (el) => {
+  const addToPoi = (el) => {
     let addIt = true;
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id === el.id) addIt = false;
+    for (let i = 0; i < poi.length; i++) {
+      if (poi[i].id === el.id) addIt = false;
     }
-    if (addIt) setCart([...cart, el]);
-    else setAlert(`${el.name} is already in cart`); //TODO Popup
+    if (addIt) setPoi([...poi, el]);
   };
 
   const [pointOfInterestList, setPointOfInterestList] = useState();
+  const [poi, setPoi] = useState([]);
 
-  const [cart, setCart] = useState([]);
-
-  const [alert, setAlert] = useState("");
-
-  const [cartTotal, setCartTotal] = useState(0);
-  const removeFromCart = (el) => {
-    let hardCopy = [...cart];
-    hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
-    setCart(hardCopy);
+  const removeFromPoi = (el) => {
+    let hardCopy = [...poi];
+    hardCopy = hardCopy.filter((poiItem) => poiItem.id !== el.id);
+    setPoi(hardCopy);
   };
 
-  const cartItems = cart.map((poi) => (
+  const poiItems = poi.map((poi) => (
     <div key={poi.id}>
       {`${poi.name}: $${poi.geoLat}`}
-      <input type="submit" value="remove" onClick={() => removeFromCart(poi)} />
+      <input type="submit" value="remove" onClick={() => removeFromPoi(poi)} />
     </div>
   ));
 
   const [imageUrl, setImageUrl] = useState([]);
-  const [pointsOfInterest, setPointsOfInterest] = useState([]);
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
@@ -146,14 +139,15 @@ export default function AddTour() {
       imageUrl,
       geoLat: latlng.lat,
       geoLong: latlng.lng,
+      poi,
     };
     tourRef.push(tour);
   };
 
   const diplayAddOrDeleteButton = (el) => {
     let showAddButton = true;
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id === el.id) showAddButton = false;
+    for (let i = 0; i < poi.length; i++) {
+      if (poi[i].id === el.id) showAddButton = false;
     }
     if (showAddButton) {
       return (
@@ -161,7 +155,7 @@ export default function AddTour() {
           className="btn btn-primary"
           type="submit"
           value="Add to tour"
-          onClick={() => addToCart(el)}
+          onClick={() => addToPoi(el)}
         />
       );
     } else {
@@ -170,7 +164,7 @@ export default function AddTour() {
           className="btn btn-warning"
           type="submit"
           value="remove from tour"
-          onClick={() => removeFromCart(el)}
+          onClick={() => removeFromPoi(el)}
         />
       );
     }
@@ -411,10 +405,10 @@ export default function AddTour() {
                       content={
                         <>
                           <b>Question</b>
-                          <p>Are you sure you want to import the vehicle?</p>
+                          <p>Are you sure you want to create this tour?</p>
                           <center>
                             <Link
-                              to="/Vehicles"
+                              to="/Tours"
                               className="btn btn-success btn-lg"
                               onClick={createTour}
                             >
@@ -442,7 +436,6 @@ export default function AddTour() {
                           <h3> Insert Place </h3>
                           <div>
                             <Map.LeafletMap
-                              //markerIcon={carMarkerIcon}
                               setLocationLatlng={setLocationLatlng}
                               setLocationName={setLocationName}
                             />
@@ -505,9 +498,6 @@ export default function AddTour() {
             </table>
           </div>
         </form>
-        <div>CART</div>
-        <div>{cartItems}</div>
-        <div>Total: ${cartTotal}</div>
       </div>
     </>
   );
