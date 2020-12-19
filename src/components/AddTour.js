@@ -1,16 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { CardDeck, Card, Carousel } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import NavigationBar from "./NavigationBar";
-import db from "../firebase";
+import firebase from "../firebase";
 import PopupMsg from "./control/PopupMsg";
 import PopupMap from "./control/PopupMap";
 import { Link } from "react-router-dom";
 import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
-
 import PointsMap from "./control/LeafletPointSelector";
 
 export default function AddTour() {
+  useEffect(() => {
+    const pointOfInterestRef = firebase.database().ref("pois");
+    pointOfInterestRef.on("value", (snapshot) => {
+      const pointOfInterest = snapshot.val();
+      const pointOfInterestList = [];
+      for (let id in pointOfInterest) {
+        pointOfInterestList.push({ id, ...pointOfInterest[id] });
+      }
+      setPointOfInterestList(pointOfInterestList);
+      console.log(pointOfInterestList);
+    });
+  }, []);
+
   const [title, setTitle] = useState("");
   const handleOnChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -66,13 +79,51 @@ export default function AddTour() {
     setIsOpen(!isOpen);
   };
 
+  const [isPoiPopupOpen, setIsPoiPopupOpen] = useState(false);
+  const togglePoiPopup = (e) => {
+    e.preventDefault();
+    setIsOpen(!isPoiPopupOpen);
+  };
+
+  const addToCart = (el) => {
+    let addIt = true;
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === el.id) addIt = false;
+    }
+    if (addIt) setCart([...cart, el]);
+    else setAlert(`${el.name} is already in cart`); //TODO Popup
+  };
+
+
+  const [pointOfInterestList, setPointOfInterestList] = useState();
+
+  const [cart, setCart] = useState([]);
+
+  const [alert, setAlert] = useState("");
+
+  const [cartTotal, setCartTotal] = useState(0);
+  const removeFromCart = (el) => {
+    let hardCopy = [...cart];
+    hardCopy = hardCopy.filter((cartItem) => cartItem.id !== el.id);
+    setCart(hardCopy);
+  };
+
+  const cartItems = cart.map((poi) => (
+    <div key={poi.id}>
+      {`${poi.name}: $${poi.geoLat}`}
+      <input type="submit" value="remove" onClick={() => removeFromCart(poi)} />
+    </div>
+  ));
+
+
+
   const [imageUrl, setImageUrl] = useState([]);
   const [pointsOfInterest, setPointsOfInterest] = useState([]);
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
-    const storageRef = db.storage().ref("images").child(id);
-    const imageRef = db.database().ref("images").child("daily").child(id);
+    const storageRef = firebase.storage().ref("images").child(id);
+    const imageRef = firebase.database().ref("images").child("daily").child(id);
     await storageRef.put(file);
     storageRef.getDownloadURL().then((url) => {
       imageRef.set(url);
@@ -82,7 +133,7 @@ export default function AddTour() {
   };
 
   const createTour = () => {
-    var tourRef = db.database().ref("tour");
+    var tourRef = firebase.database().ref("tour");
     var tour = {
       title,
       descForCustomer,
@@ -94,6 +145,32 @@ export default function AddTour() {
       geoLong: latlng.lng,
     };
     tourRef.push(tour);
+  };
+
+  const diplayAddOrDeleteButton = (el) => {
+    let showAddButton = true;
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id === el.id) showAddButton = false;
+    }
+    if (showAddButton) {
+      return (
+        <input
+          className="btn btn-success"
+          type="submit"
+          value="Add to tour"
+          onClick={() => addToCart(el)}
+        />
+      );
+    } else {
+      return (
+        <input
+          className="btn btn-danger"
+          type="submit"
+          value="remove from tour"
+          onClick={() => removeFromCart(el)}
+        />
+      );
+    }
   };
 
   return (
@@ -290,24 +367,66 @@ export default function AddTour() {
                     <PopupMap
                       content={
                         <>
-                          <h3> Insert Place </h3>
                           <div>
-                            <PointsMap.LeafletMap
-//methods
-                            />
+                            
+                            <CardDeck>
+                              {pointOfInterestList
+                                ? pointOfInterestList.map((el) => (
+                                    <Card
+                                      className="card-PoIforTour"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Card.Body>
+                                        <div key={el.id}>
+                                          <Card.Title>
+                                            <center>
+                                              <h4>{`${el.name}`}</h4>
+                                            </center>
+                                          </Card.Title>
+                                          <Carousel>
+                                            {el.imageUrl
+                                              ? el.imageUrl.map(
+                                                  ({ id, url }) => {
+                                                    return (
+                                                      <Carousel.Item
+                                                        interval={500}
+                                                      >
+                                                        <div key={id}>
+                                                          <img
+                                                            className="d-block w-100"
+                                                            src={url}
+                                                            alt=""
+                                                            width={320}
+                                                            height={225}
+                                                          />
+                                                        </div>
+                                                      </Carousel.Item>
+                                                    );
+                                                  }
+                                                )
+                                              : ""}
+                                          </Carousel>
+                                          <br />
+                                          {`City: ${el.city}`} <br />
+                                          {` type: ${el.type}`} <br />
+                                          {`  decription: ${el.decription}`}{" "}
+                                          <br />
+                                          {`  location: ${el.location}`} <br />
+                                        </div>
+                                      </Card.Body>
+                                      <Card.Footer>
+                                        <center>
+                                          {diplayAddOrDeleteButton(el)}
+                                        </center>
+                                      </Card.Footer>
+                                    </Card>
+                                  ))
+                                : ""}
+                            </CardDeck>
+                            <div>CART</div>
+                            <div>{cartItems}</div>
+                            <div>Total: ${cartTotal}</div>
                           </div>
-                          <br />
-                          <center>
-                            {" "}
-                            <button
-                              className="btn btn-success btn-lg"
-                              type="submit"
-                              onClick={togglePointSelectorPopup}
-                            >
-                              {" "}
-                              Done{" "}
-                            </button>
-                          </center>
                         </>
                       }
                       handleClose={togglePointSelectorPopup}
