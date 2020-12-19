@@ -96,7 +96,7 @@ export default function PointOfInterestList({ poi }) {
         <Card.Footer>
           <center>
             <button className="btn btn-danger" onClick={togglePopupMsg}>
-              <b>Delete</b>
+              <i className="fa fa-trash-alt"></i>
             </button>
           </center>
         </Card.Footer>
