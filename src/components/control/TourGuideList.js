@@ -87,7 +87,6 @@ export default function TourGuideList({ tourGuide }) {
                 <td colSpan="2">
                   <b>Languages:</b> {tourGuide.languages}
                 </td>
-
               </tr>
               <tr>
                 <td>
@@ -99,12 +98,11 @@ export default function TourGuideList({ tourGuide }) {
               </tr>
               <tr>
                 <td colSpan="2">
-                <b>Address:</b> {tourGuide.address}
+                  <b>Address:</b> {tourGuide.address}
                 </td>
               </tr>
               <tr>
                 <td colSpan="2">
-              
                   <center>
                     {tourGuide.availableForHire ? (
                       <b style={{ color: "green" }}>Available</b>
@@ -112,17 +110,15 @@ export default function TourGuideList({ tourGuide }) {
                       <b style={{ color: "red" }}>Not available</b>
                     )}{" "}
                   </center>
-              
                 </td>
               </tr>
-
             </tbody>
           </Table>
         </Card.Body>
         <Card.Footer>
           <center>
             <button className="btn btn-danger" onClick={togglePopupMsg}>
-              <b>Delete</b>
+              <i className="fa fa-trash-alt"></i>
             </button>
             <button className="btn btn-dark" onClick={completetourGuide}>
               <b>toggle availability</b>
