@@ -193,8 +193,7 @@ export default function AddVehicles() {
               type="submit"
               onClick={toggleMapPopup}
             >
-              {" "}
-              Map{" "}
+              <i className="fas fa-map-marked-alt">{`  Map`}</i>
             </button>
           </center>
           <div>
