@@ -55,8 +55,13 @@ export default function AddTour() {
     setLatlng(newLatlng);
   };
 
+  const [radius, setRadius] = useState("");
+  const handleOnChangeRadius = (e) => {
+    setRadius(e.target.value);
+  };
+
   const [location, setLocation] = useState(
-    "Click 'Map' to set vehicles location."
+    "Click the 'Map' button to add the general area of the tour."
   );
   const setLocationName = (newName) => {
     setLocation(newName);
@@ -83,7 +88,7 @@ export default function AddTour() {
   const [isPoiPopupOpen, setIsPoiPopupOpen] = useState(false);
   const togglePoiPopup = (e) => {
     e.preventDefault();
-    setIsOpen(!isPoiPopupOpen);
+    setIsPoiPopupOpen(!isPoiPopupOpen);
   };
 
   const addToCart = (el) => {
@@ -153,7 +158,7 @@ export default function AddTour() {
     if (showAddButton) {
       return (
         <input
-          className="btn btn-success"
+          className="btn btn-primary"
           type="submit"
           value="Add to tour"
           onClick={() => addToCart(el)}
@@ -162,7 +167,7 @@ export default function AddTour() {
     } else {
       return (
         <input
-          className="btn btn-danger"
+          className="btn btn-warning"
           type="submit"
           value="remove from tour"
           onClick={() => removeFromCart(el)}
@@ -209,7 +214,7 @@ export default function AddTour() {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="number"
               className="form-control"
               onChange={handleOnChangeTourCost}
               value={tourCost}
@@ -221,7 +226,7 @@ export default function AddTour() {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="number"
               className="form-control"
               onChange={handleOnChangeAdditionalTime}
               value={additionalTime}
@@ -238,23 +243,24 @@ export default function AddTour() {
               value={location}
               placeholder="Click the 'Map' button to add the general area of the tour."
               rows="3"
-            />
+            />{" "}
+            <center>
+              <br />
+              <button
+                className="btn btn-primary btn-lg"
+                type="submit"
+                onClick={toggleMapPopup}
+              >
+                {" "}
+                Map{" "}
+              </button>
+            </center>
             <small class="form-text text-info">
               Tip: Zooming out helps for selecting a general location name of
               your tour.
             </small>
           </div>
 
-          <center>
-            <button
-              className="btn btn-primary btn-lg"
-              type="submit"
-              onClick={toggleMapPopup}
-            >
-              {" "}
-              Map{" "}
-            </button>
-          </center>
           <div>
             <br />
           </div>
@@ -263,13 +269,14 @@ export default function AddTour() {
             <button
               className="btn btn-primary btn-lg"
               type="submit"
-              onClick={togglePointSelectorPopup}
+              onClick={togglePoiPopup}
             >
               {" "}
               Add PoIs{" "}
             </button>
           </center>
           <div>
+            <br />
             <table>
               <tr>
                 <td>
@@ -327,7 +334,6 @@ export default function AddTour() {
                           </center>
                         </>
                       }
-                      handleClose={togglePopupMsg}
                     />
                   )}
 
@@ -357,14 +363,27 @@ export default function AddTour() {
                           </center>
                         </>
                       }
-                      handleClose={toggleMapPopup}
+               
                     />
                   )}
 
-                  {isPointSelectorOpen && (
+                  {isPoiPopupOpen && (
                     <PopupCards
                       content={
                         <>
+                        <h4>Add Points of interest to the Tour</h4>
+                          <div className="form-group">
+                            <input
+                              type="number"
+                              className="form-control"
+                              onChange={handleOnChangeTourCost}
+                              value={tourCost}
+                              placeholder="Radius for displaying PoIs*"
+                            />
+                            <small class="form-text text-primary">
+                              *Ex. Write 20 for displaying PoIs in 20km radius around the area you set for the tour.
+                            </small>
+                          </div>
                           <center>
                             <div>
                               <center>
@@ -372,7 +391,7 @@ export default function AddTour() {
                                   {pointOfInterestList
                                     ? pointOfInterestList.map((el) => (
                                         <Card
-                                          className="card-PoIforTour"
+                                          className="card-PoIforTourOnPopup"
                                           style={{ flex: 1 }}
                                         >
                                           <Card.Body>
@@ -429,7 +448,7 @@ export default function AddTour() {
                             <button
                               className="btn btn-success btn-lg"
                               type="submit"
-                              onClick={togglePointSelectorPopup}
+                              onClick={togglePoiPopup}
                             >
                               {" "}
                               Done{" "}
@@ -437,7 +456,6 @@ export default function AddTour() {
                           </center>
                         </>
                       }
-                      handleClose={togglePointSelectorPopup}
                     />
                   )}
                 </div>
