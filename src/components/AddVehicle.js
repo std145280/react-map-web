@@ -94,8 +94,8 @@ export default function AddVehicles() {
   const deleteImage = (id) => {
     const storageRef = db.storage().ref("images").child(id);
     const imageRef = db.database().ref("images").child("daily").child(id);
-    storageRef.delete().then(() => {
-      imageRef.remove();
+    imageRef.remove().then(() => {
+    storageRef.delete();
     });
   };
 
@@ -221,16 +221,16 @@ export default function AddVehicles() {
                   <h6>Upload Image</h6>{" "}
                 </td>
                 <td>
-                  <input type="file" accept="image/*" onChange={readImages} />
+                  <input type="file" accept="image/*" onChange={readImages} />                  
                   {imageUrl
                     ? imageUrl.map(({ id, url }) => {
                         return (
                           <div key={id}>
-                            <img src={url} alt="" />
-                            <button onClick={() => deleteImage(id)}>
-                              Delete
-                            </button>
-                          </div>
+                          <img width={150} height={113} src={url} alt="" />
+                          <button className="btn btn-danger" onClick={() => deleteImage(id)}>
+                            <i className="fa fa-trash-alt"></i>
+                          </button>
+                        </div>
                         );
                       })
                     : ""}
