@@ -162,8 +162,7 @@ export default function AddPOI() {
               placeholder="Time needed*"
             />{" "}
             <small class="form-text text-primary">
-              *insert time in minutes e.x. write 20 for 20 minutes
-              time.
+              *insert time in minutes e.x. write 20 for 20 minutes time.
             </small>
           </div>
 
@@ -191,7 +190,6 @@ export default function AddPOI() {
             <textarea
               type="text"
               className="form-control"
-              //onChange={handleOnChangePLACE}
               value={location}
               placeholder="Click the 'Map' button to add vehicle's place."
               rows="3"
@@ -203,8 +201,7 @@ export default function AddPOI() {
               type="submit"
               onClick={toggleMapPopup}
             >
-              {" "}
-              Map{" "}
+              <i className="fas fa-map-marked-alt">{`  Map`}</i>
             </button>
           </center>
 

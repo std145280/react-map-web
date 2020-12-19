@@ -352,8 +352,7 @@ export default function AddTour() {
                 type="submit"
                 onClick={toggleMapPopup}
               >
-                {" "}
-                Map{" "}
+                <i className="fas fa-map-marked-alt">{`  Map`}</i>
               </button>
             </center>
             <small class="form-text text-info">
