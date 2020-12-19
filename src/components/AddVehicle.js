@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import NavigationBar from "./NavigationBar";
 import db from "../firebase";
@@ -78,6 +78,15 @@ export default function AddVehicles() {
       setImageUrl(newState);
     });
   };
+
+  const deleteImage = (id) => {
+    const storageRef = db.storage().ref('images').child(id);
+    const imageRef = db.database().ref('images').child('daily').child(id);
+    storageRef.delete().then(() => {
+      imageRef.remove();
+    });
+  };
+
 
   const createVehicle = () => {
     var vehicleRef = db.database().ref("vehicles");
@@ -202,6 +211,7 @@ export default function AddVehicles() {
                         return (
                           <div key={id}>
                             <img src={url} alt="" />
+                            <button onClick={() => deleteImage(id)}>Delete</button>
                           </div>
                         );
                       })
