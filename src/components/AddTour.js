@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CardDeck, Card, Carousel } from "react-bootstrap";
+import { CardDeck, Card, Carousel, Button } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import NavigationBar from "./NavigationBar";
 import firebase from "../firebase";
@@ -176,6 +176,113 @@ export default function AddTour() {
     }
   };
 
+  ////////Calculates distance between two points///////////
+  ////////////and return distance in meters////////////////
+  const getDistance = (origin, destination) => {
+    var lon1 = toRadian(origin[1]),
+      lat1 = toRadian(origin[0]),
+      lon2 = toRadian(destination[1]),
+      lat2 = toRadian(destination[0]);
+    var deltaLat = lat2 - lat1;
+    var deltaLon = lon2 - lon1;
+
+    var a =
+      Math.pow(Math.sin(deltaLat / 2), 2) +
+      Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon / 2), 2);
+    var c = 2 * Math.asin(Math.sqrt(a));
+    var EARTH_RADIUS = 6371;
+    return c * EARTH_RADIUS * 1000;
+  };
+
+  const toRadian = (degree) => {
+    return (degree * Math.PI) / 180;
+  };
+  /////////////////////////////////////////////////////////////
+
+  const oneCard = (el) => {
+    var distance = getDistance(
+      [latlng.lat, latlng.lng],
+      [el.geoLat, el.geoLng]
+    );
+    console.log("distance: " + distance);
+    console.log("radius: " + radius);
+    if (distance < radius * 1000)
+      return (
+        <>
+          <Card className="card-PoIforTourOnPopup" style={{ flex: 1 }}>
+            <Card.Body>
+              <div key={el.id}>
+                <Card.Title>
+                  <center>
+                    <h4>{`${el.name}`}</h4>
+                  </center>
+                </Card.Title>
+                <Carousel>
+                  {el.imageUrl
+                    ? el.imageUrl.map(({ id, url }) => {
+                        return (
+                          <Carousel.Item interval={500}>
+                            <div key={id}>
+                              <img
+                                className="d-block w-100"
+                                src={url}
+                                alt=""
+                                width={320}
+                                height={225}
+                              />
+                            </div>
+                          </Carousel.Item>
+                        );
+                      })
+                    : ""}
+                </Carousel>
+                <br />
+                {`City: ${el.city}`} <br />
+                {` type: ${el.type}`} <br />
+                {`  decription: ${el.decription}`} <br />
+                {`  location: ${el.location}`} <br />
+              </div>
+            </Card.Body>
+            <Card.Footer>
+              <center>{diplayAddOrDeleteButton(el)}</center>
+            </Card.Footer>
+          </Card>
+        </>
+      );
+  };
+
+  const displayCard = () => {
+    return (
+      <CardDeck>
+        {pointOfInterestList
+          ? pointOfInterestList.map((el) => oneCard(el))
+          : ""}
+      </CardDeck>
+    );
+  };
+
+  const enableAddPoisButton = () => {
+    if (latlng.lat !== undefined)
+      return (
+        <button
+          className="btn btn-primary btn-lg"
+          type="submit"
+          onClick={togglePoiPopup}
+        >
+          {" "}
+          Add PoIs{" "}
+        </button>
+      );
+    else {
+      return (
+        <button className="btn btn-primary btn-lg" disabled>
+          {" "}
+          Add PoIs{" "}
+        </button>
+      );
+    }
+  };
+
   return (
     <>
       <NavigationBar />
@@ -265,16 +372,7 @@ export default function AddTour() {
             <br />
           </div>
 
-          <center>
-            <button
-              className="btn btn-primary btn-lg"
-              type="submit"
-              onClick={togglePoiPopup}
-            >
-              {" "}
-              Add PoIs{" "}
-            </button>
-          </center>
+          <center>{enableAddPoisButton()}</center>
           <div>
             <br />
             <table>
@@ -363,7 +461,6 @@ export default function AddTour() {
                           </center>
                         </>
                       }
-               
                     />
                   )}
 
@@ -371,78 +468,23 @@ export default function AddTour() {
                     <PopupCards
                       content={
                         <>
-                        <h4>Add Points of interest to the Tour</h4>
+                          <h4>Add Points of interest to the Tour</h4>
                           <div className="form-group">
                             <input
                               type="number"
                               className="form-control"
-                              onChange={handleOnChangeTourCost}
-                              value={tourCost}
+                              onChange={handleOnChangeRadius}
+                              value={radius}
                               placeholder="Radius for displaying PoIs*"
                             />
                             <small class="form-text text-primary">
-                              *Ex. Write 20 for displaying PoIs in 20km radius around the area you set for the tour.
+                              *Ex. Write 20 for displaying PoIs in 20km radius
+                              around the area you set for the tour.
                             </small>
                           </div>
                           <center>
                             <div>
-                              <center>
-                                <CardDeck>
-                                  {pointOfInterestList
-                                    ? pointOfInterestList.map((el) => (
-                                        <Card
-                                          className="card-PoIforTourOnPopup"
-                                          style={{ flex: 1 }}
-                                        >
-                                          <Card.Body>
-                                            <div key={el.id}>
-                                              <Card.Title>
-                                                <center>
-                                                  <h4>{`${el.name}`}</h4>
-                                                </center>
-                                              </Card.Title>
-                                              <Carousel>
-                                                {el.imageUrl
-                                                  ? el.imageUrl.map(
-                                                      ({ id, url }) => {
-                                                        return (
-                                                          <Carousel.Item
-                                                            interval={500}
-                                                          >
-                                                            <div key={id}>
-                                                              <img
-                                                                className="d-block w-100"
-                                                                src={url}
-                                                                alt=""
-                                                                width={320}
-                                                                height={225}
-                                                              />
-                                                            </div>
-                                                          </Carousel.Item>
-                                                        );
-                                                      }
-                                                    )
-                                                  : ""}
-                                              </Carousel>
-                                              <br />
-                                              {`City: ${el.city}`} <br />
-                                              {` type: ${el.type}`} <br />
-                                              {`  decription: ${el.decription}`}{" "}
-                                              <br />
-                                              {`  location: ${el.location}`}{" "}
-                                              <br />
-                                            </div>
-                                          </Card.Body>
-                                          <Card.Footer>
-                                            <center>
-                                              {diplayAddOrDeleteButton(el)}
-                                            </center>
-                                          </Card.Footer>
-                                        </Card>
-                                      ))
-                                    : ""}
-                                </CardDeck>
-                              </center>
+                              <center>{displayCard()}</center>
                             </div>
                             <br />{" "}
                             <button
