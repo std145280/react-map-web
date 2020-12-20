@@ -8,14 +8,12 @@ import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
-
 import About from "./About";
 import AddPointOfInterest from "./AddPointOfInterest";
 import AddTour from "./AddTour";
 import AddTourGuide from "./AddTourGuide";
 import AddVehicle from "./AddVehicle";
 import PointOfInterest from "./PointOfInterest";
-import PointOfInterestForm from "./PointOfInterestForm";
 import Profile from "./Profile";
 import RentRequests from "./RentRequests";
 import Settings from "./Settings";
@@ -51,10 +49,6 @@ function App() {
                 <PrivateRoute
                   path="/PointOfInterest"
                   component={PointOfInterest}
-                />
-                <PrivateRoute
-                  path="/PointOfInterestForm"
-                  component={PointOfInterestForm}
                 />
                 <PrivateRoute path="/Profile" component={Profile} />
                 <PrivateRoute path="/RentRequests" component={RentRequests} />
