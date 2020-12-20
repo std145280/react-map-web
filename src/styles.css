@@ -23,7 +23,7 @@
   overflow: auto;
 }
 
-.popupForCards-box{
+.popupForCards-box {
   position: relative;
   min-width: 400px;
   max-width: 95vw;
@@ -99,7 +99,7 @@
 .cardLogSign {
   background-color: rgb(238, 238, 238);
   position: relative;
-  width: 400px; 
+  width: 400px;
   border-radius: 8px;
   padding: 1px;
 }
@@ -107,12 +107,16 @@
 .formStyle {
   position: relative;
   max-width: 400px;
- 
+}
+
+.borderText {
+  color: rgb(255, 255, 255);
+  text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000,
+    1px 1px 0 #000000, -2px 0 0 #000000, 2px 0 0 #000000, 0 2px 0 #000000,
+    0 -2px 0 #000000;
 }
 
 body {
   padding-top: 80px;
   background: rgba(179, 179, 179, 0.582);
 }
-
-

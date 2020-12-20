@@ -49,29 +49,41 @@ export default function Tours() {
                       );
                     })
                   : ""}
-                  {/* //>>>>>>>>>>></Carousel>EXTRA CAROUSEL ITEMS*/}
+                {/* //>>>>>>>>>>></Carousel>EXTRA CAROUSEL ITEMS*/}
                 {el.poi
-                  ? el.poi.map(({ id }) => {
-                      return el.imageUrl
-                        ? el.imageUrl.map(({ id, url }) => {
-                            return (
-                              <Carousel.Item interval={500}>
-                                <div key={id}>
-                                  <img
-                                    className="d-block w-100"
-                                    src={url}
-                                    alt=""
-                                    width={320}
-                                    height={225}
-                                  />
-                                </div>
-                              </Carousel.Item>
-                            );
-                          })
-                        : "";
-                    })
+                  ? el.poi.map(
+                      ({
+                        city,
+                        decription,
+                        geoLat,
+                        geoLng,
+                        id,
+                        imageUrl,
+                        name,
+                        ticketCost,
+                        time,
+                        type,
+                      }) => {
+                        return (
+                          <Carousel.Item interval={500}>
+                            <div key={imageUrl[0].id}>
+                              <img
+                                className="d-block w-100"
+                                src={imageUrl[0].url}
+                                alt=""
+                                width={320}
+                                height={225}
+                              />
+                            </div>
+                            <Carousel.Caption>
+                              <p className="borderText">{name}</p>
+                            </Carousel.Caption>
+                          </Carousel.Item>
+                        );
+                      }
+                    )
                   : ""}
-                 {/*} /<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */}
+                {/*} /<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */}
               </Carousel>
               <br />
               {`City: ${el.city}`} <br />
