@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { CardDeck, Card, Carousel } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
@@ -13,7 +14,7 @@ export default function Tours() {
     setIsOpen(!isOpen);
   };
 
-  const deleteVehicle = (id) => {
+  function deleteTour (id)  {
     const tourRef = firebase.database().ref("tour").child(id);
     tourRef.remove();
     setIsOpen(!isOpen);
@@ -141,12 +142,12 @@ export default function Tours() {
           content={
             <>
               <b>Question</b>
-              <p>Are you sure you want to delete this vehicle?</p>
+              <p>Are you sure you want to delete this tour?</p>
               <center>
                 <button
                   className="btn btn-danger btn-lg"
                   type="submit"
-                  onClick={deleteVehicle}
+                  onClick={deleteTour(el.id)}
                 >
                   {" "}
                   Yes{" "}
