@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { CardDeck, Card, Carousel } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
+import PopupMsg from "./control/PopupMsg";
 import firebase from "../firebase";
 
 export default function Tours() {
   const [tourList, setTourList] = useState();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const togglePopupMsg = (e) => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  };
+
+  const deleteVehicle = (id) => {
+    const tourRef = firebase.database().ref("tour").child(id);
+    tourRef.remove();
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const tourRef = firebase.database().ref("tour");
@@ -112,9 +125,48 @@ export default function Tours() {
             </div>
           </Card.Body>
           <Card.Footer>
-            <center>DEL</center>
+          <center>
+            <button className="btn btn-danger" onClick={togglePopupMsg}>
+              <i className="fa fa-trash-alt"></i>
+            </button>
+           
+
+
+          </center>
           </Card.Footer>
         </Card>
+
+        {isOpen && (
+        <PopupMsg
+          content={
+            <>
+              <b>Question</b>
+              <p>Are you sure you want to delete this vehicle?</p>
+              <center>
+                <button
+                  className="btn btn-danger btn-lg"
+                  type="submit"
+                  onClick={deleteVehicle}
+                >
+                  {" "}
+                  Yes{" "}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                  className="btn btn-warning btn-lg"
+                  type="submit"
+                  onClick={togglePopupMsg}
+                >
+                  {" "}
+                  No{" "}
+                </button>
+              </center>
+            </>
+          }
+        />
+      )}
+
+
       </>
     );
   };
