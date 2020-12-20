@@ -130,12 +130,25 @@ export default function AddTour() {
 
   const createTour = () => {
     var tourRef = firebase.database().ref("tour");
+
+    var totalCost = 0;
+    var totalTime = 0;
+
+    for (let i = 0; i < poi.length; i++) {
+      totalCost = totalCost + parseFloat(poi[i].ticketCost);
+      totalTime = totalTime + parseFloat(poi[i].time);
+    }
+    totalCost = totalCost + parseFloat(tourCost);
+    totalTime = totalTime + parseFloat(additionalTime);
+    
+
+
     var tour = {
       title,
       descForCustomer,
       descForGuide,
-      tourCost,
-      additionalTime,
+      tourCost : parseFloat(totalCost).toFixed(2),
+      time : parseInt(totalTime),
       imageUrl,
       geoLat: latlng.lat,
       geoLong: latlng.lng,

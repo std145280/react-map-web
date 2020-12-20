@@ -19,7 +19,6 @@ export default function Tours() {
   }, []);
 
   const oneCard = (el) => {
-    var tourTime = 0;
 
     return (
       <>
@@ -28,7 +27,7 @@ export default function Tours() {
             <div key={el.id}>
               <Card.Title>
                 <center>
-                  <h4>{`${el.title}`}</h4>
+                  <h4>{`${el.title}`}</h4>          
                 </center>
               </Card.Title>
               <Carousel>
@@ -86,8 +85,28 @@ export default function Tours() {
                 {/*} /<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */}
               </Carousel>
               <br />
-              {`City: ${el.city}`} <br />
-              {` type: ${el.type}`} <br />
+              
+              {el.poi
+                  ? el.poi.map(
+                      ({
+                        city,
+                        decription,
+                        geoLat,
+                        geoLng,
+                        id,
+                        imageUrl,
+                        name,
+                        ticketCost,
+                        time,
+                        type,
+                      }) => {
+                    
+          
+                      }
+                    )
+                  : ""}
+              {` ${el.descForCustomer}`} <br />
+              {` ${el.tourCost}`} <br />
               {`  decription: ${el.decription}`} <br />
               {`  location: ${el.location}`} <br />
             </div>
