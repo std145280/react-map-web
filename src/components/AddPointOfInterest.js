@@ -79,7 +79,7 @@ export default function AddPOI() {
   };
 
   const createPOI = () => {
-    var poiRef = db.database().ref("pois");
+    var poiRef = db.database().ref("poi");
     var poi = {
       name,
       description,

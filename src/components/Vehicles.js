@@ -8,12 +8,12 @@ export default function Vehicles() {
   const [vehicleList, setVehicleList] = useState();
 
   useEffect(() => {
-    const vehicleRef = firebase.database().ref("vehicles");
+    const vehicleRef = firebase.database().ref("vehicle");
     vehicleRef.on("value", (snapshot) => {
-      const vehicles = snapshot.val();
+      const vehicle = snapshot.val();
       const vehicleList = [];
-      for (let id in vehicles) {
-        vehicleList.push({ id, ...vehicles[id] });
+      for (let id in vehicle) {
+        vehicleList.push({ id, ...vehicle[id] });
       }
       setVehicleList(vehicleList);
     });

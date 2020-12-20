@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CardDeck, Card, Carousel, Button } from "react-bootstrap";
+import { CardDeck, Card, Carousel} from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import NavigationBar from "./NavigationBar";
 import firebase from "../firebase";
@@ -198,8 +198,6 @@ export default function AddTour() {
       [latlng.lat, latlng.lng],
       [el.geoLat, el.geoLng]
     );
-    console.log("distance: " + distance);
-    console.log("radius: " + radius);
     if (distance < radius * 1000)
       return (
         <>

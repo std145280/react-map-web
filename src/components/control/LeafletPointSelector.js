@@ -10,7 +10,7 @@ const center = { lat: 15.558, lng: 23.7275 };
 var geoLatlng;
 var locationString;
 
-var locationsRef = firebase.database().ref("pois");
+var locationsRef = firebase.database().ref("poi");
 var data;
 
 

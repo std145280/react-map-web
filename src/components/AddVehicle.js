@@ -26,7 +26,7 @@ export default function AddVehicles() {
   };
 
   const [location, setLocation] = useState(
-    "Click 'Map' to set vehicles location."
+    "Click 'Map' to set vehicle's location."
   );
   const setLocationName = (newName) => {
     setLocation(newName);
@@ -68,8 +68,8 @@ export default function AddVehicles() {
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
-    const storageRef = db.storage().ref("images").child(id);
-    const imageRef = db.database().ref("images").child("daily").child(id);
+    const storageRef = db.storage().ref("image").child(id);
+    const imageRef = db.database().ref("image").child("temp").child(id);
     await storageRef.put(file);
     storageRef.getDownloadURL().then((url) => {
       imageRef.set(url);
@@ -79,7 +79,7 @@ export default function AddVehicles() {
   };
 
   const getImageUrl = () => {
-    const imageRef = db.database().ref("images").child("daily");
+    const imageRef = db.database().ref("image").child("temp");
     imageRef.on("value", (snapshot) => {
       const imageUrls = snapshot.val();
       const urls = [];
@@ -92,8 +92,8 @@ export default function AddVehicles() {
   };
 
   const deleteImage = (id) => {
-    const storageRef = db.storage().ref("images").child(id);
-    const imageRef = db.database().ref("images").child("daily").child(id);
+    const storageRef = db.storage().ref("image").child(id);
+    const imageRef = db.database().ref("image").child("temp").child(id);
     imageRef.remove().then(() => {
     storageRef.delete();
     });
@@ -104,7 +104,7 @@ export default function AddVehicles() {
   }, []);
 
   const createVehicle = () => {
-    var vehicleRef = db.database().ref("vehicles");
+    var vehicleRef = db.database().ref("vehicle");
     var vehicle = {
       title,
       type,
@@ -120,7 +120,7 @@ export default function AddVehicles() {
       geoLong: latlng.lng,
     };
     vehicleRef.push(vehicle);
-    const imageRef = db.database().ref("images");
+    const imageRef = db.database().ref("image");
     imageRef.remove();
   };
 

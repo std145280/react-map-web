@@ -12,12 +12,12 @@ export default function VehicleList({ vehicle }) {
   };
 
   const deleteVehicle = () => {
-    const vehicleRef = firebase.database().ref("vehicles").child(vehicle.id);
+    const vehicleRef = firebase.database().ref("vehicle").child(vehicle.id);
     vehicleRef.remove();
     setIsOpen(!isOpen);
   };
-  const completeVehicle = () => {
-    const vehicleRef = firebase.database().ref("vehicles").child(vehicle.id);
+  const changeAvailability = () => {
+    const vehicleRef = firebase.database().ref("vehicle").child(vehicle.id);
     vehicleRef.update({
       availableForRent: !vehicle.availableForRent,
     });
@@ -116,7 +116,7 @@ export default function VehicleList({ vehicle }) {
             <button className="btn btn-danger" onClick={togglePopupMsg}>
               <i className="fa fa-trash-alt"></i>
             </button>
-            <button className="btn btn-dark" onClick={completeVehicle}>
+            <button className="btn btn-dark" onClick={changeAvailability}>
               <b>toggle availability</b>
             </button>
           </center>

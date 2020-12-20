@@ -12,7 +12,7 @@ export default function PointOfInterestList({ poi }) {
   };
 
   const deletePOI = () => {
-    const poiRef = firebase.database().ref("pois").child(poi.id);
+    const poiRef = firebase.database().ref("poi").child(poi.id);
     poiRef.remove();
     setIsOpen(!isOpen);
   };

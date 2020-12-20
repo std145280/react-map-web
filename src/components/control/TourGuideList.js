@@ -19,7 +19,7 @@ export default function TourGuideList({ tourGuide }) {
     tourGuideRef.remove();
     setIsOpen(!isOpen);
   };
-  const completetourGuide = () => {
+  const changeAvailability = () => {
     const tourGuideRef = firebase
       .database()
       .ref("tourGuide")
@@ -120,7 +120,7 @@ export default function TourGuideList({ tourGuide }) {
             <button className="btn btn-danger" onClick={togglePopupMsg}>
               <i className="fa fa-trash-alt"></i>
             </button>
-            <button className="btn btn-dark" onClick={completetourGuide}>
+            <button className="btn btn-dark" onClick={changeAvailability}>
               <b>toggle availability</b>
             </button>
           </center>
