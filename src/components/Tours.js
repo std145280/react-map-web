@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { CardDeck, Card, Carousel} from "react-bootstrap";
+import { CardDeck, Card, Carousel } from "react-bootstrap";
 import NavigationBar from "./NavigationBar";
 import firebase from "../firebase";
-
 
 export default function Tours() {
   const [tourList, setTourList] = useState();
@@ -20,7 +19,6 @@ export default function Tours() {
   }, []);
 
   const oneCard = (el) => {
-
     var tourTime = 0;
 
     return (
@@ -51,6 +49,29 @@ export default function Tours() {
                       );
                     })
                   : ""}
+                  {/* //>>>>>>>>>>></Carousel>EXTRA CAROUSEL ITEMS*/}
+                {el.poi
+                  ? el.poi.map(({ id }) => {
+                      return el.imageUrl
+                        ? el.imageUrl.map(({ id, url }) => {
+                            return (
+                              <Carousel.Item interval={500}>
+                                <div key={id}>
+                                  <img
+                                    className="d-block w-100"
+                                    src={url}
+                                    alt=""
+                                    width={320}
+                                    height={225}
+                                  />
+                                </div>
+                              </Carousel.Item>
+                            );
+                          })
+                        : "";
+                    })
+                  : ""}
+                 {/*} /<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< */}
               </Carousel>
               <br />
               {`City: ${el.city}`} <br />

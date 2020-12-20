@@ -12,7 +12,7 @@ import PopupCards from "./control/PopupForCards";
 
 export default function AddTour() {
   useEffect(() => {
-    const pointOfInterestRef = firebase.database().ref("pois");
+    const pointOfInterestRef = firebase.database().ref("poi");
     pointOfInterestRef.on("value", (snapshot) => {
       const pointOfInterest = snapshot.val();
       const pointOfInterestList = [];
@@ -118,8 +118,8 @@ export default function AddTour() {
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
-    const storageRef = firebase.storage().ref("images").child(id);
-    const imageRef = firebase.database().ref("images").child("daily").child(id);
+    const storageRef = firebase.storage().ref("image").child(id);
+    const imageRef = firebase.database().ref("image").child("temp").child(id);
     await storageRef.put(file);
     storageRef.getDownloadURL().then((url) => {
       imageRef.set(url);
