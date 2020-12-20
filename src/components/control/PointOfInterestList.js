@@ -64,27 +64,22 @@ export default function PointOfInterestList({ poi }) {
                 </td>
               </tr>
               <tr>
-                <td>
+                <td colSpan="2">
                   <b>Description:</b> {poi.description}
                 </td>
-                <td>
-                  <b>Latitude:</b> {poi.latitude}
-                </td>
               </tr>
               <tr>
                 <td>
-                  <b>Longitude:</b> {poi.longitude}
+                  <b>City:</b>
+                  <br /> {poi.city}
                 </td>
+
                 <td>
-                  <b>Type:</b> {poi.type}
+                  <b>Type:</b>
+                  <br /> {poi.type}
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <b>City:</b> {poi.city}
-                </td>
-                <td></td>
-              </tr>
+
               <tr>
                 <td colSpan="2">
                   <b>Location:</b> {poi.location}

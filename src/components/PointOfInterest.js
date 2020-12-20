@@ -8,7 +8,7 @@ export default function PointOfInterest() {
   const [pointOfInterestList, setPointOfInterestList] = useState();
 
   useEffect(() => {
-    const pointOfInterestRef = firebase.database().ref("pois");
+    const pointOfInterestRef = firebase.database().ref("poi");
     pointOfInterestRef.on("value", (snapshot) => {
       const pointOfInterest = snapshot.val();
       const pointOfInterestList = [];
