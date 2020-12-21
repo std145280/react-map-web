@@ -14,6 +14,19 @@ export default function AddTourGuide() {
     setLatlng(newLatlng);
   };
 
+
+  function SubmitButton(){
+    if (name && age && languages && telephone && email && (latlng.lat!==undefined)){
+      return <button className="btn btn-success btn-lg"
+              type="submit"
+              onClick={togglePopupMsg}> Submit </button>
+    } else {
+      return <button className="btn btn-success btn-lg"
+                    type="submit" disabled> Submit </button>
+    };
+  };
+
+
   //To location και το address θα είναι το ίδιο
   //Όταν θα χρησιμοποιεί την εφαρμογή κινητού, το
   //location θα αντιστοιχεί στην πραγματική του θέση
@@ -118,7 +131,7 @@ export default function AddTourGuide() {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="number"
               className="form-control"
               onChange={handleOnChangeAGE}
               value={age}
@@ -148,7 +161,7 @@ export default function AddTourGuide() {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="email"
               className="form-control"
               onChange={handleOnChangeEMAIL}
               value={email}
@@ -202,14 +215,7 @@ export default function AddTourGuide() {
               <tr>
                 {" "}
                 <div className="form-group">
-                  <button
-                    className="btn btn-success btn-lg"
-                    type="submit"
-                    onClick={togglePopupMsg}
-                  >
-                    {" "}
-                    Submit{" "}
-                  </button>
+                  <SubmitButton/>
 
                   {isOpen && (
                     <PopupMsg
