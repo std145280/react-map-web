@@ -65,7 +65,12 @@ export default function PointOfInterestList({ poi }) {
               </tr>
               <tr>
                 <td colSpan="2">
-                  <b>Description:</b> {poi.description}
+                  <b>Description Customer:</b> {poi.descForCustomer}
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="2">
+                  <b>Description Guide:</b> {poi.descForGuide}
                 </td>
               </tr>
               <tr>
@@ -85,6 +90,14 @@ export default function PointOfInterestList({ poi }) {
                   <b>Location:</b> {poi.location}
                 </td>
               </tr>
+              <tr>
+                  <td>
+                    <b>POI Cost:</b> {poi.ticketCost} €
+                  </td>
+                  <td>
+                    <b>Time:</b> {poi.time}'
+                  </td>
+                </tr>
             </tbody>
           </Table>
         </Card.Body>
