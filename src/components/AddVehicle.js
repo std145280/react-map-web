@@ -20,6 +20,19 @@ export default function AddVehicles() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
 
+
+  function SubmitButton(){
+    if (title && type && passengers && fuel && year && cph && wiFi && (latlng.lat!==undefined)){
+      return <button className="btn btn-success btn-lg"
+              type="submit"
+              onClick={togglePopupMsg}> Submit </button>
+    } else {
+      return <button className="btn btn-success btn-lg"
+                    type="submit" disabled> Submit </button>
+    };
+  };
+
+
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
     setLatlng(newLatlng);
@@ -151,7 +164,7 @@ export default function AddVehicles() {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="number"
               className="form-control"
               onChange={handleOnChangePASSENGERS}
               value={passengers}
@@ -169,7 +182,7 @@ export default function AddVehicles() {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="number"
               className="form-control"
               onChange={handleOnChangeYEAR}
               value={year}
@@ -178,7 +191,7 @@ export default function AddVehicles() {
           </div>
           <div className="form-group">
             <input
-              type="text"
+              type="number"
               className="form-control"
               onChange={handleOnChangeCPH}
               value={cph}
@@ -240,14 +253,7 @@ export default function AddVehicles() {
               <tr>
                 {" "}
                 <div className="form-group">
-                  <button
-                    className="btn btn-success btn-lg"
-                    type="submit"
-                    onClick={togglePopupMsg}
-                  >
-                    {" "}
-                    Submit{" "}
-                  </button>
+                  <SubmitButton/>
                   {isOpen && (
                     <PopupMsg
                       content={
