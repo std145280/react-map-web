@@ -22,22 +22,27 @@ export default function AddPOI() {
   };
 
   const [name, setName] = useState("");
-  const handleOnChangeNAME = (e) => {
+  const handleOnChangeName = (e) => {
     setName(e.target.value);
   };
 
-  const [description, setDescription] = useState("");
-  const handleOnChangeDESCRIPTION = (e) => {
-    setDescription(e.target.value);
+  const [descForCustomer, setDescForCustomer] = useState("");
+  const handleOnChangeDescForCustomer = (e) => {
+    setDescForCustomer(e.target.value);
+  };
+
+  const [descForGuide, setDescForGuide] = useState("");
+  const handleOnChangeDescForGuide = (e) => {
+    setDescForGuide(e.target.value);
   };
 
   const [type, setType] = useState("");
-  const handleOnChangeTYPE = (e) => {
+  const handleOnChangeType = (e) => {
     setType(e.target.value);
   };
 
   const [city, setCity] = useState("");
-  const handleOnChangeCITY = (e) => {
+  const handleOnChangeCity = (e) => {
     setCity(e.target.value);
   };
 
@@ -82,7 +87,8 @@ export default function AddPOI() {
     var poiRef = db.database().ref("poi");
     var poi = {
       name,
-      description,
+      descForCustomer,
+      descForGuide,
       geoLat: latlng.lat,
       geoLng: latlng.lng,
       type,
@@ -107,19 +113,30 @@ export default function AddPOI() {
             <input
               type="text"
               className="form-control"
-              onChange={handleOnChangeNAME}
+              onChange={handleOnChangeName}
               value={name}
               placeholder="Name"
             />
           </div>
 
           <div className="form-group">
-            <input
+            <textarea
               type="text"
               className="form-control"
-              onChange={handleOnChangeDESCRIPTION}
-              value={description}
-              placeholder="Description"
+              onChange={handleOnChangeDescForCustomer}
+              value={descForCustomer}
+              placeholder="Description for customer."
+              rows="3"
+            />
+          </div>
+          <div className="form-group">
+            <textarea
+              type="text"
+              className="form-control"
+              onChange={handleOnChangeDescForGuide}
+              value={descForGuide}
+              placeholder="Description for guide."
+              rows="3"
             />
           </div>
 
@@ -127,7 +144,7 @@ export default function AddPOI() {
             <input
               type="text"
               className="form-control"
-              onChange={handleOnChangeTYPE}
+              onChange={handleOnChangeType}
               value={type}
               placeholder="Type"
             />
@@ -137,7 +154,7 @@ export default function AddPOI() {
             <input
               type="text"
               className="form-control"
-              onChange={handleOnChangeCITY}
+              onChange={handleOnChangeCity}
               value={city}
               placeholder="City"
             />
