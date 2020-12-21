@@ -24,6 +24,19 @@ export default function AddTour() {
     });
   }, []);
 
+
+  function SubmitButton(){
+    if (title && descForCustomer && descForGuide && tourCost && additionalTime && (latlng.lat!==undefined) && (poi.length>0) ){
+      return <button className="btn btn-success btn-lg"
+              type="submit"
+              onClick={togglePopupMsg}> Submit </button>
+    } else {
+      return <button className="btn btn-success btn-lg"
+                    type="submit" disabled> Submit </button>
+    };
+  };
+
+
   const [title, setTitle] = useState("");
   const handleOnChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -402,14 +415,7 @@ export default function AddTour() {
               <tr>
                 {" "}
                 <div className="form-group">
-                  <button
-                    className="btn btn-success btn-lg"
-                    type="submit"
-                    onClick={togglePopupMsg}
-                  >
-                    {" "}
-                    Submit{" "}
-                  </button>
+                  <SubmitButton/>
                   {isOpen && (
                     <PopupMsg
                       content={
