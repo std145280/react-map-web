@@ -14,6 +14,19 @@ export default function AddPOI() {
     setLatlng(newLatlng);
   };
 
+  function SubmitButton(){
+    if (name && descForCustomer && descForGuide && type && city && ticketCost && time && (latlng.lat!==undefined)){
+      return <button className="btn btn-success btn-lg"
+              type="submit"
+              onClick={togglePopupMsg}> Submit </button>
+    } else {
+      return <button className="btn btn-success btn-lg"
+                    type="submit" disabled> Submit </button>
+    };
+  };
+
+
+
   const [location, setLocation] = useState(
     "Click 'Map' to set Point of Interest location."
   );
@@ -251,14 +264,7 @@ export default function AddPOI() {
 
               <tr>
                 <div className="form-group">
-                  <button
-                    className="btn btn-success btn-lg"
-                    type="submit"
-                    onClick={togglePopupMsg}
-                  >
-                    {" "}
-                    Submit{" "}
-                  </button>
+                <SubmitButton/>
                   {isOpen && (
                     <PopupMsg
                       content={
