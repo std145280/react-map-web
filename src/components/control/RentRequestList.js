@@ -1,23 +1,22 @@
 import React, { useState } from "react";
+import PopupMsg from "./PopupMsg";
 import { Card, Table } from "react-bootstrap";
 import firebase from "../../firebase";
 
 export default function RentRequestList({ request }) {
 
+    const [isOpen, setIsOpen] = useState(false);
 
-  const assign = () => {
-    const rentReqRef = firebase.database().ref("rentRequest").child(request.id);
-    rentReqRef.update({
-      isAccepted: true,
-    });
-  };
-
-  const unassign = () => {
-    const rentReqRef = firebase.database().ref("rentRequest").child(request.id);
-    rentReqRef.update({
-      isAccepted: false,
-    });
-  };
+    const togglePopupMsg = (e) => {
+      e.preventDefault();
+      setIsOpen(!isOpen);
+    };
+  
+    const deleteRentRequest = () => {
+      const rentReqRef = firebase.database().ref("rentRequest").child(request.id);
+      rentReqRef.remove();
+      setIsOpen(!isOpen);
+    };
  
 
   return (
@@ -106,18 +105,43 @@ export default function RentRequestList({ request }) {
           </Table>
         </Card.Body>
         <Card.Footer>
-          <center>
-            <button className="btn btn-danger" onClick={unassign}>
-              <b>Unassign</b>
+        <center>
+            <button className="btn btn-danger" onClick={togglePopupMsg}>
+              <i className="fa fa-trash-alt"></i>
             </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-            <button className="btn btn-success" onClick={assign}>
-              <b>Assign</b>
-            </button>
-          </center>
+        </center>
         </Card.Footer>
       </Card>
+      {isOpen && (
+        <PopupMsg
+          content={
+            <>
+              <b>Question</b>
+              <p>Are you sure you want to delete this rent request?</p>
+              <center>
+                <button
+                  className="btn btn-danger btn-lg"
+                  type="submit"
+                  onClick={deleteRentRequest}
+                >
+                  {" "}
+                  Yes{" "}
+                </button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                  className="btn btn-warning btn-lg"
+                  type="submit"
+                  onClick={togglePopupMsg}
+                >
+                  {" "}
+                  No{" "}
+                </button>
+              </center>
+            </>
+          }
+          handleClose={togglePopupMsg}
+        />
+      )}
     </div>
   );
 }
