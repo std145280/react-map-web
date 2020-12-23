@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CardDeck, Card, Carousel} from "react-bootstrap";
+import { CardDeck, Card, Carousel } from "react-bootstrap";
 import { v4 as uuid } from "uuid";
 import NavigationBar from "./NavigationBar";
 import firebase from "../firebase";
@@ -24,18 +24,35 @@ export default function AddTour() {
     });
   }, []);
 
-
-  function SubmitButton(){
-    if (title && descForCustomer && descForGuide && tourCost && additionalTime && (latlng.lat!==undefined) && (poi.length>0) ){
-      return <button className="btn btn-success btn-lg"
-              type="submit"
-              onClick={togglePopupMsg}> Submit </button>
+  function SubmitButton() {
+    if (
+      title &&
+      descForCustomer &&
+      descForGuide &&
+      tourCost &&
+      additionalTime &&
+      latlng.lat !== undefined &&
+      poi.length > 0
+    ) {
+      return (
+        <button
+          className="btn btn-success btn-lg"
+          type="submit"
+          onClick={togglePopupMsg}
+        >
+          {" "}
+          Submit{" "}
+        </button>
+      );
     } else {
-      return <button className="btn btn-success btn-lg"
-                    type="submit" disabled> Submit </button>
-    };
-  };
-
+      return (
+        <button className="btn btn-success btn-lg" type="submit" disabled>
+          {" "}
+          Submit{" "}
+        </button>
+      );
+    }
+  }
 
   const [title, setTitle] = useState("");
   const handleOnChangeTitle = (e) => {
@@ -153,15 +170,13 @@ export default function AddTour() {
     }
     totalCost = totalCost + parseFloat(tourCost);
     totalTime = totalTime + parseFloat(additionalTime);
-    
-
 
     var tour = {
       title,
       descForCustomer,
       descForGuide,
-      tourCost : parseFloat(totalCost).toFixed(2),
-      time : parseInt(totalTime),
+      tourCost: parseFloat(totalCost).toFixed(2),
+      time: parseInt(totalTime),
       imageUrl,
       geoLat: latlng.lat,
       geoLong: latlng.lng,
@@ -255,10 +270,14 @@ export default function AddTour() {
                     : ""}
                 </Carousel>
                 <br />
-                {`City: ${el.city}`} <br />
-                {` type: ${el.type}`} <br />
-                {`  decription: ${el.decription}`} <br />
-                {`  location: ${el.location}`} <br />
+                <b>City:</b> {el.city} <br />
+                <b>type:</b> {el.type} <br />
+                <br />
+                <b>Decription for Guide :</b> {el.descForGuide} <br />
+                <br />
+                <b>Decription for Customer:</b> {el.descForCustomer} <br />
+                <br />
+                <b>Location:</b> {el.location} <br />
               </div>
             </Card.Body>
             <Card.Footer>
@@ -415,7 +434,7 @@ export default function AddTour() {
               <tr>
                 {" "}
                 <div className="form-group">
-                  <SubmitButton/>
+                  <SubmitButton />
                   {isOpen && (
                     <PopupMsg
                       content={
