@@ -48,15 +48,47 @@ export default function RentRequestList({ request }) {
               </tr>
               <tr>
               <td colSpan="2">
+                <center>
                 <b>Car:</b> {request.selectedCarTitle}
+                </center>
+              </td>
+              </tr>
+              <tr>
+              <td colSpan="2">
+                <center>
+                <b>Start Location: </b> {request.startLocationName} 
+  
+                </center>
                 </td>
               </tr>
               <tr>
-                <td>
-                 <b>Start Location: </b> {request.startLocationName} 
+              <td colSpan="2">
+                <center>
+                <b>Finish Location: </b> {request.finishLocationName}
+                </center>
                 </td>
-                <td>
-                 <b>Finish Location: </b> {request.finishLocationName}
+              </tr>
+              <tr>
+                  <td>
+                    <center>
+                      <b>Requested by: </b> {request.user}
+                    </center>
+
+                  </td>
+                  <td>
+                    <center>
+                      <b>Total Cost: </b> {request.totalCost}
+                    </center>
+                  </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                    <b>Status: </b> {request.status}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                    <b>Assigned to: </b> {request.assignedTourGuide}
                 </td>
               </tr>
               <tr>
