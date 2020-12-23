@@ -60,8 +60,7 @@ export default function Dashboard() {
     });
   }, []);
 
-
-const [allRequest, setAllRequests] = useState(0);
+  const [allRequest, setAllRequests] = useState(0);
   const [rentRequestList, setRentRequestList] = useState();
 
   useEffect(() => {
@@ -79,9 +78,8 @@ const [allRequest, setAllRequests] = useState(0);
     });
   }, []);
 
-
   const [tourGuideList, setTourGuideList] = useState();
-const [allTourGuides, setAllTourGuides] = useState();
+  const [allTourGuides, setAllTourGuides] = useState();
   useEffect(() => {
     const tourGuideRef = firebase.database().ref("tourGuide");
     tourGuideRef.on("value", (snapshot) => {
@@ -93,11 +91,9 @@ const [allTourGuides, setAllTourGuides] = useState();
         totalTourGuides++;
       }
       setTourGuideList(tourGuideList);
-      setAllTourGuides(totalTourGuides)
+      setAllTourGuides(totalTourGuides);
     });
   }, []);
-
-
 
   return (
     <>
@@ -121,7 +117,20 @@ const [allTourGuides, setAllTourGuides] = useState();
               <Card.Text></Card.Text>
             </Card.Body>
             <Card.Footer>
-              <Link onClick={() => history.push("/Tours")}>All Tours</Link>
+              <button
+                className="btn btn-primary w-100 "
+                onClick={() => history.push("/Tours")}
+              >
+                <i className="fa   fa-map-marked-alt"> All Tours</i>
+              </button>
+              <br />
+              <br />
+              <button
+                className="btn btn-primary w-100"
+                onClick={() => history.push("/AddTour")}
+              >
+                <i className="fa fa-plus"> Add New Tour</i>
+              </button>
             </Card.Footer>
           </Card>
           <br />
@@ -140,18 +149,24 @@ const [allTourGuides, setAllTourGuides] = useState();
               <Card.Text></Card.Text>
             </Card.Body>
             <Card.Footer>
-              <Link onClick={() => history.push("/PointOfInterest")}>
-                All Points Of Interest
-              </Link>
+              <button
+                className="btn btn-primary w-100 "
+                onClick={() => history.push("/PointOfInterest")}
+              >
+                <i className="fa  fa-map-marker-alt"> All Points</i>
+              </button>
+              <br />
+              <br />
+              <button
+                className="btn btn-primary w-100"
+                onClick={() => history.push("/AddPointOfInterest")}
+              >
+                <i className="fa fa-plus"> Add New Point</i>
+              </button>
+              <br />
             </Card.Footer>
           </Card>
           <br />
-
-
-
-
-
-
 
           <Card className="dashboardCard" border="primary">
             <Card.Header>
@@ -164,18 +179,29 @@ const [allTourGuides, setAllTourGuides] = useState();
                 {`There are `}
                 {numberOfVehicles} {` tours. `}
               </div>
+              <br />
 
               <Card.Text></Card.Text>
             </Card.Body>
             <Card.Footer>
-              <Link onClick={() => history.push("/Vehicles")}>
-                All Vehicles
-              </Link>
+              <button
+                className="btn btn-primary w-100 "
+                onClick={() => history.push("/Vehicles")}
+              >
+                <i className="fa fa-car"> All Vehicles</i>
+              </button>
+              <br />
+              <br />
+              <button
+                className="btn btn-primary w-100"
+                onClick={() => history.push("/AddVehicle")}
+              >
+                <i className="fa fa-plus"> Add New Vehicle</i>
+              </button>
             </Card.Footer>
           </Card>
           <br />
 
-          
           <Card className="dashboardCard" border="primary">
             <Card.Header>
               <b>Requests</b>
@@ -191,12 +217,14 @@ const [allTourGuides, setAllTourGuides] = useState();
               <Card.Text></Card.Text>
             </Card.Body>
             <Card.Footer>
-              <Link onClick={() => history.push("/RentRequests")}>
-                All Requests
-              </Link>
+              <button
+                className="btn btn-primary w-100"
+                onClick={() => history.push("/RentRequests")}
+              >
+                <i className="fas fa-clipboard-list"> All Requests</i>
+              </button>
             </Card.Footer>
           </Card>
-
 
           <Card className="dashboardCard" border="primary">
             <Card.Header>
@@ -213,14 +241,22 @@ const [allTourGuides, setAllTourGuides] = useState();
               <Card.Text></Card.Text>
             </Card.Body>
             <Card.Footer>
-              <Link onClick={() => history.push("/TourGuides")}>
-                All Tour Guides
-              </Link>
+              <button
+                className="btn btn-primary w-100 "
+                onClick={() => history.push("/TourGuides")}
+              >
+                <i className="fa fa-users"> All Tour Guides</i>
+              </button>
+              <br />
+              <br />
+              <button
+                className="btn btn-primary w-100"
+                onClick={() => history.push("/AddTourGuide")}
+              >
+                <i className="fa fa-plus"> Add New Tour Guide</i>
+              </button>
             </Card.Footer>
           </Card>
-
-
-
         </CardDeck>
       </div>
     </>
