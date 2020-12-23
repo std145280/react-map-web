@@ -17,7 +17,35 @@ export default function RentRequestList({ request }) {
       rentReqRef.remove();
       setIsOpen(!isOpen);
     };
- 
+
+    const changeReady = () => {
+      const rentReqRef = firebase.database().ref("rentRequest").child(request.id);
+      if (request.status=='Accepted'){  
+      rentReqRef.update({
+          status: 'Ready'});
+        }
+      else {
+      rentReqRef.update({
+          status: 'Accepted'});
+        
+      };
+
+    };
+
+
+
+    function ReadyButton(){
+      if (request.isAccepted){
+        return <button className="btn btn-success"  onClick={changeReady}> 
+                <i className ="fas fa-check"></i>
+               </button>
+      } else {
+        return <button className="btn btn-success" disabled>
+                <i className ="fas fa-check"></i>
+               </button>
+      };
+    };
+  
 
   return (
     <div>
@@ -107,8 +135,10 @@ export default function RentRequestList({ request }) {
         <Card.Footer>
         <center>
             <button className="btn btn-danger" onClick={togglePopupMsg}>
-              <i className="fa fa-trash-alt"></i>
+              <i className = "fa fa-trash-alt"></i>
             </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          
+            <ReadyButton/>
         </center>
         </Card.Footer>
       </Card>
