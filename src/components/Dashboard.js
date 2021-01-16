@@ -177,7 +177,7 @@ export default function Dashboard() {
 
               <div>
                 {`There are `}
-                {numberOfVehicles} {` tours. `}
+                {numberOfVehicles} {` vehicles. `}
               </div>
               <br />
 
@@ -202,29 +202,7 @@ export default function Dashboard() {
           </Card>
           <br />
 
-          <Card className="dashboardCard" border="primary">
-            <Card.Header>
-              <b>Requests</b>
-            </Card.Header>
-            <Card.Body>
-              {/*<Card.Title>Browse all available tours</Card.Title>*/}
 
-              <div>
-                {`There are `}
-                {allRequest} {` request for tours. `}
-              </div>
-
-              <Card.Text></Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <button
-                className="btn btn-primary w-100"
-                onClick={() => history.push("/RentRequests")}
-              >
-                <i className="fas fa-clipboard-list"> All Requests</i>
-              </button>
-            </Card.Footer>
-          </Card>
 
           <Card className="dashboardCard" border="primary">
             <Card.Header>
@@ -257,6 +235,32 @@ export default function Dashboard() {
               </button>
             </Card.Footer>
           </Card>
+
+          <Card className="dashboardCard" border="primary">
+            <Card.Header>
+              <b>Requests</b>
+            </Card.Header>
+            <Card.Body>
+              {/*<Card.Title>Browse all available tours</Card.Title>*/}
+
+              <div>
+                {`There are `}
+                {allRequest} {` request for tours. `}
+              </div>
+
+              <Card.Text></Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              <button
+                className="btn btn-primary w-100"
+                onClick={() => history.push("/RentRequests")}
+              >
+                <i className="fas fa-clipboard-list"> All Requests</i>
+              </button>
+            </Card.Footer>
+          </Card>
+
+          
         </CardDeck>
       </div>
     </>
