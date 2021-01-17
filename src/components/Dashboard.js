@@ -28,6 +28,7 @@ export default function Dashboard() {
   const [numberOfPois, setNumberOfPois] = useState(0);
   const [pointOfInterestList, setPointOfInterestList] = useState();
   useEffect(() => {
+    //firebase.analytics().logEvent('/');
     const pointOfInterestRef = firebase.database().ref("poi");
     pointOfInterestRef.on("value", (snapshot) => {
       const pointOfInterest = snapshot.val();
@@ -97,6 +98,7 @@ export default function Dashboard() {
 
   return (
     <>
+    
       <NavigationBar />
       <div>
         <br />
