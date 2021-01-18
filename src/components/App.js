@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Signup from "./Signup";
 import { Container } from "react-bootstrap";
 import { AuthProvider } from "../contexts/AuthContext";
@@ -21,7 +21,15 @@ import Tours from "./Tours";
 import TourGuides from "./TourGuides";
 import Vehicles from "./Vehicles";
 
+import createHistory from 'history/createBrowserHistory'
+import ReactGA from 'react-ga'
+import ga4 from 'ga-4-react'
+
 function App() {
+
+
+  window.gtag('event', 'App', {method: 'Google'});
+
   return (
     <Container
       className="d-flex align-items-center justify-content-center"

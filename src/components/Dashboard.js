@@ -5,6 +5,7 @@ import { CardDeck, Card, Button, Carousel } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
 export default function Dashboard() {
+  window.gtag('event', 'Dashboard', {method: 'Google'});
   const history = useHistory();
 
   const [numberOfTours, setNumberOfTours] = useState(0);
