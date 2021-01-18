@@ -4,12 +4,23 @@ import firebase from "../firebase";
 import { CardDeck, Card, Button, Carousel } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
+
 export default function Dashboard() {
   const history = useHistory();
+
+  useEffect(() => {
+    firebase.analytics().logEvent('select_content', {
+      content_type: 'image',
+      content_id: 'P12453',
+      items: [{ name: 'Kittens' }]
+    });
+  });
+
 
   const [numberOfTours, setNumberOfTours] = useState(0);
   const [tourList, setTourList] = useState();
   useEffect(() => {
+    firebase.analytics().logEvent('dashboard');
     const tourRef = firebase.database().ref("tour");
     tourRef.on("value", (snapshot) => {
       const tours = snapshot.val();
@@ -28,7 +39,6 @@ export default function Dashboard() {
   const [numberOfPois, setNumberOfPois] = useState(0);
   const [pointOfInterestList, setPointOfInterestList] = useState();
   useEffect(() => {
-    //firebase.analytics().logEvent('/');
     const pointOfInterestRef = firebase.database().ref("poi");
     pointOfInterestRef.on("value", (snapshot) => {
       const pointOfInterest = snapshot.val();

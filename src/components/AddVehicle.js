@@ -7,6 +7,7 @@ import PopupMap from "./control/PopupMap";
 import { Link } from "react-router-dom";
 import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
+import firebase from "../firebase"
 
 export default function AddVehicles() {
   const [title, setTitle] = useState("");
@@ -43,6 +44,7 @@ export default function AddVehicles() {
   );
   const setLocationName = (newName) => {
     setLocation(newName);
+    firebase.analytics().logEvent('setNewLocation');
   };
 
   const handleOnChangeTITLE = (e) => {
@@ -71,6 +73,7 @@ export default function AddVehicles() {
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
+    firebase.analytics().logEvent('mapPopup');
   };
 
   const togglePopupMsg = (e) => {
@@ -105,6 +108,7 @@ export default function AddVehicles() {
   };
 
   const deleteImage = (id) => {
+    firebase.analytics().logEvent('deleteImage');
     const storageRef = db.storage().ref("image").child(id);
     const imageRef = db.database().ref("image").child("temp").child(id);
     imageRef.remove().then(() => {
@@ -117,6 +121,7 @@ export default function AddVehicles() {
   }, []);
 
   const createVehicle = () => {
+    firebase.analytics().logEvent('newVehicleCreation');
     var vehicleRef = db.database().ref("vehicle");
     var vehicle = {
       title,

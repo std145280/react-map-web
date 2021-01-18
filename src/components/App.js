@@ -20,6 +20,7 @@ import Settings from "./Settings";
 import Tours from "./Tours";
 import TourGuides from "./TourGuides";
 import Vehicles from "./Vehicles";
+import Analytics from 'react-router-ga';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <div className="appStyles">
         <div>
           <Router>
+          <Analytics id="G-CKKT4LEERM" debug>
             <AuthProvider>
               <Switch>
                 <PrivateRoute exact path="/" component={Dashboard} />
@@ -62,6 +64,7 @@ function App() {
                 <Route path="/forgot-password" component={ForgotPassword} />
               </Switch>
             </AuthProvider>
+            </Analytics>
           </Router>
         </div>
       </div>
