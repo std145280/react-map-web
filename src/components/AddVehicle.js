@@ -14,7 +14,7 @@ export default function AddVehicles() {
       hitType: "event",
       eventCategory: "AddVehicle",
       eventAction: "click",
-      eventLabel: Date().toLocaleString() + " - Open AddVehicle page"
+      eventLabel: Date().toLocaleString() + " - Open AddVehicle page",
     });
   }, []);
 
@@ -29,18 +29,36 @@ export default function AddVehicles() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
 
-
-  function SubmitButton(){
-    if (title && type && passengers && fuel && year && cph && wiFi && (latlng.lat!==undefined)){
-      return <button className="btn btn-success btn-lg"
-              type="submit"
-              onClick={togglePopupMsg}> Submit </button>
+  function SubmitButton() {
+    if (
+      title &&
+      type &&
+      passengers &&
+      fuel &&
+      year &&
+      cph &&
+      wiFi &&
+      latlng.lat !== undefined
+    ) {
+      return (
+        <button
+          className="btn btn-success btn-lg"
+          type="submit"
+          onClick={togglePopupMsg}
+        >
+          {" "}
+          Submit{" "}
+        </button>
+      );
     } else {
-      return <button className="btn btn-success btn-lg"
-                    type="submit" disabled> Submit </button>
-    };
-  };
-
+      return (
+        <button className="btn btn-success btn-lg" type="submit" disabled>
+          {" "}
+          Submit{" "}
+        </button>
+      );
+    }
+  }
 
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
@@ -88,24 +106,43 @@ export default function AddVehicles() {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
 
-    window.ga("send", {
-      hitType: "event",
-      eventCategory: "AddVehicle",
-      eventAction: "click",
-      eventLabel: Date().toLocaleString() + " - Open/Close map popup",
-    });
+    if (!isMapOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddVehicle",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open map popup",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddVehicle",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close map popup",
+      });
+    }
   };
 
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
 
-    window.ga("send", {
-      hitType: "event",
-      eventCategory: "AddVehicle",
-      eventAction: "click",
-      eventLabel: Date().toLocaleString() + " - Open/Close popup msg",
-    });
+    if (!isOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddVehicle",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open popup msg",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddVehicle",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close popup msg",
+      });
+    }
+
   };
 
   const readImages = async (e) => {
@@ -126,7 +163,6 @@ export default function AddVehicles() {
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Read Image",
     });
-
   };
 
   const getImageUrl = () => {
@@ -150,7 +186,7 @@ export default function AddVehicles() {
       hitType: "event",
       eventCategory: "AddVehicle",
       eventAction: "click",
-      eventLabel: Date().toLocaleString() + " - Delete Image"
+      eventLabel: Date().toLocaleString() + " - Delete Image",
     });
 
     imageRef.remove().then(() => {
@@ -186,7 +222,7 @@ export default function AddVehicles() {
       hitType: "event",
       eventCategory: "AddVehicle",
       eventAction: "click",
-      eventLabel: Date().toLocaleString() + " - Created New Vehicle"
+      eventLabel: Date().toLocaleString() + " - Created New Vehicle",
     });
   };
 
@@ -293,7 +329,10 @@ export default function AddVehicles() {
                         return (
                           <div key={id}>
                             <img width={150} height={113} src={url} alt="" />
-                            <button className="btn btn-danger" onClick={() => deleteImage(id)}>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => deleteImage(id)}
+                            >
                               <i className="fa fa-trash-alt"></i>
                             </button>
                           </div>
@@ -306,7 +345,7 @@ export default function AddVehicles() {
               <tr>
                 {" "}
                 <div className="form-group">
-                  <SubmitButton/>
+                  <SubmitButton />
                   {isOpen && (
                     <PopupMsg
                       content={

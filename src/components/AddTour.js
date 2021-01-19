@@ -12,6 +12,14 @@ import PopupCards from "./control/PopupForCards";
 
 export default function AddTour() {
   useEffect(() => {
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTour",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open AddTour page"
+    });
+
     const pointOfInterestRef = firebase.database().ref("poi");
     pointOfInterestRef.on("value", (snapshot) => {
       const pointOfInterest = snapshot.val();
@@ -82,6 +90,13 @@ export default function AddTour() {
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
     setLatlng(newLatlng);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTour",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Set Tour's LatLng",
+    });
   };
 
   const [radius, setRadius] = useState("");
@@ -100,6 +115,23 @@ export default function AddTour() {
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
+
+    if (!isMapOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTour",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open map popup",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTour",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close map popup",
+      });
+    }
+
   };
 
   const [isPointSelectorOpen, setIsPointSelectorOpen] = useState(false);
@@ -112,12 +144,44 @@ export default function AddTour() {
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
+  
+    if (!isOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTour",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open popup msg",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTour",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close popup msg",
+      });
+    }
   };
 
   const [isPoiPopupOpen, setIsPoiPopupOpen] = useState(false);
   const togglePoiPopup = (e) => {
     e.preventDefault();
     setIsPoiPopupOpen(!isPoiPopupOpen);
+
+    if (!isPoiPopupOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTour",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open PoI popup",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTour",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close PoI popup",
+      });
+    }
   };
 
   const addToPoi = (el) => {
@@ -126,6 +190,14 @@ export default function AddTour() {
       if (poi[i].id === el.id) addIt = false;
     }
     if (addIt) setPoi([...poi, el]);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTour",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Add PoI",
+    });
+
   };
 
   const [pointOfInterestList, setPointOfInterestList] = useState();
@@ -135,6 +207,14 @@ export default function AddTour() {
     let hardCopy = [...poi];
     hardCopy = hardCopy.filter((poiItem) => poiItem.id !== el.id);
     setPoi(hardCopy);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTour",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Remove PoI",
+    });
+
   };
 
   const poiItems = poi.map((poi) => (
@@ -156,6 +236,14 @@ export default function AddTour() {
       const newState = [...imageUrl, { id, url }];
       setImageUrl(newState);
     });
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTour",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Read Image",
+    });
+
   };
 
   const createTour = () => {
@@ -183,6 +271,13 @@ export default function AddTour() {
       poi,
     };
     tourRef.push(tour);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTour",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Created New Tour",
+    });
   };
 
   const diplayAddOrDeleteButton = (el) => {
