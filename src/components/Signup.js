@@ -4,6 +4,18 @@ import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
 export default function Signup() {
+
+  useEffect(() => {
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "SignUp",
+      eventAction: "sign up",
+      eventLabel: Date().toLocaleString() + " - Open SignUp page"
+
+    });
+  },[]);
+
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -14,6 +26,13 @@ export default function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault()
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "SignUp",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Submit SignUp"
+    });
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match")
