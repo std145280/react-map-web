@@ -9,6 +9,15 @@ import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 
 export default function AddVehicles() {
+  useEffect(() => {
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddVehicle",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open AddVehicle page"
+    });
+  }, []);
+
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [passengers, setPassengers] = useState("");
@@ -36,6 +45,13 @@ export default function AddVehicles() {
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
     setLatlng(newLatlng);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddVehicle",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Set Vehicle's LatLng",
+    });
   };
 
   const [location, setLocation] = useState(
@@ -71,11 +87,25 @@ export default function AddVehicles() {
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddVehicle",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open/Close map popup",
+    });
   };
 
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddVehicle",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open/Close popup msg",
+    });
   };
 
   const readImages = async (e) => {
@@ -89,6 +119,14 @@ export default function AddVehicles() {
       const newState = [...imageUrl, { id, url }];
       setImageUrl(newState);
     });
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddVehicle",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Read Image",
+    });
+
   };
 
   const getImageUrl = () => {
@@ -107,8 +145,16 @@ export default function AddVehicles() {
   const deleteImage = (id) => {
     const storageRef = db.storage().ref("image").child(id);
     const imageRef = db.database().ref("image").child("temp").child(id);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddVehicle",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Delete Image"
+    });
+
     imageRef.remove().then(() => {
-    storageRef.delete();
+      storageRef.delete();
     });
   };
 
@@ -135,6 +181,13 @@ export default function AddVehicles() {
     vehicleRef.push(vehicle);
     const imageRef = db.database().ref("image");
     imageRef.remove();
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddVehicle",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Created New Vehicle"
+    });
   };
 
   return (
@@ -234,16 +287,16 @@ export default function AddVehicles() {
                   <h6>Upload Image</h6>{" "}
                 </td>
                 <td>
-                  <input type="file" accept="image/*" onChange={readImages} />                  
+                  <input type="file" accept="image/*" onChange={readImages} />
                   {imageUrl
                     ? imageUrl.map(({ id, url }) => {
                         return (
                           <div key={id}>
-                          <img width={150} height={113} src={url} alt="" />
-                          <button className="btn btn-danger" onClick={() => deleteImage(id)}>
-                            <i className="fa fa-trash-alt"></i>
-                          </button>
-                        </div>
+                            <img width={150} height={113} src={url} alt="" />
+                            <button className="btn btn-danger" onClick={() => deleteImage(id)}>
+                              <i className="fa fa-trash-alt"></i>
+                            </button>
+                          </div>
                         );
                       })
                     : ""}
