@@ -9,6 +9,17 @@ import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 
 export default function AddPOI() {
+
+  useEffect(() => {
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddPoI",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open AddPoI page"
+    });
+  }, []);
+
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
     setLatlng(newLatlng);
@@ -32,6 +43,13 @@ export default function AddPOI() {
   );
   const setLocationName = (newName) => {
     setLocation(newName);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddPoI",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Set PoI's LatLng",
+    });
   };
 
   const [name, setName] = useState("");
@@ -73,6 +91,23 @@ export default function AddPOI() {
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
+
+    if (!isMapOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddPoI",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open map popup",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddPoI",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close map popup",
+      });
+    }
+
   };
 
   const [imageUrl, setImageUrl] = useState([]);
@@ -87,13 +122,36 @@ export default function AddPOI() {
       const newState = [...imageUrl, { id, url }];
       setImageUrl(newState);
     });
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddPoI",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Read Image",
+    });
+
   };
 
   const [isOpen, setIsOpen] = useState(false);
   const togglePopupMsg = (e) => {
     e.preventDefault();
-
     setIsOpen(!isOpen);
+
+    if (!isOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddPoI",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open popup msg",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddPoI",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close popup msg",
+      });
+    }
   };
 
   const createPOI = () => {
@@ -113,6 +171,13 @@ export default function AddPOI() {
     };
 
     poiRef.push(poi);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddPoI",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Created New PoI",
+    });
   };
 
   return (
