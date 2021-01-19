@@ -5,7 +5,6 @@ import { CardDeck, Card, Button, Carousel } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 
 export default function Dashboard() {
-  window.gtag('event', 'Dashboard', {method: 'Google'});
   const history = useHistory();
 
   const [numberOfTours, setNumberOfTours] = useState(0);
@@ -99,7 +98,6 @@ export default function Dashboard() {
 
   return (
     <>
-    
       <NavigationBar />
       <div>
         <br />
@@ -205,8 +203,6 @@ export default function Dashboard() {
           </Card>
           <br />
 
-
-
           <Card className="dashboardCard" border="primary">
             <Card.Header>
               <b>Tour Guides</b>
@@ -262,8 +258,6 @@ export default function Dashboard() {
               </button>
             </Card.Footer>
           </Card>
-
-          
         </CardDeck>
       </div>
     </>
