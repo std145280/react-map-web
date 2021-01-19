@@ -11,15 +11,17 @@ import "leaflet/dist/leaflet.css";
 import PopupCards from "./control/PopupForCards";
 
 export default function AddTour() {
+  
   useEffect(() => {
-
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTour",
       eventAction: "click",
-      eventLabel: Date().toLocaleString() + " - Open AddTour page"
+      eventLabel: Date().toLocaleString() + " - Open AddTour page",
     });
+  }, []);
 
+  useEffect(() => {
     const pointOfInterestRef = firebase.database().ref("poi");
     pointOfInterestRef.on("value", (snapshot) => {
       const pointOfInterest = snapshot.val();
@@ -131,7 +133,6 @@ export default function AddTour() {
         eventLabel: Date().toLocaleString() + " - Close map popup",
       });
     }
-
   };
 
   const [isPointSelectorOpen, setIsPointSelectorOpen] = useState(false);
@@ -144,7 +145,7 @@ export default function AddTour() {
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
-  
+
     if (!isOpen) {
       window.ga("send", {
         hitType: "event",
@@ -197,7 +198,6 @@ export default function AddTour() {
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Add PoI",
     });
-
   };
 
   const [pointOfInterestList, setPointOfInterestList] = useState();
@@ -214,7 +214,6 @@ export default function AddTour() {
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Remove PoI",
     });
-
   };
 
   const poiItems = poi.map((poi) => (
@@ -243,7 +242,6 @@ export default function AddTour() {
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Read Image",
     });
-
   };
 
   const createTour = () => {

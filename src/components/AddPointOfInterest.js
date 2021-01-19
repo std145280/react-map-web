@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import NavigationBar from "./NavigationBar";
 import db from "../firebase";
@@ -11,7 +11,6 @@ import "leaflet/dist/leaflet.css";
 export default function AddPOI() {
 
   useEffect(() => {
-
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddPoI",
