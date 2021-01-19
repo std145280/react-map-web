@@ -7,6 +7,16 @@ import { CardDeck } from "react-bootstrap";
 export default function Vehicles() {
   const [vehicleList, setVehicleList] = useState();
 
+
+  useEffect(() => {
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "ViewVehicles",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open Vehicles page",
+    });
+  }, []);
+
   useEffect(() => {
     const vehicleRef = firebase.database().ref("vehicle");
     vehicleRef.on("value", (snapshot) => {
