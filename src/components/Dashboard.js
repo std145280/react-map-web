@@ -98,7 +98,6 @@ export default function Dashboard() {
 
   return (
     <>
-    
       <NavigationBar />
       <div>
         <br />
@@ -204,8 +203,6 @@ export default function Dashboard() {
           </Card>
           <br />
 
-
-
           <Card className="dashboardCard" border="primary">
             <Card.Header>
               <b>Tour Guides</b>
@@ -261,8 +258,6 @@ export default function Dashboard() {
               </button>
             </Card.Footer>
           </Card>
-
-          
         </CardDeck>
       </div>
     </>
