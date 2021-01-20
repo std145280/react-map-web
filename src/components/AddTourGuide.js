@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import NavigationBar from "./NavigationBar";
 import db from "../firebase";
@@ -76,11 +76,12 @@ export default function AddTourGuide() {
   };
 
   const [imageUrl, setImageUrl] = useState([]);
+
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
-    const storageRef = db.storage().ref("images").child(id);
-    const imageRef = db.database().ref("images").child("daily").child(id);
+    const storageRef = db.storage().ref("image").child(id);
+    const imageRef = db.database().ref("image").child("temp").child(id);
     await storageRef.put(file);
     storageRef.getDownloadURL().then((url) => {
       imageRef.set(url);
@@ -88,6 +89,34 @@ export default function AddTourGuide() {
       setImageUrl(newState);
     });
   };
+
+  const getImageUrl = () => {
+    const imageRef = db.database().ref("image").child("temp");
+    imageRef.on("value", (snapshot) => {
+      const imageUrls = snapshot.val();
+      const urls = [];
+      for (let id in imageUrls) {
+        urls.push({ id, url: imageUrls[id] });
+      }
+      const newState = [...imageUrl, ...urls];
+      setImageUrl(newState);
+    });
+  };
+
+
+  const deleteImage = (id) => {
+    const storageRef = db.storage().ref("image").child(id);
+    const imageRef = db.database().ref("image").child("temp").child(id);
+
+    imageRef.remove().then(() => {
+      storageRef.delete();
+    });
+  };
+
+  useEffect(() => {
+    getImageUrl();
+  }, []);
+
 
   const createTourGuide = () => {
     var tourGuideRef = db.database().ref("tourGuide");
@@ -106,16 +135,15 @@ export default function AddTourGuide() {
     };
 
     tourGuideRef.push(tourGuide);
+    const imageRef = db.database().ref("image");
+    imageRef.remove();
+
   };
 
   return (
     <>
       <NavigationBar />
       <div className="formStyle">
-        <link
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-          rel="stylesheet"
-        />
 
         <form>
           <h2 className="text-center">Import New Tour Guide</h2>
@@ -204,7 +232,13 @@ export default function AddTourGuide() {
                     ? imageUrl.map(({ id, url }) => {
                         return (
                           <div key={id}>
-                            <img src={url} alt="" />
+                            <img width={150} height={113} src={url} alt="" />
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => deleteImage(id)}
+                            >
+                              <i className="fa fa-trash-alt"></i>
+                            </button>
                           </div>
                         );
                       })
