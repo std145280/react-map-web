@@ -110,11 +110,12 @@ export default function AddPOI() {
   };
 
   const [imageUrl, setImageUrl] = useState([]);
+
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
-    const storageRef = db.storage().ref("images").child(id);
-    const imageRef = db.database().ref("images").child("daily").child(id);
+    const storageRef = db.storage().ref("image").child(id);
+    const imageRef = db.database().ref("image").child("temp").child(id);
     await storageRef.put(file);
     storageRef.getDownloadURL().then((url) => {
       imageRef.set(url);
@@ -153,6 +154,39 @@ export default function AddPOI() {
     }
   };
 
+  const getImageUrl = () => {
+    const imageRef = db.database().ref("image").child("temp");
+    imageRef.on("value", (snapshot) => {
+      const imageUrls = snapshot.val();
+      const urls = [];
+      for (let id in imageUrls) {
+        urls.push({ id, url: imageUrls[id] });
+      }
+      const newState = [...imageUrl, ...urls];
+      setImageUrl(newState);
+    });
+  };
+
+  const deleteImage = (id) => {
+    const storageRef = db.storage().ref("image").child(id);
+    const imageRef = db.database().ref("image").child("temp").child(id);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddPOI",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Delete Image",
+    });
+
+    imageRef.remove().then(() => {
+      storageRef.delete();
+    });
+  };
+
+  useEffect(() => {
+    getImageUrl();
+  }, []);
+
   const createPOI = () => {
     var poiRef = db.database().ref("poi");
     var poi = {
@@ -170,6 +204,8 @@ export default function AddPOI() {
     };
 
     poiRef.push(poi);
+    const imageRef = db.database().ref("image");
+    imageRef.remove();
 
     window.ga("send", {
       hitType: "event",
@@ -317,7 +353,13 @@ export default function AddPOI() {
                     ? imageUrl.map(({ id, url }) => {
                         return (
                           <div key={id}>
-                            <img src={url} alt="" />
+                            <img width={150} height={113} src={url} alt="" />
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => deleteImage(id)}
+                            >
+                              <i className="fa fa-trash-alt"></i>
+                            </button>
                           </div>
                         );
                       })
