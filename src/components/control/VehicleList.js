@@ -9,17 +9,49 @@ export default function VehicleList({ vehicle }) {
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
+
+    if (!isOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "ViewVehicles",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open popup msg",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "ViewVehicles",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close popup msg",
+      });
+    }
+
   };
 
   const deleteVehicle = () => {
     const vehicleRef = firebase.database().ref("vehicle").child(vehicle.id);
     vehicleRef.remove();
     setIsOpen(!isOpen);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "ViewVehicles",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Delete Vehicle",
+    });
   };
+
   const changeAvailability = () => {
     const vehicleRef = firebase.database().ref("vehicle").child(vehicle.id);
     vehicleRef.update({
       availableForRent: !vehicle.availableForRent,
+    });
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "ViewVehicles",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Set Vehicles Availability",
     });
   };
 

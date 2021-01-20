@@ -1,9 +1,21 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
 export default function Login() {
+
+  useEffect(() => {
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "Login",
+      eventAction: "login",
+      eventLabel: Date().toLocaleString() + " - Open Login page"
+
+    });
+  },[]);
+
   const emailRef = useRef()
   const passwordRef = useRef()
   const { login } = useAuth()
@@ -13,6 +25,13 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault()
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "Login",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Submit Login"
+    });
 
     try {
       setError("")
