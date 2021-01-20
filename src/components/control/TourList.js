@@ -23,12 +23,40 @@ export default function TourList({ tour }) {
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
+    
+    if (!isOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "ViewTours",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open popup msg",
+      });
+    } 
+    //else gets logged when clicking delete tour
+
   };
 
   const [isPoisOpen, setIsPoisOpen] = useState(false);
   const togglePoiPopupMsg = (e) => {
     e.preventDefault();
     setIsPoisOpen(!isPoisOpen);
+
+    if (!isPoisOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "ViewTours",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open PoIs popup",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "ViewTours",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close PoIs popup",
+      });
+    }
+
   };
 
   const oneCard = (el) => {
@@ -98,6 +126,13 @@ export default function TourList({ tour }) {
     const tourRef = firebase.database().ref("tour").child(tour.id);
     tourRef.remove();
     setIsOpen(!isOpen);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "ViewVehicles",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Delete Tour",
+    });
   };
 
   return (

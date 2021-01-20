@@ -7,6 +7,16 @@ import TourList from "./control/TourList";
 export default function Tours() {
   const [tourList, setTourList] = useState();
 
+
+  useEffect(() => {
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "ViewTours",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open Tours page",
+    });
+  }, []);
+
   useEffect(() => {
     const tourRef = firebase.database().ref("tour");
     tourRef.on("value", (snapshot) => {
