@@ -8,6 +8,15 @@ export default function PointOfInterest() {
   const [pointOfInterestList, setPointOfInterestList] = useState();
 
   useEffect(() => {
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "ViewPoIs",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open PoIs page",
+    });
+  }, []);
+
+  useEffect(() => {
     const pointOfInterestRef = firebase.database().ref("poi");
     pointOfInterestRef.on("value", (snapshot) => {
       const pointOfInterest = snapshot.val();

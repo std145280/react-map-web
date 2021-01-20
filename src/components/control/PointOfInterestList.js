@@ -9,12 +9,31 @@ export default function PointOfInterestList({ poi }) {
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
+
+    if (!isOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "ViewPoIs",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open popup msg",
+      });
+    } 
+
   };
 
   const deletePOI = () => {
     const poiRef = firebase.database().ref("poi").child(poi.id);
     poiRef.remove();
     setIsOpen(!isOpen);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "ViewPoIs",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Delete PoI",
+    });
+ 
+
   };
 
   return (
