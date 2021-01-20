@@ -10,12 +10,26 @@ export default function RentRequestList({ request }) {
     const togglePopupMsg = (e) => {
       e.preventDefault();
       setIsOpen(!isOpen);
+      if (!isOpen) {
+        window.ga("send", {
+          hitType: "event",
+          eventCategory: "RentRequest",
+          eventAction: "click",
+          eventLabel: Date().toLocaleString() + " - Open popup msg",
+        });
+      } 
     };
   
     const deleteRentRequest = () => {
       const rentReqRef = firebase.database().ref("rentRequest").child(request.id);
       rentReqRef.remove();
       setIsOpen(!isOpen);
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "RentRequest",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Delete request",
+      });
     };
 
     const changeReady = () => {
@@ -23,10 +37,22 @@ export default function RentRequestList({ request }) {
       if (request.status=='Accepted'){  
       rentReqRef.update({
           status: 'Ready'});
+          window.ga("send", {
+            hitType: "event",
+            eventCategory: "RentRequest",
+            eventAction: "click",
+            eventLabel: Date().toLocaleString() + " - Request status: Ready",
+          });
         }
       else {
       rentReqRef.update({
           status: 'Accepted'});
+          window.ga("send", {
+            hitType: "event",
+            eventCategory: "RentRequest",
+            eventAction: "click",
+            eventLabel: Date().toLocaleString() + " - Request status: Accepted",
+          });
         
       };
 
