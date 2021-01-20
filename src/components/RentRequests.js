@@ -7,6 +7,15 @@ import { CardDeck } from "react-bootstrap";
 
 export default function RentRequests() {
 
+  useEffect(() => {
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "RentRequest",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open RentRequest page",
+    });
+  }, []);
+
     const [rentRequestList, setRentRequestList] = useState();
 
     useEffect(() => {
