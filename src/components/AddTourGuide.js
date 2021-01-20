@@ -9,9 +9,28 @@ import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 
 export default function AddTourGuide() {
+  useEffect(() => {
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTourGuide",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Open AddTourGuide page",
+    });
+  }, []);
+
+
+
+
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
     setLatlng(newLatlng);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTourGuide",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Set TourGuide's LatLng",
+    });
   };
 
 
@@ -63,16 +82,49 @@ export default function AddTourGuide() {
   };
 
   const [isMapOpen, setIsMapOpen] = useState(false);
+
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
+
+    if (!isMapOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTourGuide",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open map popup",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTourGUide",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close map popup",
+      });
+    }
   };
 
   const [isOpen, setIsOpen] = useState(false);
+
   const togglePopupMsg = (e) => {
     e.preventDefault();
-
     setIsOpen(!isOpen);
+
+    if (!isOpen) {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTourGuide",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Open popup msg",
+      });
+    } else {
+      window.ga("send", {
+        hitType: "event",
+        eventCategory: "AddTourGuide",
+        eventAction: "click",
+        eventLabel: Date().toLocaleString() + " - Close popup msg",
+      });
+    }
   };
 
   const [imageUrl, setImageUrl] = useState([]);
@@ -87,6 +139,13 @@ export default function AddTourGuide() {
       imageRef.set(url);
       const newState = [...imageUrl, { id, url }];
       setImageUrl(newState);
+    });
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTourGuide",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Read Image",
     });
   };
 
@@ -107,6 +166,13 @@ export default function AddTourGuide() {
   const deleteImage = (id) => {
     const storageRef = db.storage().ref("image").child(id);
     const imageRef = db.database().ref("image").child("temp").child(id);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTourGuide",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Delete Image",
+    });
 
     imageRef.remove().then(() => {
       storageRef.delete();
@@ -138,6 +204,12 @@ export default function AddTourGuide() {
     const imageRef = db.database().ref("image");
     imageRef.remove();
 
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTourGuide",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Created New TourGuide",
+    });
   };
 
   return (
