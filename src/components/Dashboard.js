@@ -126,9 +126,10 @@ export default function Dashboard() {
               </button>
               <br />
               <br />
+
               <button
                 className="btn btn-primary w-100"
-                onClick={() => history.push("/AddTour")}
+                onClick={() => (window.location.href = "/AddTour?#add_tour")}
               >
                 <i className="fa fa-plus"> Add New Tour</i>
               </button>

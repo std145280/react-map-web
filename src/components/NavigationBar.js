@@ -88,7 +88,7 @@ export default function NavigationBar() {
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
-                href="#add_tour"
+                href="?#add_tour"
                 onClick={() => history.push("/AddTour")}
               >
                 Add Tour
