@@ -17,14 +17,8 @@ export default function VehicleList({ vehicle }) {
         eventAction: "click",
         eventLabel: Date().toLocaleString() + " - Open popup msg",
       });
-    } else {
-      window.ga("send", {
-        hitType: "event",
-        eventCategory: "ViewVehicles",
-        eventAction: "click",
-        eventLabel: Date().toLocaleString() + " - Close popup msg",
-      });
-    }
+    } 
+    //else gets logged when clicking delete vehicle
 
   };
 
