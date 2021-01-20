@@ -224,6 +224,7 @@ export default function AddTour() {
   ));
 
   const [imageUrl, setImageUrl] = useState([]);
+
   const readImages = async (e) => {
     const file = e.target.files[0];
     const id = uuid();
@@ -243,6 +244,40 @@ export default function AddTour() {
       eventLabel: Date().toLocaleString() + " - Read Image",
     });
   };
+
+
+  const getImageUrl = () => {
+    const imageRef = firebase.database().ref("image").child("temp");
+    imageRef.on("value", (snapshot) => {
+      const imageUrls = snapshot.val();
+      const urls = [];
+      for (let id in imageUrls) {
+        urls.push({ id, url: imageUrls[id] });
+      }
+      const newState = [...imageUrl, ...urls];
+      setImageUrl(newState);
+    });
+  };
+
+  const deleteImage = (id) => {
+    const storageRef = firebase.storage().ref("image").child(id);
+    const imageRef = firebase.database().ref("image").child("temp").child(id);
+
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddTour",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Delete Image",
+    });
+
+    imageRef.remove().then(() => {
+      storageRef.delete();
+    });
+  };
+
+  useEffect(() => {
+    getImageUrl();
+  }, []);
 
   const createTour = () => {
     var tourRef = firebase.database().ref("tour");
@@ -269,6 +304,8 @@ export default function AddTour() {
       poi,
     };
     tourRef.push(tour);
+    const imageRef = firebase.database().ref("image");
+    imageRef.remove();
 
     window.ga("send", {
       hitType: "event",
@@ -516,7 +553,13 @@ export default function AddTour() {
                     ? imageUrl.map(({ id, url }) => {
                         return (
                           <div key={id}>
-                            <img src={url} alt="" />
+                            <img width={150} height={113} src={url} alt="" />
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => deleteImage(id)}
+                            >
+                              <i className="fa fa-trash-alt"></i>
+                            </button>
                           </div>
                         );
                       })
