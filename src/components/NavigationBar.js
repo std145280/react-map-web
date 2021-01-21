@@ -13,6 +13,13 @@ export default function NavigationBar() {
   async function handleLogout() {
     setError("");
 
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "NavBar",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - LogOut",
+    });
+
     try {
       await logout();
       history.push("/login");
@@ -33,7 +40,16 @@ export default function NavigationBar() {
             <NavDropdown title="Vehicles" id="collasible-nav-dropdown">
               <NavDropdown.Item 
                 href="#all_vehicles"
-                onClick={() => history.push("/Vehicles")}
+                onClick={() => {history.push("/Vehicles");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to Vehicles",
+                });
+              
+              }}
               >
                 All Vehicles
               </NavDropdown.Item>
@@ -41,7 +57,16 @@ export default function NavigationBar() {
               <NavDropdown.Divider />
               <NavDropdown.Item
                 href="#add_vehicle"
-                onClick={() => history.push("/AddVehicle")}
+                onClick={() => {history.push("/AddVehicle");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to AddVehicle",
+                });
+              
+              }}
               >
                 Add Vehicle
               </NavDropdown.Item>
@@ -50,14 +75,32 @@ export default function NavigationBar() {
             <NavDropdown title="Tour Guides" id="collasible-nav-dropdown">
               <NavDropdown.Item
                 href="#all_tour_guides"
-                onClick={() => history.push("/TourGuides")}
+                onClick={() => {history.push("/TourGuides");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to TourGuides",
+                });
+                
+              }}
               >
                 All Tour Guides
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 href="#add_tour_guide"
-                onClick={() => history.push("/AddTourGuide")}
+                onClick={() => {history.push("/AddTourGuide");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to AddTourGuide",
+                });
+              
+              }}
               >
                 Add Tour Guide
               </NavDropdown.Item>
@@ -66,14 +109,32 @@ export default function NavigationBar() {
             <NavDropdown title="Points Of Interest" id="collasible-nav-dropdown">
               <NavDropdown.Item
                 href="#all_points_of_interest"
-                onClick={() => history.push("/PointOfInterest")}
+                onClick={() => {history.push("/PointOfInterest");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to PointOfInterest",
+                });
+              
+              }}
               >
                 All Points Of Interest
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 href="#add_point_of_interest"
-                onClick={() => history.push("/AddPointOfInterest")}
+                onClick={() => {history.push("/AddPointOfInterest");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to AddPointOfInterest",
+                });
+              
+              }}
               >
                 Add Point of Interest
               </NavDropdown.Item>
@@ -82,14 +143,32 @@ export default function NavigationBar() {
             <NavDropdown title="Tours" id="collasible-nav-dropdown">
               <NavDropdown.Item
                 href="#all_tours"
-                onClick={() => history.push("/Tours")}
+                onClick={() => {history.push("/Tours");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to Tours",
+                });
+              
+              }}
               >
                 All Tours
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 href="?#add_tour"
-                onClick={() => history.push("/AddTour")}
+                onClick={() => {history.push("/AddTour");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to AddTour",
+                });
+
+              }}
               >
                 Add Tour
               </NavDropdown.Item>
@@ -99,28 +178,64 @@ export default function NavigationBar() {
           <Nav>
             <Nav.Link
               href="#rent_requests"
-              onClick={() => history.push("/RentRequests")}
+              onClick={() => {history.push("/RentRequests");
+            
+              window.ga("send", {
+                hitType: "event",
+                eventCategory: "NavBar",
+                eventAction: "click",
+                eventLabel: Date().toLocaleString() + " - Go to RentRequests",
+              });
+            
+            }}
             >
               Rent Requests
             </Nav.Link>
             <NavDropdown title="Settings" id="collasible-nav-dropdown">
               <NavDropdown.Item
                 href="#settings"
-                onClick={() => history.push("/Settings")}
+                onClick={() => {history.push("/Settings");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to Settings",
+                });
+              
+              }}
               >
                 System Settings
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 href="#profile"
-                onClick={() => history.push("/Profile")}
+                onClick={() => {history.push("/Profile");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to Profile",
+                });
+              
+              }}
               >
                 Profile
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 href="#about"
-                onClick={() => history.push("/About")}
+                onClick={() => {history.push("/About");
+              
+                window.ga("send", {
+                  hitType: "event",
+                  eventCategory: "NavBar",
+                  eventAction: "click",
+                  eventLabel: Date().toLocaleString() + " - Go to About",
+                });
+              
+              }}
               >
                 About
               </NavDropdown.Item>
