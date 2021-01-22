@@ -173,7 +173,7 @@ export default function AddPOI() {
 
     window.ga("send", {
       hitType: "event",
-      eventCategory: "AddPOI",
+      eventCategory: "AddPoI",
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Delete Image",
     });
