@@ -47,7 +47,7 @@ export default function AddTour() {
       return (
         <button
           className="btn btn-success btn-lg"
-          type="submit"
+          type="button"
           onClick={togglePopupMsg}
         >
           {" "}
@@ -56,7 +56,7 @@ export default function AddTour() {
       );
     } else {
       return (
-        <button className="btn btn-success btn-lg" type="submit" disabled>
+        <button className="btn btn-success btn-lg"  type="button" disabled>
           {" "}
           Submit{" "}
         </button>
@@ -324,7 +324,7 @@ export default function AddTour() {
       return (
         <input
           className="btn btn-primary"
-          type="submit"
+          type="button"
           value="Add to tour"
           onClick={() => addToPoi(el)}
         />
@@ -333,7 +333,7 @@ export default function AddTour() {
       return (
         <input
           className="btn btn-warning"
-          type="submit"
+          type="button"
           value="remove from tour"
           onClick={() => removeFromPoi(el)}
         />
@@ -433,7 +433,7 @@ export default function AddTour() {
       return (
         <button
           className="btn btn-primary btn-lg"
-          type="submit"
+          type="button"
           onClick={togglePoiPopup}
         >
           {" "}
@@ -556,6 +556,7 @@ export default function AddTour() {
                             <img width={150} height={113} src={url} alt="" />
                             <button
                               className="btn btn-danger"
+                              type="button"
                               onClick={() => deleteImage(id)}
                             >
                               <i className="fa fa-trash-alt"></i>
@@ -588,7 +589,7 @@ export default function AddTour() {
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button
                               className="btn btn-warning btn-lg"
-                              type="submit"
+                              type="button"
                               onClick={togglePopupMsg}
                             >
                               {" "}
@@ -616,7 +617,7 @@ export default function AddTour() {
                             {" "}
                             <button
                               className="btn btn-success btn-lg"
-                              type="submit"
+                              type="button"
                               onClick={toggleMapPopup}
                             >
                               {" "}
@@ -653,7 +654,7 @@ export default function AddTour() {
                             <br />{" "}
                             <button
                               className="btn btn-success btn-lg"
-                              type="submit"
+                              type="button"
                               onClick={togglePoiPopup}
                             >
                               {" "}

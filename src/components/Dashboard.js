@@ -129,6 +129,7 @@ export default function Dashboard() {
 
               <button
                 className="btn btn-primary w-100"
+                type="button"
                 onClick={() => history.push("/AddTour")}
               >
                 <i className="fa fa-plus"> Add New Tour</i>
