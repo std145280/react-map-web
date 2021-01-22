@@ -97,7 +97,7 @@ export default function AddTourGuide() {
     } else {
       window.ga("send", {
         hitType: "event",
-        eventCategory: "AddTourGUide",
+        eventCategory: "AddTourGuide",
         eventAction: "click",
         eventLabel: Date().toLocaleString() + " - Close map popup",
       });
