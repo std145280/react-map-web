@@ -8,8 +8,15 @@ import { Link } from "react-router-dom";
 import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 
+var clickCounter;
+var stringStartTime;
+
 export default function AddTourGuide() {
+
   useEffect(() => {
+    //starts with 1 because there is the event of entering this page
+    clickCounter = 1;
+    stringStartTime = Date().toLocaleString();
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTourGuide",
@@ -24,7 +31,7 @@ export default function AddTourGuide() {
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
     setLatlng(newLatlng);
-
+    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTourGuide",
@@ -86,7 +93,7 @@ export default function AddTourGuide() {
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
-
+    clickCounter++;
     if (!isMapOpen) {
       window.ga("send", {
         hitType: "event",
@@ -109,7 +116,7 @@ export default function AddTourGuide() {
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
-
+    clickCounter++;
     if (!isOpen) {
       window.ga("send", {
         hitType: "event",
@@ -140,7 +147,7 @@ export default function AddTourGuide() {
       const newState = [...imageUrl, { id, url }];
       setImageUrl(newState);
     });
-
+    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTourGuide",
@@ -166,7 +173,7 @@ export default function AddTourGuide() {
   const deleteImage = (id) => {
     const storageRef = db.storage().ref("image").child(id);
     const imageRef = db.database().ref("image").child("temp").child(id);
-
+    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTourGuide",
@@ -209,6 +216,14 @@ export default function AddTourGuide() {
       eventCategory: "AddTourGuide",
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Created New TourGuide",
+    });
+
+    //we dont use clickCounter++ because we already counted this click at the closing of the popup 
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "New TourGuide @ " + stringStartTime,
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Total clicks: " + clickCounter,
     });
   };
 

@@ -10,9 +10,16 @@ import Map from "./control/LeafletMap";
 import "leaflet/dist/leaflet.css";
 import PopupCards from "./control/PopupForCards";
 
+var clickCounter;
+var stringStartTime;
+
 export default function AddTour() {
-  
+
+  //initialization
   useEffect(() => {
+    //starts with 1 because there is the event of entering this page
+    clickCounter = 1;
+    stringStartTime = Date().toLocaleString();
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTour",
@@ -92,7 +99,7 @@ export default function AddTour() {
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
     setLatlng(newLatlng);
-
+    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTour",
@@ -117,7 +124,7 @@ export default function AddTour() {
   const toggleMapPopup = (e) => {
     e.preventDefault();
     setIsMapOpen(!isMapOpen);
-
+    clickCounter++;
     if (!isMapOpen) {
       window.ga("send", {
         hitType: "event",
@@ -145,7 +152,7 @@ export default function AddTour() {
   const togglePopupMsg = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
-
+    clickCounter++;
     if (!isOpen) {
       window.ga("send", {
         hitType: "event",
@@ -167,7 +174,7 @@ export default function AddTour() {
   const togglePoiPopup = (e) => {
     e.preventDefault();
     setIsPoiPopupOpen(!isPoiPopupOpen);
-
+    clickCounter++;
     if (!isPoiPopupOpen) {
       window.ga("send", {
         hitType: "event",
@@ -191,7 +198,7 @@ export default function AddTour() {
       if (poi[i].id === el.id) addIt = false;
     }
     if (addIt) setPoi([...poi, el]);
-
+    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTour",
@@ -207,7 +214,7 @@ export default function AddTour() {
     let hardCopy = [...poi];
     hardCopy = hardCopy.filter((poiItem) => poiItem.id !== el.id);
     setPoi(hardCopy);
-
+    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTour",
@@ -236,7 +243,7 @@ export default function AddTour() {
       const newState = [...imageUrl, { id, url }];
       setImageUrl(newState);
     });
-
+    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddTour",
@@ -269,7 +276,7 @@ export default function AddTour() {
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Delete Image",
     });
-
+    clickCounter++;
     imageRef.remove().then(() => {
       storageRef.delete();
     });
@@ -313,6 +320,15 @@ export default function AddTour() {
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Created New Tour",
     });
+
+    //we dont use clickCounter++ because we already counted this click at the closing of the popup 
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "New Tour @ " + stringStartTime,
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Total clicks: " + clickCounter,
+    });
+
   };
 
   const diplayAddOrDeleteButton = (el) => {
