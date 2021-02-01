@@ -29,6 +29,13 @@ export default function AddPOI() {
 
   const [latlng, setLatlng] = useState({ latitude: 0, longitude: 0 });
   const setLocationLatlng = (newLatlng) => {
+    clickCounter++;
+    window.ga("send", {
+      hitType: "event",
+      eventCategory: "AddPoI",
+      eventAction: "click",
+      eventLabel: Date().toLocaleString() + " - Set PoI's LatLng"
+    });
     setLatlng(newLatlng);
   };
 

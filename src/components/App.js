@@ -21,7 +21,6 @@ import Tours from "./Tours";
 import TourGuides from "./TourGuides";
 import Vehicles from "./Vehicles";
 import Analytics from "react-router-ga";
-import ReactGA from "react-ga";
 
 function App() {
   return (
