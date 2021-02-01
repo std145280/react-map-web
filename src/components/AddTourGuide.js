@@ -10,10 +10,12 @@ import "leaflet/dist/leaflet.css";
 
 var clickCounter;
 var stringStartTime;
+var tsStart;
 
 export default function AddTourGuide() {
 
   useEffect(() => {
+    tsStart = Math. round((new Date()). getTime() / 1000);
     //starts with 1 because there is the event of entering this page
     clickCounter = 1;
     stringStartTime = Date().toLocaleString();
@@ -218,10 +220,14 @@ export default function AddTourGuide() {
       eventLabel: Date().toLocaleString() + " - Created New TourGuide",
     });
 
+    var tsFinish = Math. round((new Date()). getTime() / 1000);
+    //using UNIX timestamp for calculating the total time in seconds
+    var totalSeconds = tsFinish - tsStart;
+
     //we dont use clickCounter++ because we already counted this click at the closing of the popup 
     window.ga("send", {
       hitType: "event",
-      eventCategory: "New TourGuide @ " + stringStartTime,
+      eventCategory: "New TourGuide @ " + stringStartTime + " - a: " + clickCounter + " ,s:" + totalSeconds,
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Total clicks: " + clickCounter,
     });

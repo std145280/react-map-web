@@ -10,11 +10,13 @@ import "leaflet/dist/leaflet.css";
 
 var clickCounter;
 var stringStartTime;
+var tsStart;
 
 export default function AddPOI() {
 
   //initialization
   useEffect(() => {
+    tsStart = Math. round((new Date()). getTime() / 1000);
     //starts with 1 because there is the event of entering this page
     clickCounter = 1;
     stringStartTime = Date().toLocaleString();
@@ -229,11 +231,15 @@ export default function AddPOI() {
       eventLabel: Date().toLocaleString() + " - Created New PoI",
     });
 
+    var tsFinish = Math. round((new Date()). getTime() / 1000);
+    //using UNIX timestamp for calculating the total time in seconds
+    var totalSeconds = tsFinish - tsStart;
+
     //we dont use clickCounter++ because we already counted this click at the closing of the popup
     //event with all clicks and start and finish time for easier reviewing
     window.ga("send", {
       hitType: "event",
-      eventCategory: "New PoI @ " + stringStartTime,
+      eventCategory: "New PoI @ " + stringStartTime + " - a: " + clickCounter + " ,s:" + totalSeconds,
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Total clicks: " + clickCounter,
     });
