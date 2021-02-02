@@ -59,7 +59,6 @@ export default function AddPOI() {
   );
   const setLocationName = (newName) => {
     setLocation(newName);
-    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddPoI",
