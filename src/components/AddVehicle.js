@@ -225,7 +225,7 @@ export default function AddVehicles() {
     vehicleRef.push(vehicle);
     const imageRef = db.database().ref("image");
     imageRef.remove();
-
+    clickCounter++;
     window.ga("send", {
       hitType: "event",
       eventCategory: "AddVehicle",

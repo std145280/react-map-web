@@ -230,7 +230,7 @@ export default function AddPOI() {
       eventAction: "click",
       eventLabel: Date().toLocaleString() + " - Created New PoI",
     });
-
+    clickCounter++;
     var tsFinish = Math. round((new Date()). getTime() / 1000);
     //using UNIX timestamp for calculating the total time in seconds
     var totalSeconds = tsFinish - tsStart;
