@@ -59,12 +59,6 @@ export default function AddPOI() {
   );
   const setLocationName = (newName) => {
     setLocation(newName);
-    window.ga("send", {
-      hitType: "event",
-      eventCategory: "AddPoI",
-      eventAction: "click",
-      eventLabel: Date().toLocaleString() + " - Set PoI's LatLng",
-    });
   };
 
   const [name, setName] = useState("");
